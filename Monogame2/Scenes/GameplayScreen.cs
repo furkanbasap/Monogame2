@@ -14,7 +14,7 @@ namespace Monogame2.Scenes
     {
         private GameDifficulty difficulty;
         private Texture2D heroTexture;      // Sprite van de speler
-        private Vector2 heroPosition;       // Positie van de speler
+        private Vector2 heroPosition;      // Positie van de speler
 
 
         public GameplayScreen(GameDifficulty difficulty)
