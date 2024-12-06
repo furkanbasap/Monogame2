@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monogame2.Utils;
+using System.ComponentModel;
+using System.Reflection.Metadata;
 
 namespace Monogame2.Scenes
 {
@@ -18,19 +20,23 @@ namespace Monogame2.Scenes
         private string[] menuItems = { "Normal", "Hard" };
         private int selectedIndex = 0;
 
+        private Texture2D _backgroundTexture;
+
         public override void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("Fonts/Font");
+            _backgroundTexture = content.Load<Texture2D>("Backgrounds/Background");
+
         }
 
         public override void Update(GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
 
-            if (IsKeyPressed(Keys.Up))
+            if (IsKeyPressed(Keys.Up) || IsKeyPressed(Keys.Z))
                 selectedIndex = Math.Max(selectedIndex - 1, 0);
 
-            if (IsKeyPressed(Keys.Down))
+            if (IsKeyPressed(Keys.Down) || IsKeyPressed(Keys.S))
                 selectedIndex = Math.Min(selectedIndex + 1, menuItems.Length - 1);
 
             if (IsKeyPressed(Keys.Enter))
@@ -48,6 +54,7 @@ namespace Monogame2.Scenes
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, "Startscreen", new Vector2(100, 50), Color.White);
             spriteBatch.DrawString(font, "Difficulty", new Vector2(100, 100), Color.White);
             for (int i = 0; i < menuItems.Length; i++)

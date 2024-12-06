@@ -13,20 +13,20 @@ namespace Monogame2.Scenes
     public class GameplayScreen : GameScreen
     {
         private GameDifficulty difficulty;
-        private Texture2D heroTexture;      // Sprite van de speler
-        private Vector2 heroPosition;      // Positie van de speler
+
+        private Texture2D _backgroundTexture;
 
 
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
-            heroPosition = new Vector2(100, 100); // Startpositie van de speler
         }
 
         public override void LoadContent(ContentManager content) 
         {
             // Laad de sprite van de speler
-            heroTexture = content.Load<Texture2D>("Sprites/Player"); // Zorg dat Player.jpg correct is toegevoegd
+            _backgroundTexture = content.Load<Texture2D>("Backgrounds/Background");
+
         }
 
         public override void Update(GameTime gameTime) {}
@@ -35,8 +35,8 @@ namespace Monogame2.Scenes
         {
             spriteBatch.Begin();
 
-            // Teken de speler
-            spriteBatch.Draw(heroTexture, heroPosition, Color.White);
+            // Tekenen
+            spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
             // Voeg eventueel andere tekenlogica toe, zoals moeilijkheidsgraad weergeven
             spriteBatch.DrawString(

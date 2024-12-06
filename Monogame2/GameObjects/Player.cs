@@ -6,32 +6,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monogame2.Animation;
+using Monogame2.Global;
+using Monogame2.Input;
 
 namespace Monogame2.GameObjects
 {
     public class Player
     {
-        public Vector2 Position { get; private set; }
-        private float speed = 200f;
+        private Vector2 _position = new(100,100);
 
-        public void Update(GameTime gameTime)
+        private readonly float _speed = 200f;
+
+        private readonly AnimationManager _anims = new();
+
+        public Player()
         {
-            KeyboardState state = Keyboard.GetState();
-            Vector2 movement = Vector2.Zero;
+            var _playerTexture = Globals.Content.Load<Texture2D>("Actors/Hero");
+            _anims.AddAnimation(new Vector2(0, 1), new(_playerTexture, 8, 8, 0.1f, 1));
+            _anims.AddAnimation(new Vector2(-1, 0), new(_playerTexture, 8, 8, 0.1f, 2));
+            _anims.AddAnimation(new Vector2(1, 0), new(_playerTexture, 8, 8, 0.1f, 3));
+            _anims.AddAnimation(new Vector2(0, -1), new(_playerTexture, 8, 8, 0.1f, 4));
+            _anims.AddAnimation(new Vector2(-1, 1), new(_playerTexture, 8, 8, 0.1f, 5));
+            _anims.AddAnimation(new Vector2(-1, -1), new(_playerTexture, 8, 8, 0.1f, 6));
+            _anims.AddAnimation(new Vector2(1, 1), new(_playerTexture, 8, 8, 0.1f, 7));
+            _anims.AddAnimation(new Vector2(1, -1), new(_playerTexture, 8, 8, 0.1f, 8));
 
-            if (state.IsKeyDown(Keys.Up)) movement.Y -= 1;
-            if (state.IsKeyDown(Keys.Down)) movement.Y += 1;
-            if (state.IsKeyDown(Keys.Left)) movement.X -= 1;
-            if (state.IsKeyDown(Keys.Right)) movement.X += 1;
 
-            Position += movement * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+        public void Update()
+        {
+            if (InputManager.Moving)
+            {
+                _position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
+            }
+
+            _anims.Update(InputManager.Direction);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void Draw()
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, Position, Color.White);
-            spriteBatch.End();
+            _anims.Draw(_position);
         }
     }
 }
