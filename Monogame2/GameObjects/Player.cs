@@ -18,7 +18,6 @@ namespace Monogame2.GameObjects
         private Vector2 _posPlayer;
 
         Texture2D spritesheetPlayer;
-
         AnimationManager amPlayer;
 
         public Player()
@@ -46,6 +45,10 @@ namespace Monogame2.GameObjects
                 if (keyboardState.IsKeyDown(Keys.D)) _posPlayer.X += +3f;
                 if (keyboardState.IsKeyDown(Keys.Z)) _posPlayer.Y += -3f;
                 if (keyboardState.IsKeyDown(Keys.S)) _posPlayer.Y += +3f;
+                if (keyboardState.IsKeyDown(Keys.Left)) _posPlayer.X += -3f;
+                if (keyboardState.IsKeyDown(Keys.Right)) _posPlayer.X += +3f;
+                if (keyboardState.IsKeyDown(Keys.Up)) _posPlayer.Y += -3f;
+                if (keyboardState.IsKeyDown(Keys.Down)) _posPlayer.Y += +3f;
 
             }
         }
