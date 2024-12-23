@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Monogame2.GameObjects;
 using Monogame2.Global;
+using Microsoft.Xna.Framework.Input;
+using Monogame2.Utils;
+using System.Diagnostics.Metrics;
 
 namespace Monogame2.Scenes
 {
@@ -21,7 +24,8 @@ namespace Monogame2.Scenes
         List<Coin> coins = new();
         Player player = new Player(Globals.content.Load<Texture2D>("Actors/Hero"), new Vector2(100,100), new Vector2(200,200));
 
-
+        private int pointsCounter = 0;
+        private SpriteFont font;
 
         public GameplayScreen(GameDifficulty difficulty)
         {
@@ -30,7 +34,8 @@ namespace Monogame2.Scenes
 
         public override void LoadContent() 
         {
-            // Laad de sprite van de speler
+            font = Globals.content.Load<SpriteFont>("Fonts/Font");
+
             _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
 
             coins.Add(coin);
@@ -62,9 +67,17 @@ namespace Monogame2.Scenes
             foreach (var coin in killList)
             {
                 coins.Remove(coin);
+                pointsCounter++;
             }
 
             player.Update(coins);
+
+            if (pointsCounter == 3)
+            {
+                    
+                GameStateManager.ChangeState(new GameOverScreen());
+
+            }
         }
 
 
@@ -84,8 +97,9 @@ namespace Monogame2.Scenes
 
             player.Draw();
 
-            Globals.spriteBatch.DrawString(Globals.content.Load<SpriteFont>("Fonts/Font"), $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
-            Globals.spriteBatch.DrawString(Globals.content.Load<SpriteFont>("Fonts/Font"), $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
+            Globals.spriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
+            Globals.spriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
+            Globals.spriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
 
             Globals.spriteBatch.End();
 

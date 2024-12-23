@@ -15,10 +15,13 @@ namespace Monogame2.Scenes
     internal class GameOverScreen : GameScreen
     {
         private SpriteFont font;
+        private Texture2D _backgroundTexture;
 
         public override void LoadContent()
         {
-            font = Globals.content.Load<SpriteFont>("Font");
+            font = Globals.content.Load<SpriteFont>("Fonts/Font");
+            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
+
         }
 
         public override void Update(GameTime gameTime)
@@ -30,6 +33,7 @@ namespace Monogame2.Scenes
         public override void Draw()
         {
             Globals.spriteBatch.Begin();
+            Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             Globals.spriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
             Globals.spriteBatch.End();
         }
