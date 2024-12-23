@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Animation;
 using Monogame2.Global;
-using Monogame2.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ namespace Monogame2.GameObjects
     {
         private Texture2D _coinTexture;
         private Vector2 _posCoin;
+        private Vector2 _sizeCoin;
 
 
         Texture2D spritesheetCoin;
@@ -30,6 +30,11 @@ namespace Monogame2.GameObjects
         public Coin(Vector2 pos)
         {
             _posCoin = pos;
+        }
+        public Coin(Vector2 pos, Vector2 size)
+        {
+            _posCoin = pos;
+            _sizeCoin = size;
         }
         public void LoadContent()
         {
@@ -47,7 +52,7 @@ namespace Monogame2.GameObjects
         {
             Globals.spriteBatch.Draw(
                             spritesheetCoin,
-                            new Rectangle((int)_posCoin.X, (int)_posCoin.Y, 200, 200),
+                            new Rectangle((int)_posCoin.X, (int)_posCoin.Y, (int)_sizeCoin.X,(int)_sizeCoin.Y),
                             amCoin.GetFrame(),
                             Color.White);
         }

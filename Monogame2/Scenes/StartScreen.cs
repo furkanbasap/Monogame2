@@ -23,6 +23,8 @@ namespace Monogame2.Scenes
 
         private Texture2D _backgroundTexture;
 
+        MouseState mState;
+
         public override void LoadContent()
         {
             font = Globals.content.Load<SpriteFont>("Fonts/Font");
@@ -33,6 +35,7 @@ namespace Monogame2.Scenes
         public override void Update(GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
+            mState = Mouse.GetState();
 
             if (IsKeyPressed(Keys.Up) || IsKeyPressed(Keys.Z))
                 selectedIndex = Math.Max(selectedIndex - 1, 0);
@@ -40,7 +43,7 @@ namespace Monogame2.Scenes
             if (IsKeyPressed(Keys.Down) || IsKeyPressed(Keys.S))
                 selectedIndex = Math.Min(selectedIndex + 1, menuItems.Length - 1);
 
-            if (IsKeyPressed(Keys.Enter))
+            if (IsKeyPressed(Keys.Enter) || (mState.LeftButton == ButtonState.Pressed))
             {
                 if (selectedIndex == 0)
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.NORMAL));
@@ -48,6 +51,7 @@ namespace Monogame2.Scenes
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.HARD));
                 
             }
+
 
 
             previousKeyboardState = currentKeyboardState;
@@ -58,7 +62,7 @@ namespace Monogame2.Scenes
             Globals.spriteBatch.Begin();
             Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             Globals.spriteBatch.DrawString(font, "Startscreen", new Vector2(600, 150), Color.White);
-            Globals.spriteBatch.DrawString(font, "Difficulty", new Vector2(600, 200), Color.White);
+            Globals.spriteBatch.DrawString(font, "Choose difficulty (Enter or Left Click)", new Vector2(500, 200), Color.White);
             for (int i = 0; i < menuItems.Length; i++)
             {
                 Color color = (i == selectedIndex) ? Color.Yellow : Color.White;

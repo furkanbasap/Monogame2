@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Monogame2.GameObjects;
 using Monogame2.Global;
-using Monogame2.Input;
 using Monogame2.Physics;
 using Monogame2.Scenes;
 using Monogame2.Utils;

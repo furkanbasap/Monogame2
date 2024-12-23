@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Security.AccessControl;
 using Monogame2.GameObjects;
 using Monogame2.Animation;
-using Monogame2.Input;
 using Monogame2.Global;
 using Microsoft.Xna.Framework.Input;
 
@@ -24,8 +23,8 @@ namespace Monogame2.Scenes
         private int playerLives = 3;
 
 
-        Coin coin = new Coin(new Vector2(100, 400));
-        Player player = new Player();
+        Coin coin = new Coin(new Vector2(100, 400), new Vector2(200,200));
+        Player player = new Player(new Vector2(100,100), new Vector2(200,200));
 
 
         public GameplayScreen(GameDifficulty difficulty)
@@ -60,9 +59,10 @@ namespace Monogame2.Scenes
             Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
 
-            player.Draw();
 
             coin.Draw();
+
+            player.Draw();
 
 
             Globals.spriteBatch.DrawString(Globals.content.Load<SpriteFont>("Fonts/Font"), $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
