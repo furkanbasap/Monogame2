@@ -66,7 +66,7 @@ namespace Monogame2.Scenes
 
         public override void Draw() 
         {
-            Globals.spriteBatch.Begin();
+            Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             // Tekenen
             Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);

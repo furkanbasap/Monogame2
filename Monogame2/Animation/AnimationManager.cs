@@ -20,6 +20,9 @@ namespace Monogame2.Animation
         int rowPos;
         int colPos;
 
+        public int OffsetX { get; set; } = 0;
+        public int OffsetY { get; set; } = 0;
+
         public AnimationManager(int numFrames, int numColumns, Vector2 size)
         {
             this.numFrames = numFrames;
@@ -61,8 +64,8 @@ namespace Monogame2.Animation
         public Rectangle GetFrame()
         {
             return new Rectangle(
-                colPos * (int)size.X, 
-                rowPos * (int)size.Y, 
+                colPos * (int)size.X + OffsetX, 
+                rowPos * (int)size.Y + OffsetY, 
                 (int)size.X, 
                 (int)size.Y);
         }
