@@ -18,7 +18,7 @@ namespace Monogame2.GameObjects
 
         private readonly float _speed = 200f;
 
-        private readonly AnimationManager _anims = new();
+        //private readonly AnimationManager _anims = new();
 
 
         public Player()
@@ -42,12 +42,12 @@ namespace Monogame2.GameObjects
                 _position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
             }
 
-            _anims.Update(InputManager.Direction);
+            //_anims.Update(InputManager.Direction);
         }
 
         public void Draw()
         {
-            _anims.Draw(_position);
+            //_anims.Draw(_position);
         }
     }
 }

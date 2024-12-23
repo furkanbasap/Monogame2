@@ -20,7 +20,7 @@ namespace Monogame2.Animation
         int rowPos;
         int colPos;
 
-        public void AddAnimation(int numFrames, int numColumns, Vector2 size)
+        public AnimationManager(int numFrames, int numColumns, Vector2 size)
         {
             this.numFrames = numFrames;
             this.numColumns = numColumns;
@@ -28,11 +28,11 @@ namespace Monogame2.Animation
 
             counter = 0;
             activeFrame = 0;
-            interval = 30;
+            interval = 3;
 
         }
 
-        public void Update(object key)
+        public void Update()
         {
             counter++;
             if (counter > interval)
@@ -48,7 +48,7 @@ namespace Monogame2.Animation
             colPos++;
             if (activeFrame >= numFrames)
             {
-                activeFrame = 0;
+                ResetAnimation();
             }
 
             if (colPos >= numColumns)
@@ -67,6 +67,11 @@ namespace Monogame2.Animation
                 (int)size.Y);
         }
 
-
+        private void ResetAnimation()
+        {
+            activeFrame = 0;
+            colPos = 0;
+            rowPos = 0;
+        }
     }
 }
