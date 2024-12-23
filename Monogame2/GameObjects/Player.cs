@@ -41,14 +41,11 @@ namespace Monogame2.GameObjects
             var keyboardState = Keyboard.GetState();
             if (keyboardState.GetPressedKeyCount() > 0)
             {
-                if (keyboardState.IsKeyDown(Keys.Q)) _posPlayer.X += -3f;
-                if (keyboardState.IsKeyDown(Keys.D)) _posPlayer.X += +3f;
-                if (keyboardState.IsKeyDown(Keys.Z)) _posPlayer.Y += -3f;
-                if (keyboardState.IsKeyDown(Keys.S)) _posPlayer.Y += +3f;
-                if (keyboardState.IsKeyDown(Keys.Left)) _posPlayer.X += -3f;
-                if (keyboardState.IsKeyDown(Keys.Right)) _posPlayer.X += +3f;
-                if (keyboardState.IsKeyDown(Keys.Up)) _posPlayer.Y += -3f;
-                if (keyboardState.IsKeyDown(Keys.Down)) _posPlayer.Y += +3f;
+                if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left)) _posPlayer.X += -3f;
+                if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right)) _posPlayer.X += +3f;
+                if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up)) _posPlayer.Y += -3f;
+                if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down)) _posPlayer.Y += +3f;
+                
 
             }
         }

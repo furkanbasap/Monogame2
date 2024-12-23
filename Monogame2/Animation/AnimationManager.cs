@@ -31,7 +31,7 @@ namespace Monogame2.Animation
 
             counter = 0;
             activeFrame = 0;
-            interval = 3;
+            interval = 5;
 
         }
 
