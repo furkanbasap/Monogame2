@@ -15,17 +15,17 @@ namespace Monogame2.Scenes
         private GameDifficulty difficulty;
 
         private Texture2D _backgroundTexture;
+        private SpriteFont font;
         private int playerLives = 3;
+        private int pointsCounter = 0;
 
         //Positie en Size van de texture
         Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(100, 400), new Vector2(100, 100));
         Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
         Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
         List<Coin> coins = new();
-        Player player = new Player(Globals.content.Load<Texture2D>("Actors/Hero"), new Vector2(100,100), new Vector2(200,200));
 
-        private int pointsCounter = 0;
-        private SpriteFont font;
+        Player player = new Player(Globals.content.Load<Texture2D>("Actors/Hero"), new Vector2(100,100), new Vector2(200,200));
 
         public GameplayScreen(GameDifficulty difficulty)
         {
@@ -72,12 +72,14 @@ namespace Monogame2.Scenes
 
             player.Update(coins);
 
-            if (pointsCounter == 3)
-            {
-                    
-                GameStateManager.ChangeState(new GameOverScreen());
 
-            }
+            // METHODE OM TE WINNEN MET PUNTEN
+            //if (pointsCounter == 3)
+            //{
+                    
+            //    GameStateManager.ChangeState(new GameOverScreen());
+
+            //}
         }
 
 

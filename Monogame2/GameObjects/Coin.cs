@@ -50,6 +50,9 @@ namespace Monogame2.GameObjects
         {
                 
             amCoin.Update();
+
+            // BEWEGEN VAN DE COINS
+            //_posCoin.X -= 1f;
         }
 
         public void Draw()
