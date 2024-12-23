@@ -68,7 +68,7 @@ namespace Monogame2.Animation
 
         public void Draw(Vector2 pos)
         {
-            //spriteBatch.Draw(_texture, pos, _sourceRectangles[_frame], Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None,1);
+            Globals.spriteBatch.Draw(_texture, pos, _sourceRectangles[_frame], Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
         }
 
     

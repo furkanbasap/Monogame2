@@ -9,34 +9,64 @@ namespace Monogame2.Animation
 {
     public class AnimationManager
     {
-        private readonly Dictionary<object, Animations> _anims = new();
-        private object _lastKey;
+        int numFrames;
+        int numColumns;
+        Vector2 size;
 
-        public void AddAnimation(object key, Animations animation)
+        int counter;
+        int activeFrame;
+        int interval;
+
+        int rowPos;
+        int colPos;
+
+        public void AddAnimation(int numFrames, int numColumns, Vector2 size)
         {
-            _anims.Add(key, animation);
-            _lastKey ??= key;
+            this.numFrames = numFrames;
+            this.numColumns = numColumns;
+            this.size = size;
+
+            counter = 0;
+            activeFrame = 0;
+            interval = 30;
+
         }
 
         public void Update(object key)
         {
-            if (_anims.ContainsKey(key))
+            counter++;
+            if (counter > interval)
             {
-                _anims[key].Start();
-                _anims[key].Update();
-                _lastKey = key;
-            }
-            else
-            {
-                _anims[_lastKey].Stop();
-                _anims[_lastKey].Reset();
-
+                counter = 0;
+                NextFrame();
             }
         }
 
-        public void Draw(Vector2 position)
+        private void NextFrame()
         {
-            _anims[_lastKey].Draw(position);
+            activeFrame++;
+            colPos++;
+            if (activeFrame >= numFrames)
+            {
+                activeFrame = 0;
+            }
+
+            if (colPos >= numColumns)
+            {
+                colPos = 0;
+                rowPos++;
+            }
         }
+
+        public Rectangle GetFrame()
+        {
+            return new Rectangle(
+                colPos * (int)size.X, 
+                rowPos * (int)size.Y, 
+                (int)size.X, 
+                (int)size.Y);
+        }
+
+
     }
 }

@@ -27,7 +27,7 @@ namespace Monogame2.Utils
             currentScreen = newScreen;
 
             // Laad content voor de nieuwe scène
-            currentScreen?.LoadContent(Game1.ContentManager);
+            currentScreen?.LoadContent();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Monogame2.Utils
         /// <param name="spriteBatch">SpriteBatch voor het tekenen van sprites.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            currentScreen?.Draw(spriteBatch);
+            currentScreen?.Draw();
         }
     }
 }

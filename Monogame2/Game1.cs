@@ -9,13 +9,14 @@ using Monogame2.Physics;
 using Monogame2.Scenes;
 using Monogame2.Utils;
 using System;
+using System.Threading.Tasks.Sources;
 
 namespace Monogame2
 {
     public class Game1 : Game
     {
 
-        public static ContentManager ContentManager; // Publieke ContentManager voor resourcebeheer
+        public static ContentManager ContentManager;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
 
@@ -34,7 +35,6 @@ namespace Monogame2
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            ContentManager = Content;
             IsMouseVisible = true;
         }
 
@@ -48,14 +48,13 @@ namespace Monogame2
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.content = this.Content;
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Start met het StartScreen
             GameStateManager.ChangeState(new StartScreen());
             _camera = new Camera();
 
-            //playerSprite = Content.Load<Texture2D>("Actors/Hero");
-            //coinSprite = Content.Load<Texture2D>("Objects/coin");
 
         }
 
@@ -63,12 +62,21 @@ namespace Monogame2
         {
             // Verwerk de logica van de actieve scène
             GameStateManager.Update(gameTime);
-            //player.Update();
+
             mState = Mouse.GetState();
 
             //if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
             //{
-            //score++;
+            //float dist = Vector2.Distance(targetPosition, mState.Position.ToVector2());
+            //if()
+            //{
+            //    score++;
+
+            //    Random randomPosition = new Random();
+
+            //    targetPosition.X = randomPosition.Next(0, graphics.PreferredBackBufferWidth);
+            //    targetPosition.Y = randomPosition.Next(0, graphics.PreferredBackBufferHeight);
+            //}
             //mReleased = false;
             //}
 
@@ -86,13 +94,13 @@ namespace Monogame2
 
             GameStateManager.Draw(spriteBatch);
 
-            spriteBatch.Begin();
-            //spriteBatch.Draw(coinSprite, new Vector2(0, 0), Color.White);
-            //spriteBatch.Draw(playerSprite, new Vector2(200, 200), Color.White);
+            //spriteBatch.Begin();
+
+            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 
 
-            spriteBatch.End();
+            Globals.spriteBatch.End();
             base.Draw(gameTime);
         }
     }

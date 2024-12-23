@@ -16,7 +16,7 @@ namespace Monogame2.Scenes
         /// Wordt door elke scene specifiek geïmplementeerd.
         /// </summary>
         /// <param name="content">De ContentManager die gebruikt wordt om assets te laden.</param>
-        public abstract void LoadContent(ContentManager content);
+        public abstract void LoadContent();
 
         /// <summary>
         /// Update logica voor de scene. Wordt elke frame aangeroepen.
@@ -28,7 +28,7 @@ namespace Monogame2.Scenes
         /// Teken logica voor de scene. Wordt elke frame aangeroepen.
         /// </summary>
         /// <param name="spriteBatch">SpriteBatch object om sprites te tekenen.</param>
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public abstract void Draw();
 
         /// <summary>
         /// Optioneel: Methode om de scene op te ruimen als deze wordt afgesloten.

@@ -25,7 +25,7 @@ namespace Monogame2.GameObjects
 
         //public Coin(Vector2 pos)
         //{
-        //    _texture = content.Load<Texture2D>("/Objects/coin");
+        //    _texture = Globals.content.Load<Texture2D>("Objects/coin");
         //    _anim = new(_texture, 16, 1, 0.1f);
         //    _position = pos;
         //}

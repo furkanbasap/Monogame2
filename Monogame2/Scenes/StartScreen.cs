@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Monogame2.Utils;
 using System.ComponentModel;
 using System.Reflection.Metadata;
+using Monogame2.Global;
 
 namespace Monogame2.Scenes
 {
@@ -22,10 +23,10 @@ namespace Monogame2.Scenes
 
         private Texture2D _backgroundTexture;
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
-            font = content.Load<SpriteFont>("Fonts/Font");
-            _backgroundTexture = content.Load<Texture2D>("Backgrounds/Background");
+            font = Globals.content.Load<SpriteFont>("Fonts/Font");
+            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
 
         }
 
@@ -52,18 +53,18 @@ namespace Monogame2.Scenes
             previousKeyboardState = currentKeyboardState;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(font, "Startscreen", new Vector2(600, 150), Color.White);
-            spriteBatch.DrawString(font, "Difficulty", new Vector2(600, 200), Color.White);
+            Globals.spriteBatch.Begin();
+            Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            Globals.spriteBatch.DrawString(font, "Startscreen", new Vector2(600, 150), Color.White);
+            Globals.spriteBatch.DrawString(font, "Difficulty", new Vector2(600, 200), Color.White);
             for (int i = 0; i < menuItems.Length; i++)
             {
                 Color color = (i == selectedIndex) ? Color.Yellow : Color.White;
-                spriteBatch.DrawString(font, menuItems[i], new Vector2(600, 250 + i * 30), color);
+                Globals.spriteBatch.DrawString(font, menuItems[i], new Vector2(600, 250 + i * 30), color);
             }
-            spriteBatch.End();
+            Globals.spriteBatch.End();
         }
 
         private bool IsKeyPressed(Keys key)

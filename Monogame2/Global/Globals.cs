@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Monogame2.Global
 {
-    public static class Globals
+    public class Globals
     {
         public static float TotalSeconds { get; set; }
-        public static ContentManager Content { get; set; }
-        public static SpriteBatch SpriteBatch { get; set; }
+        public static ContentManager content { get; set; }
+        public static SpriteBatch spriteBatch { get; set; }
 
         public static void Update(GameTime gt)
         {

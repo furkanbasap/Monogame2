@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monogame2.Utils;
+using Monogame2.Global;
 
 namespace Monogame2.Scenes
 {
@@ -15,9 +16,9 @@ namespace Monogame2.Scenes
     {
         private SpriteFont font;
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
-            font = content.Load<SpriteFont>("Font");
+            font = Globals.content.Load<SpriteFont>("Font");
         }
 
         public override void Update(GameTime gameTime)
@@ -26,11 +27,11 @@ namespace Monogame2.Scenes
                 GameStateManager.ChangeState(new StartScreen());
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
-            spriteBatch.End();
+            Globals.spriteBatch.Begin();
+            Globals.spriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
+            Globals.spriteBatch.End();
         }
     }
 }
