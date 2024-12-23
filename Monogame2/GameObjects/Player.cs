@@ -14,40 +14,49 @@ namespace Monogame2.GameObjects
 {
     public class Player
     {
-        private Vector2 _position = new(100,100);
+        private Texture2D _playerTexture;
+        private Vector2 _posPlayer;
 
-        private readonly float _speed = 200f;
+        Texture2D spritesheetPlayer;
 
-        //private readonly AnimationManager _anims = new();
-
+        AnimationManager amPlayer;
 
         public Player()
         {
-            //var _playerTexture = Globals.Content.Load<Texture2D>("Actors/Hero");
-            //_anims.AddAnimation(new Vector2(0, 1), new(_playerTexture, 8, 8, 0.1f, 1));
-            //_anims.AddAnimation(new Vector2(-1, 0), new(_playerTexture, 8, 8, 0.1f, 2));
-            //_anims.AddAnimation(new Vector2(1, 0), new(_playerTexture, 8, 8, 0.1f, 3));
-            //_anims.AddAnimation(new Vector2(0, -1), new(_playerTexture, 8, 8, 0.1f, 4));
-            //_anims.AddAnimation(new Vector2(-1, 1), new(_playerTexture, 8, 8, 0.1f, 5));
-            //_anims.AddAnimation(new Vector2(-1, -1), new(_playerTexture, 8, 8, 0.1f, 6));
-            //_anims.AddAnimation(new Vector2(1, 1), new(_playerTexture, 8, 8, 0.1f, 7));
-            //_anims.AddAnimation(new Vector2(1, -1), new(_playerTexture, 8, 8, 0.1f, 8));
-
 
         }
+
+        public void LoadContent()
+        {
+            spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
+
+            _posPlayer = new Vector2(100, 100);
+            amPlayer = new(8, 8, new Vector2(82, 100));
+
+        }
+
         public void Update()
         {
-            if (InputManager.Moving)
-            {
-                _position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
-            }
+            amPlayer.Update();
 
-            //_anims.Update(InputManager.Direction);
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.GetPressedKeyCount() > 0)
+            {
+                if (keyboardState.IsKeyDown(Keys.Q)) _posPlayer.X += -3f;
+                if (keyboardState.IsKeyDown(Keys.D)) _posPlayer.X += +3f;
+                if (keyboardState.IsKeyDown(Keys.Z)) _posPlayer.Y += -3f;
+                if (keyboardState.IsKeyDown(Keys.S)) _posPlayer.Y += +3f;
+
+            }
         }
 
         public void Draw()
         {
-            //_anims.Draw(_position);
+            Globals.spriteBatch.Draw(
+                            spritesheetPlayer,
+                            new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, 200, 200),
+                            amPlayer.GetFrame(),
+                            Color.White);
         }
     }
 }

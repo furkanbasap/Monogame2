@@ -15,31 +15,42 @@ namespace Monogame2.GameObjects
 {
     public class Coin
     {
-        //private static Texture2D _texture;
+        private Texture2D _coinTexture;
+        private Vector2 _posCoin;
 
-        //private Vector2 _position;
 
-        //private readonly Animations _anim;
+        Texture2D spritesheetCoin;
 
-        //private ContentManager content;
+        AnimationManager amCoin;
 
-        //public Coin(Vector2 pos)
-        //{
-        //    _texture = Globals.content.Load<Texture2D>("Objects/coin");
-        //    _anim = new(_texture, 16, 1, 0.1f);
-        //    _position = pos;
-        //}
-        //public void Update()
-        //{
-        //    _anim.Update();
-        //    InputManager.Update();
+        public Coin()
+        {
 
-        //}
+        }
+        public Coin(Vector2 pos)
+        {
+            _posCoin = pos;
+        }
+        public void LoadContent()
+        {
+            spritesheetCoin = Globals.content.Load<Texture2D>("Objects/coin3");
 
-        //public void Draw()
-        //{
-        //    _anim.Draw(_position);
-        //}
+            amCoin = new(8, 8, new Vector2(100, 150));
+        }
+
+        public void Update()
+        {
+            amCoin.Update();
+        }
+
+        public void Draw()
+        {
+            Globals.spriteBatch.Draw(
+                            spritesheetCoin,
+                            new Rectangle((int)_posCoin.X, (int)_posCoin.Y, 200, 200),
+                            amCoin.GetFrame(),
+                            Color.White);
+        }
     }
 }
 
