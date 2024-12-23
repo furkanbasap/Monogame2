@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Monogame2.Animation;
 using Monogame2.Global;
+using System.Collections.Generic;
 
 namespace Monogame2.GameObjects
 {
@@ -40,49 +41,75 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update()
+        public void Update(List<Coin> collisionGroup)
         {
             amPlayer.Update();
 
             var keyboardState = Keyboard.GetState();
             if (keyboardState.GetPressedKeyCount() > 0)
             {
+                float changeX = 0;
+
                 if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left)) 
                 {
                     if (_posPlayer.X <= 0)
                     {
-                        _posPlayer.X += 0f;
+                        changeX += 0f;
                     }
                     else 
-                        _posPlayer.X += -3f; 
+                        changeX += -3f; 
                 }
                 if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
                     if (_posPlayer.X >= 1280 - _sizePlayer.X)
                     {
-                        _posPlayer.X += 0f;
+                        changeX += 0f;
                     }
                     else
-                        _posPlayer.X += +3f;
+                        changeX += +3f;
                 }
+                _posPlayer.X += changeX;
+
+
+                // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
+                //foreach (var coin in collisionGroup)
+                //{
+                //    if (coin.Rect.Intersects(Rect))
+                //    {
+                //        _posPlayer.X -= changeX;
+                //    }
+                //}
+
+
+                float changeY = 0;
                 if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up))
                 {
                     if (_posPlayer.Y <= 0)
                     {
-                        _posPlayer.Y += 0f;
+                        changeY += 0f;
                     }
                     else
-                        _posPlayer.Y += -3f;
+                        changeY += -3f;
                 }
                 if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
                 {
                     if (_posPlayer.Y >= 741 - _sizePlayer.Y)
                     {
-                        _posPlayer.Y += 0f;
+                        changeY += 0f;
                     }
                     else
-                        _posPlayer.Y += +3f;
+                        changeY += +3f;
                 }
+                _posPlayer.Y += changeY;
+
+                // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
+                //foreach (var coin in collisionGroup)
+                //{
+                //    if (coin.Rect.Intersects(Rect))
+                //    {
+                //        _posPlayer.Y -= changeY;
+                //    }
+                //}
             }
         }
 

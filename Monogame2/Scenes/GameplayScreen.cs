@@ -64,7 +64,7 @@ namespace Monogame2.Scenes
                 coins.Remove(coin);
             }
 
-            player.Update();
+            player.Update(coins);
         }
 
 
