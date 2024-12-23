@@ -1,17 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Monogame2.Animation;
 using Monogame2.Global;
 
 namespace Monogame2.GameObjects
 {
-    public class Player
+    public class Player : Sprite
     {
         private Texture2D _playerTexture;
         private Vector2 _posPlayer;
@@ -20,19 +15,21 @@ namespace Monogame2.GameObjects
         Texture2D spritesheetPlayer;
         AnimationManager amPlayer;
 
-
-
-        public Player()
+        public Rectangle Rect
         {
-
+            get
+            {
+                return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
+            }
         }
-        public Player(Vector2 pos)
+
+        public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
-            _posPlayer = pos;
+            _posPlayer = position;
         }
-        public Player(Vector2 pos, Vector2 size)
+        public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
         {
-            _posPlayer = pos;
+            _posPlayer = position;
             _sizePlayer = size;
         }
         public void LoadContent()
@@ -97,5 +94,7 @@ namespace Monogame2.GameObjects
                             amPlayer.GetFrame(),
                             Color.White);
         }
+
+        
     }
 }

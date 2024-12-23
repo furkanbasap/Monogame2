@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Animation;
 using Monogame2.Global;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Monogame2.GameObjects
 {
-    public class Coin
+    public class Coin : Sprite
     {
         private Texture2D _coinTexture;
         private Vector2 _posCoin;
@@ -23,38 +19,47 @@ namespace Monogame2.GameObjects
 
         AnimationManager amCoin;
 
-        public Coin()
+        public Rectangle Rect
         {
+            get
+            {
+                return new Rectangle((int)_posCoin.X, (int)_posCoin.Y, (int)_sizeCoin.X, (int)_sizeCoin.Y);
+            }
+        }
+
+        public Coin(Texture2D texture, Vector2 position) : base(texture,position)
+        {
+            _posCoin = position;
 
         }
-        public Coin(Vector2 pos)
+        public Coin(Texture2D texture,Vector2 position, Vector2 size) : base(texture,position)
         {
-            _posCoin = pos;
-        }
-        public Coin(Vector2 pos, Vector2 size)
-        {
-            _posCoin = pos;
+            _posCoin = position;
             _sizeCoin = size;
         }
         public void LoadContent()
         {
             spritesheetCoin = Globals.content.Load<Texture2D>("Objects/coin3");
 
+            
             amCoin = new(8, 8, new Vector2(spritesheetCoin.Width / 8, 150));
+
         }
 
         public void Update()
         {
+                
             amCoin.Update();
         }
 
         public void Draw()
         {
             Globals.spriteBatch.Draw(
-                            spritesheetCoin,
-                            new Rectangle((int)_posCoin.X, (int)_posCoin.Y, (int)_sizeCoin.X,(int)_sizeCoin.Y),
-                            amCoin.GetFrame(),
-                            Color.White);
+                spritesheetCoin,
+                new Rectangle((int)_posCoin.X, (int)_posCoin.Y, (int)_sizeCoin.X, (int)_sizeCoin.Y),
+                amCoin.GetFrame(),
+                Color.White);
+
         }
     }
 }
