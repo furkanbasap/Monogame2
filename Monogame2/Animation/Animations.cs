@@ -18,6 +18,7 @@ namespace Monogame2.Animation
         private readonly float _frameTime;
         private float _frameTimeLeft;
         private bool _active = true;
+        private SpriteBatch spriteBatch;
 
         public Animations(Texture2D texture, int framesX,int framesY, float frameTime, int row = 1)
         {
@@ -62,11 +63,12 @@ namespace Monogame2.Animation
                 _frameTimeLeft += _frameTime;
                 _frame = (_frame + 1) % _frames;
             }
+            
         }
 
         public void Draw(Vector2 pos)
         {
-            Globals.SpriteBatch.Draw(_texture, pos, _sourceRectangles[_frame], Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None,1);
+            //spriteBatch.Draw(_texture, pos, _sourceRectangles[_frame], Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None,1);
         }
 
     

@@ -20,17 +20,18 @@ namespace Monogame2.GameObjects
 
         private readonly AnimationManager _anims = new();
 
+
         public Player()
         {
-            var _playerTexture = Globals.Content.Load<Texture2D>("Actors/Hero");
-            _anims.AddAnimation(new Vector2(0, 1), new(_playerTexture, 8, 8, 0.1f, 1));
-            _anims.AddAnimation(new Vector2(-1, 0), new(_playerTexture, 8, 8, 0.1f, 2));
-            _anims.AddAnimation(new Vector2(1, 0), new(_playerTexture, 8, 8, 0.1f, 3));
-            _anims.AddAnimation(new Vector2(0, -1), new(_playerTexture, 8, 8, 0.1f, 4));
-            _anims.AddAnimation(new Vector2(-1, 1), new(_playerTexture, 8, 8, 0.1f, 5));
-            _anims.AddAnimation(new Vector2(-1, -1), new(_playerTexture, 8, 8, 0.1f, 6));
-            _anims.AddAnimation(new Vector2(1, 1), new(_playerTexture, 8, 8, 0.1f, 7));
-            _anims.AddAnimation(new Vector2(1, -1), new(_playerTexture, 8, 8, 0.1f, 8));
+            //var _playerTexture = Globals.Content.Load<Texture2D>("Actors/Hero");
+            //_anims.AddAnimation(new Vector2(0, 1), new(_playerTexture, 8, 8, 0.1f, 1));
+            //_anims.AddAnimation(new Vector2(-1, 0), new(_playerTexture, 8, 8, 0.1f, 2));
+            //_anims.AddAnimation(new Vector2(1, 0), new(_playerTexture, 8, 8, 0.1f, 3));
+            //_anims.AddAnimation(new Vector2(0, -1), new(_playerTexture, 8, 8, 0.1f, 4));
+            //_anims.AddAnimation(new Vector2(-1, 1), new(_playerTexture, 8, 8, 0.1f, 5));
+            //_anims.AddAnimation(new Vector2(-1, -1), new(_playerTexture, 8, 8, 0.1f, 6));
+            //_anims.AddAnimation(new Vector2(1, 1), new(_playerTexture, 8, 8, 0.1f, 7));
+            //_anims.AddAnimation(new Vector2(1, -1), new(_playerTexture, 8, 8, 0.1f, 8));
 
 
         }

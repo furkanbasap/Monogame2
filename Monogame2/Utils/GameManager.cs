@@ -11,25 +11,25 @@ namespace Monogame2.Utils
     public class GameManager
     {
         //private Coin _coin;
-        private Player _player;
+        //private Player _player;
 
         public void Init()
         {
             //_coin = new(new(300, 300));
-            _player = new();
+            //_player = new();
         }
 
         public void Update()
         {
             InputManager.Update();
             //_coin.Update();
-            _player.Update();
+            //_player.Update();
         }
 
         public void Draw()
         {
             //_coin.Draw();
-            _player.Draw();
+            //_player.Draw();
         }
     }
 }

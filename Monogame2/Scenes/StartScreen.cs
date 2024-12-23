@@ -43,8 +43,9 @@ namespace Monogame2.Scenes
             {
                 if (selectedIndex == 0)
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.NORMAL));
-                else
+                else if (selectedIndex == 1)
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.HARD));
+                
             }
 
 
@@ -55,12 +56,12 @@ namespace Monogame2.Scenes
         {
             spriteBatch.Begin();
             spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(font, "Startscreen", new Vector2(100, 50), Color.White);
-            spriteBatch.DrawString(font, "Difficulty", new Vector2(100, 100), Color.White);
+            spriteBatch.DrawString(font, "Startscreen", new Vector2(600, 150), Color.White);
+            spriteBatch.DrawString(font, "Difficulty", new Vector2(600, 200), Color.White);
             for (int i = 0; i < menuItems.Length; i++)
             {
                 Color color = (i == selectedIndex) ? Color.Yellow : Color.White;
-                spriteBatch.DrawString(font, menuItems[i], new Vector2(100, 150 + i * 30), color);
+                spriteBatch.DrawString(font, menuItems[i], new Vector2(600, 250 + i * 30), color);
             }
             spriteBatch.End();
         }
