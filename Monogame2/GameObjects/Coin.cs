@@ -40,7 +40,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetCoin = Globals.content.Load<Texture2D>("Objects/coin3");
 
-            amCoin = new(8, 8, new Vector2(100, 150));
+            amCoin = new(8, 8, new Vector2(spritesheetCoin.Width / 8, 150));
         }
 
         public void Update()

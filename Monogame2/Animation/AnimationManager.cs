@@ -20,6 +20,8 @@ namespace Monogame2.Animation
         int rowPos;
         int colPos;
 
+        private bool _active = true;
+
         public int OffsetX { get; set; } = 0;
         public int OffsetY { get; set; } = 0;
 
@@ -35,8 +37,19 @@ namespace Monogame2.Animation
 
         }
 
+        public void Stop()
+        {
+            _active = false;
+        }
+
+        public void Start()
+        {
+            _active = true;
+        }
+
         public void Update()
         {
+            if (!_active) return;
             counter++;
             if (counter > interval)
             {

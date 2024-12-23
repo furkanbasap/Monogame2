@@ -39,7 +39,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
 
-            amPlayer = new(8, 8, new Vector2(82, 100));
+            amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 100));
 
         }
 
