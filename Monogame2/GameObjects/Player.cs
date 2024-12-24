@@ -25,8 +25,17 @@ namespace Monogame2.GameObjects
 
         float acceleration = 0.1f; // Hoe snel de beweging accelereert
         float maxSpeed = 3f; // De maximale snelheid
-        float currentSpeed = 0f; // De huidige snelheid
+        float currentSpeedX = 0f; // De huidige snelheid
+        float currentSpeedY = 0f; // De huidige snelheid
+
         float changeX = 0;
+        float changeY = 0;
+
+        bool leftKey;
+        bool rightKey;
+        bool upKey;
+        bool downKey;
+
 
         public static void ScreenSize(int width, int height)
         {
@@ -71,51 +80,55 @@ namespace Monogame2.GameObjects
             amPlayer.Update();
 
 
+
             var keyboardState = Keyboard.GetState();
-            if (keyboardState.GetPressedKeyCount() > 0)
+            if (keyboardState.GetPressedKeyCount() >= 0)
             {
-
-
                 if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left))
                 {
                     if (_posPlayer.X <= 0)
                     {
-                        currentSpeed = 0f;
+                        currentSpeedX = 0f;
                     }
-                    else if (_posPlayer.X > 0)
+                    else
                     {
                         // Versnel geleidelijk tot de maximale (negatieve) snelheid
-                        currentSpeed = Math.Max(currentSpeed - acceleration, -maxSpeed);
+                        currentSpeedX = Math.Max(currentSpeedX - acceleration, -maxSpeed);
+                        leftKey = true;
                     }
                 }
-                else if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+                if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
                     if (_posPlayer.X >= widthScreen - _sizePlayer.X)
                     {
-                        currentSpeed = 0f;
+                        currentSpeedX = 0f;
                     }
-                    else if (_posPlayer.X < (widthScreen - _sizePlayer.X))
+                    else
                     {
                         // Versnel geleidelijk tot de maximale (positieve) snelheid
-                        currentSpeed = Math.Min(currentSpeed + acceleration, maxSpeed);
+                        currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
+                        rightKey = true;
                     }
                 }
-                else
+                if (keyboardState.IsKeyUp(Keys.Q) && keyboardState.IsKeyUp(Keys.Left))
+                    leftKey = false;
+
+                if (currentSpeedX < 0f && leftKey == false)
                 {
-                    if (currentSpeed < 0f)
-                    {
-                        currentSpeed = Math.Min(currentSpeed + acceleration, 0);
-                    }
-                    else if (currentSpeed >= 0f)
-                    {
-                        currentSpeed = Math.Max(currentSpeed - acceleration, 0);
-                    }
+                    currentSpeedX = Math.Min(currentSpeedX + acceleration, 0);
+                }
+
+                if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.Right))
+                    rightKey = false;
+
+                if (currentSpeedX > 0f && rightKey == false)
+                {
+                    currentSpeedX = Math.Max(currentSpeedX - acceleration, 0);
                 }
 
                 // Update de verandering in positie
-                changeX = currentSpeed;
+                changeX = currentSpeedX;
                 _posPlayer.X += changeX;
-
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
                 //foreach (var coin in collisionGroup)
@@ -126,26 +139,46 @@ namespace Monogame2.GameObjects
                 //    }
                 //}
 
-
-                float changeY = 0;
                 if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up))
                 {
                     if (_posPlayer.Y <= 0)
                     {
-                        changeY += 0f;
+                        currentSpeedY = 0f;
                     }
                     else
-                        changeY += -3f;
+                    {
+                        currentSpeedY = Math.Max(currentSpeedY - acceleration, -maxSpeed);
+                        upKey = true;
+                    }
                 }
                 if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
                 {
                     if (_posPlayer.Y >= heightScreen - _sizePlayer.Y)
                     {
-                        changeY += 0f;
+                        currentSpeedY = 0f;
                     }
                     else
-                        changeY += +3f;
+                    {
+                        currentSpeedY = Math.Min(currentSpeedY + acceleration, maxSpeed);
+                        downKey = true;
+                    }
                 }
+                if (keyboardState.IsKeyUp(Keys.Z) && keyboardState.IsKeyUp(Keys.Up))
+                    upKey = false;
+
+                if (currentSpeedY < 0f && upKey == false)
+                {
+                    currentSpeedY = Math.Min(currentSpeedY + acceleration, 0);
+                }
+
+                if (keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.Down))
+                    downKey = false;
+
+                if (currentSpeedY > 0f && downKey == false)
+                {
+                    currentSpeedY = Math.Max(currentSpeedY - acceleration, 0);
+                }
+                changeY = currentSpeedY;
                 _posPlayer.Y += changeY;
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
