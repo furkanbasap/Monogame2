@@ -17,7 +17,10 @@ namespace Monogame2
         public static ContentManager ContentManager;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
+        bool play;
+        bool rev = false;
         Song song;
+        private KeyboardState currentKeyboardState, previousKeyboardState;
 
         private Camera _camera;
         Texture2D playerSprite;
@@ -65,6 +68,20 @@ namespace Monogame2
             // Verwerk de logica van de actieve scène
             GameStateManager.Update(gameTime);
 
+            currentKeyboardState = Keyboard.GetState();
+
+            if ((IsKeyPressed(Keys.M) && play == true) && (currentKeyboardState.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
+            {
+                MediaPlayer.Stop();
+                play = false;
+            }
+            else if ((IsKeyPressed(Keys.M) && play == false) && (currentKeyboardState.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
+            {
+                MediaPlayer.Play(song);
+                play = true;
+            }
+            previousKeyboardState = currentKeyboardState;
+
             mState = Mouse.GetState();
 
             //if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
@@ -104,6 +121,11 @@ namespace Monogame2
 
             Globals.spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private bool IsKeyPressed(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
         }
     }
 

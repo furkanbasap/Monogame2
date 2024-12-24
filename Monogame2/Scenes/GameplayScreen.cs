@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Monogame2.Utils;
 using System.Diagnostics.Metrics;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Monogame2.Scenes
 {
@@ -21,8 +22,9 @@ namespace Monogame2.Scenes
         private int playerLives = 3;
         private int pointsCounter = 0;
         private static Random rnd = new Random();
-        Song songCoin;
+        SoundEffect sfxCoin;
         Song songBackground;
+
 
         //Positie en Size van de texture
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
@@ -57,7 +59,7 @@ namespace Monogame2.Scenes
 
             player.LoadContent();
 
-            songCoin = Globals.content.Load<Song>("Audio/coinpickup");
+            sfxCoin = Globals.content.Load<SoundEffect>("Audio/coinpickup");
             songBackground = Globals.content.Load<Song>("Audio/Backgroundmusic");
 
             MediaPlayer.Play(songBackground);
@@ -76,7 +78,7 @@ namespace Monogame2.Scenes
                 if (coin.Rect.Intersects(player.Rect))
                 {
                     killList.Add(coin);
-                    MediaPlayer.Play(songCoin);
+                    sfxCoin.Play();
                 }
             }
             foreach (var coin in killList)
