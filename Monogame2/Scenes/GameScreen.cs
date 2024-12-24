@@ -12,30 +12,30 @@ namespace Monogame2.Scenes
     public abstract class GameScreen
     {
         /// <summary>
-        /// Methode om content zoals fonts, sprites, etc. te laden.
-        /// Wordt door elke scene specifiek geïmplementeerd.
+        /// Method to load content such as fonts, sprites, etc.
+        /// Is implemented specifically by each scene.
         /// </summary>
-        /// <param name="content">De ContentManager die gebruikt wordt om assets te laden.</param>
+        /// <param name="content">The ContentManager used to load assets.</param>
         public abstract void LoadContent();
 
         /// <summary>
-        /// Update logica voor de scene. Wordt elke frame aangeroepen.
+        /// Update logic for the scene. Called every frame.
         /// </summary>
-        /// <param name="gameTime">GameTime object voor timing.</param>
+        /// <param name="gameTime">GameTime object for timing.</param>
         public abstract void Update(GameTime gameTime);
 
         /// <summary>
-        /// Teken logica voor de scene. Wordt elke frame aangeroepen.
+        /// Draw logic for the scene. Called every frame.
         /// </summary>
-        /// <param name="spriteBatch">SpriteBatch object om sprites te tekenen.</param>
+        /// <param name="spriteBatch">SpriteBatch object to draw sprites.</param>
         public abstract void Draw();
 
         /// <summary>
-        /// Optioneel: Methode om de scene op te ruimen als deze wordt afgesloten.
+        /// Optional: Method to clean up the scene when it closes.
         /// </summary>
         public virtual void UnloadContent()
         {
-            // Kan worden overschreven door specifieke scenes indien nodig
+            // Can be overwritten by specific scenes if needed
         }
 
 

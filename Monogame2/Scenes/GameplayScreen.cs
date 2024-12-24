@@ -21,17 +21,16 @@ namespace Monogame2.Scenes
         private ScrollingBackground myBackground;
         private float scrollingSpeed = 1;
 
-        private Texture2D _backgroundTexture;
         private SpriteFont font;
         private int playerLives = 3;
         private int pointsCounter = 0;
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
-        private Camera camera; 
+        private Camera camera;
 
 
-        //Positie en Size van de texture
+        //Position and Size of the texture
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
@@ -44,7 +43,6 @@ namespace Monogame2.Scenes
 
         public GameplayScreen(GameDifficulty difficulty)
         {
-            //graphics = new GraphicsDeviceManager(this);
             this.difficulty = difficulty;
             camera = new(Vector2.Zero);
         }
@@ -52,8 +50,6 @@ namespace Monogame2.Scenes
         public override void LoadContent() 
         {
             font = Globals.content.Load<SpriteFont>("Fonts/Font");
-
-            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/starfield2");
 
             myBackground = new ScrollingBackground();
             Texture2D background = Globals.content.Load<Texture2D>("Backgrounds/starfield3");
@@ -119,7 +115,6 @@ namespace Monogame2.Scenes
             Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             // Tekenen
-            //Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             myBackground.Draw(Globals.spriteBatch, Color.White);
 
             foreach (var coin in coins)

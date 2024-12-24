@@ -10,7 +10,6 @@ namespace Monogame2.Scenes
         private Texture2D mytexture;
         private int screenheight;
         private int screenwidth;
-        private int mytexturewidth;
 
         public void Load(Texture2D backgroundTexture)
         {

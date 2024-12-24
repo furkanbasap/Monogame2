@@ -15,7 +15,6 @@ namespace Monogame2.Animation
         private readonly float _frameTime;
         private float _frameTimeLeft;
         private bool _active = true;
-        private SpriteBatch spriteBatch;
 
         public Animations(Texture2D texture, int framesX,int framesY, float frameTime, int row = 1)
         {

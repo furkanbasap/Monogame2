@@ -11,7 +11,6 @@ namespace Monogame2.GameObjects
     public class Player : Sprite
     {
 
-        private Texture2D _playerTexture;
         private Vector2 _posPlayer;
         private Vector2 _sizePlayer;
 
@@ -23,12 +22,12 @@ namespace Monogame2.GameObjects
         static int heightScreen;
 
 
-        float acceleration = 0.1f; // Hoe snel de beweging accelereert
-        float maxSpeed = 3f; // De maximale snelheid
-        float currentSpeedX = 0f; // De huidige snelheid
-        float currentSpeedY = 0f; // De huidige snelheid
+        float acceleration = 0.1f; // How fast the movement accelerates
+        float maxSpeed = 3f; // Max speed
+        float currentSpeedX = 0f; // Current horizontal speed 
+        float currentSpeedY = 0f; // Current vertical speed 
 
-        float changeX = 0;
+        float changeX = 0; 
         float changeY = 0;
 
         bool leftKey;
@@ -70,7 +69,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
 
-            //Aantal frames, aantal kollomen, omtrek van sprite
+            //Number of frames, number of collimates, outline of sprite
             amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 100));
 
         }
@@ -92,7 +91,7 @@ namespace Monogame2.GameObjects
                     }
                     else
                     {
-                        // Versnel geleidelijk tot de maximale (negatieve) snelheid
+                        // Gradually accelerate to the maximum (negative) speed
                         currentSpeedX = Math.Max(currentSpeedX - acceleration, -maxSpeed);
                         leftKey = true;
                     }
@@ -105,7 +104,7 @@ namespace Monogame2.GameObjects
                     }
                     else
                     {
-                        // Versnel geleidelijk tot de maximale (positieve) snelheid
+                        // Gradually accelerate to the maximum (positive) speed
                         currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
                         rightKey = true;
                     }
@@ -126,7 +125,7 @@ namespace Monogame2.GameObjects
                     currentSpeedX = Math.Max(currentSpeedX - acceleration, 0);
                 }
 
-                // Update de verandering in positie
+                // Update the change in position
                 changeX = currentSpeedX;
                 _posPlayer.X += changeX;
 
@@ -178,6 +177,7 @@ namespace Monogame2.GameObjects
                 {
                     currentSpeedY = Math.Max(currentSpeedY - acceleration, 0);
                 }
+                // Update the change in position
                 changeY = currentSpeedY;
                 _posPlayer.Y += changeY;
 

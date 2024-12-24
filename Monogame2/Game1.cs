@@ -16,18 +16,15 @@ namespace Monogame2
     {
 
         public static ContentManager ContentManager;
-        private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         bool play;
         Song song;
         private KeyboardState currentKeyboardState, previousKeyboardState;
 
-        Texture2D playerSprite;
-        Texture2D coinSprite;
 
         MouseState mState;
 
-        Boolean mReleased = true;
+        //Boolean mReleased = true;
         
 
 
@@ -54,7 +51,7 @@ namespace Monogame2
             Globals.content = this.Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Start met het StartScreen
+            // Start with the StartScreen
             GameStateManager.ChangeState(new StartScreen());
 
             song = Globals.content.Load<Song>("Audio/Backgroundmusic");
@@ -66,7 +63,7 @@ namespace Monogame2
 
         protected override void Update(GameTime gameTime)
         {
-            // Verwerk de logica van de actieve scène
+            // Process the logic of the active scene
             GameStateManager.Update(gameTime);
 
             currentKeyboardState = Keyboard.GetState();
@@ -113,7 +110,7 @@ namespace Monogame2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GameStateManager.Draw(spriteBatch);
+            GameStateManager.Draw(Globals.spriteBatch);
 
 
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);

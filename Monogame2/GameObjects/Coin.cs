@@ -10,7 +10,6 @@ namespace Monogame2.GameObjects
 {
     public class Coin : Sprite
     {
-        private Texture2D _coinTexture;
         private Vector2 _posCoin;
         private Vector2 _sizeCoin;
 
@@ -40,7 +39,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetCoin = Globals.content.Load<Texture2D>("Objects/coin3");
 
-            //Aantal frames, aantal kollomen, omtrek van sprite
+            //Number of frames, number of collimates, outline of sprite
             amCoin = new(8, 8, new Vector2(spritesheetCoin.Width / 8, 150));
 
         }
