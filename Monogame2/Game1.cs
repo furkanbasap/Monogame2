@@ -18,11 +18,10 @@ namespace Monogame2
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         bool play;
-        bool rev = false;
         Song song;
         private KeyboardState currentKeyboardState, previousKeyboardState;
 
-        private Camera _camera;
+
         Texture2D playerSprite;
         Texture2D coinSprite;
 
@@ -56,7 +55,6 @@ namespace Monogame2
 
             // Start met het StartScreen
             GameStateManager.ChangeState(new StartScreen());
-            _camera = new Camera();
 
             song = Globals.content.Load<Song>("Audio/Backgroundmusic");
             MediaPlayer.Play(song);

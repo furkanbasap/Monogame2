@@ -9,14 +9,20 @@ namespace Monogame2.Physics
 {
     public class Camera
     {
-        public Matrix Transform { get; private set; }
+        private Vector2 position;
+
+        public Camera(Vector2 position)
+        {
+            this.position = position;
+        }
+
         public void Follow(Vector2 target)
         {
-            var position = Matrix.CreateTranslation(-target.X, -target.Y, 0);
+            position = new Vector2(
+                -target.X,
+                -target.Y);
 
-            var offset = Matrix.CreateTranslation(400, 200, 0);
 
-            Transform = position * offset;
         }
     }
 }

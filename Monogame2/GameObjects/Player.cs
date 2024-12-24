@@ -23,6 +23,11 @@ namespace Monogame2.GameObjects
                 return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
             }
         }
+        public Vector2 PosPlayer()
+        {
+            return _posPlayer;
+        }
+        
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {

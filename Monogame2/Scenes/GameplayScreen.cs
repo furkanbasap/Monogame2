@@ -9,6 +9,7 @@ using Monogame2.Utils;
 using System.Diagnostics.Metrics;
 using System;
 using Microsoft.Xna.Framework.Audio;
+using Monogame2.Physics;
 
 namespace Monogame2.Scenes
 {
@@ -24,6 +25,7 @@ namespace Monogame2.Scenes
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
+        private Camera camera; 
 
 
         //Positie en Size van de texture
@@ -40,6 +42,7 @@ namespace Monogame2.Scenes
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
+            camera = new(Vector2.Zero);
         }
 
         public override void LoadContent() 
@@ -89,7 +92,7 @@ namespace Monogame2.Scenes
 
             player.Update(coins);
 
-
+            //camera.Follow(player.PosPlayer());
             // METHODE OM TE WINNEN MET PUNTEN
             //if (pointsCounter == 3)
             //{
@@ -112,7 +115,6 @@ namespace Monogame2.Scenes
                 coin.Draw();
             }
 
-            //coin.Draw();
 
             player.Draw();
 
