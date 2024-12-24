@@ -16,11 +16,11 @@ namespace Monogame2.Physics
             this.position = position;
         }
 
-        public void Follow(Vector2 target)
+        public void Follow(Rectangle target, Vector2 screenSize)
         {
             position = new Vector2(
-                -target.X,
-                -target.Y);
+                -target.X + (screenSize.X / 2 - target.Width),
+                -target.Y + (screenSize.Y / 2 - target.Height));
 
 
         }
