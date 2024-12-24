@@ -9,12 +9,22 @@ namespace Monogame2.GameObjects
 {
     public class Player : Sprite
     {
+
         private Texture2D _playerTexture;
         private Vector2 _posPlayer;
         private Vector2 _sizePlayer;
 
+
         Texture2D spritesheetPlayer;
         AnimationManager amPlayer;
+
+        static int widthScreen;
+        static int heightScreen;
+        public static void ScreenSize(int width, int height)
+        {
+            widthScreen = width;
+            heightScreen = height;
+        }
 
         public Rectangle Rect
         {
@@ -27,7 +37,7 @@ namespace Monogame2.GameObjects
         {
             return _posPlayer;
         }
-        
+
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
@@ -38,6 +48,7 @@ namespace Monogame2.GameObjects
             _posPlayer = position;
             _sizePlayer = size;
         }
+
         public void LoadContent()
         {
             spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
@@ -50,6 +61,8 @@ namespace Monogame2.GameObjects
         public void Update(List<Coin> collisionGroup)
         {
             amPlayer.Update();
+
+            
 
             var keyboardState = Keyboard.GetState();
             if (keyboardState.GetPressedKeyCount() > 0)
@@ -67,7 +80,7 @@ namespace Monogame2.GameObjects
                 }
                 if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
-                    if (_posPlayer.X >= 1280 - _sizePlayer.X)
+                    if (_posPlayer.X >= widthScreen - _sizePlayer.X)
                     {
                         changeX += 0f;
                     }
@@ -99,7 +112,7 @@ namespace Monogame2.GameObjects
                 }
                 if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
                 {
-                    if (_posPlayer.Y >= 741 - _sizePlayer.Y)
+                    if (_posPlayer.Y >= heightScreen - _sizePlayer.Y)
                     {
                         changeY += 0f;
                     }

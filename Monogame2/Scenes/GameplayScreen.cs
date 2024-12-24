@@ -18,6 +18,9 @@ namespace Monogame2.Scenes
     {
         private GameDifficulty difficulty;
 
+        private ScrollingBackground myBackground;
+        private float scrollingSpeed = 1;
+
         private Texture2D _backgroundTexture;
         private SpriteFont font;
         private int playerLives = 3;
@@ -41,6 +44,7 @@ namespace Monogame2.Scenes
 
         public GameplayScreen(GameDifficulty difficulty)
         {
+            //graphics = new GraphicsDeviceManager(this);
             this.difficulty = difficulty;
             camera = new(Vector2.Zero);
         }
@@ -49,13 +53,17 @@ namespace Monogame2.Scenes
         {
             font = Globals.content.Load<SpriteFont>("Fonts/Font");
 
-            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
+            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/starfield2");
+
+            myBackground = new ScrollingBackground();
+            Texture2D background = Globals.content.Load<Texture2D>("Backgrounds/starfield3");
+            myBackground.Load(background);
 
             coins.Add(coin);
             coins.Add(coin2);
             coins.Add(coin3);
 
-
+            
             coin.LoadContent();
             coin2.LoadContent();
             coin3.LoadContent();
@@ -92,14 +100,17 @@ namespace Monogame2.Scenes
 
             player.Update(coins);
 
-            //camera.Follow(player.PosPlayer());
+            //camera.Follow(player._posPlayer, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+
             // METHODE OM TE WINNEN MET PUNTEN
             //if (pointsCounter == 3)
             //{
-                    
+
             //    GameStateManager.ChangeState(new GameOverScreen());
 
             //}
+
+            myBackground.Update(1 * scrollingSpeed);
         }
 
 
@@ -108,16 +119,17 @@ namespace Monogame2.Scenes
             Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             // Tekenen
-            Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            //Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            myBackground.Draw(Globals.spriteBatch, Color.White);
 
             foreach (var coin in coins)
             {
                 coin.Draw();
             }
 
+            //player.Draw(camera.Position);
 
             player.Draw();
-
             Globals.spriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
             Globals.spriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
             Globals.spriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Monogame2.GameObjects;
 using Monogame2.Global;
 using Monogame2.Physics;
 using Monogame2.Scenes;
@@ -21,7 +22,6 @@ namespace Monogame2
         Song song;
         private KeyboardState currentKeyboardState, previousKeyboardState;
 
-
         Texture2D playerSprite;
         Texture2D coinSprite;
 
@@ -30,7 +30,6 @@ namespace Monogame2
         Boolean mReleased = true;
         
 
-        
 
         public Game1()
         {
@@ -42,9 +41,11 @@ namespace Monogame2
         protected override void Initialize()
         {
             base.Initialize();
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 741;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 960;
             graphics.ApplyChanges();
+            Player.ScreenSize(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
 
         }
 
@@ -58,6 +59,8 @@ namespace Monogame2
 
             song = Globals.content.Load<Song>("Audio/Backgroundmusic");
             MediaPlayer.Play(song);
+
+            
 
         }
 
@@ -102,6 +105,7 @@ namespace Monogame2
             //    mReleased = true
             //}
 
+
             base.Update(gameTime);
         }
 
@@ -111,10 +115,8 @@ namespace Monogame2
 
             GameStateManager.Draw(spriteBatch);
 
-            //spriteBatch.Begin();
 
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
 
 
             Globals.spriteBatch.End();
@@ -124,6 +126,15 @@ namespace Monogame2
         private bool IsKeyPressed(Keys key)
         {
             return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
+        }
+
+        public int WindowWidth()
+        {
+            return graphics.PreferredBackBufferWidth;
+        }
+        public int WindowHeight()
+        {
+            return graphics.PreferredBackBufferHeight;
         }
     }
 

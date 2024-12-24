@@ -23,13 +23,19 @@ namespace Monogame2.Scenes
 
         private Texture2D _backgroundTexture;
 
+        private ScrollingBackground myBackground;
+        private float scrollingSpeed = 1;
+
         MouseState mState;
 
         public override void LoadContent()
         {
             font = Globals.content.Load<SpriteFont>("Fonts/Font");
-            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
+            //_backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/starfield2");
 
+            myBackground = new ScrollingBackground();
+            Texture2D background = Globals.content.Load<Texture2D>("Backgrounds/starfield3");
+            myBackground.Load(background);
         }
 
         public override void Update(GameTime gameTime)
@@ -53,14 +59,16 @@ namespace Monogame2.Scenes
             }
 
 
-
             previousKeyboardState = currentKeyboardState;
+
+            myBackground.Update(1 * scrollingSpeed);
         }
 
         public override void Draw()
         {
             Globals.spriteBatch.Begin();
-            Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            myBackground.Draw(Globals.spriteBatch, Color.White);
+            //Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             Globals.spriteBatch.DrawString(font, "FlyBy", new Vector2(600, 150), Color.White);
             Globals.spriteBatch.DrawString(font, "Choose difficulty (Space or Left Click)", new Vector2(500, 200), Color.White);
             Globals.spriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(10, 10), Color.White);

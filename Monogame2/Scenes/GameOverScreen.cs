@@ -20,7 +20,7 @@ namespace Monogame2.Scenes
         public override void LoadContent()
         {
             font = Globals.content.Load<SpriteFont>("Fonts/Font");
-            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/Background");
+            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/starfield2");
 
         }
 
