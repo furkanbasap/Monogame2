@@ -37,6 +37,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
 
+            //Aantal frames, aantal kollomen, omtrek van sprite
             amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 100));
 
         }

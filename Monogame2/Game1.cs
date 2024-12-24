@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Monogame2.Global;
 using Monogame2.Physics;
 using Monogame2.Scenes;
@@ -16,6 +17,7 @@ namespace Monogame2
         public static ContentManager ContentManager;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
+        Song song;
 
         private Camera _camera;
         Texture2D playerSprite;
@@ -41,6 +43,7 @@ namespace Monogame2
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 741;
             graphics.ApplyChanges();
+
         }
 
         protected override void LoadContent()
@@ -52,6 +55,8 @@ namespace Monogame2
             GameStateManager.ChangeState(new StartScreen());
             _camera = new Camera();
 
+            song = Globals.content.Load<Song>("Audio/Backgroundmusic");
+            MediaPlayer.Play(song);
 
         }
 

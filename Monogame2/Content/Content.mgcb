@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Actors/Hero.png
 
+#begin Audio/Backgroundmusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Backgroundmusic.mp3
+
+#begin Audio/coinpickup.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/coinpickup.mp3
+
 #begin Backgrounds/Background.png
 /importer:TextureImporter
 /processor:TextureProcessor

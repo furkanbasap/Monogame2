@@ -30,7 +30,6 @@ namespace Monogame2.GameObjects
         public Coin(Texture2D texture, Vector2 position) : base(texture,position)
         {
             _posCoin = position;
-
         }
         public Coin(Texture2D texture,Vector2 position, Vector2 size) : base(texture,position)
         {
@@ -41,7 +40,7 @@ namespace Monogame2.GameObjects
         {
             spritesheetCoin = Globals.content.Load<Texture2D>("Objects/coin3");
 
-            
+            //Aantal frames, aantal kollomen, omtrek van sprite
             amCoin = new(8, 8, new Vector2(spritesheetCoin.Width / 8, 150));
 
         }

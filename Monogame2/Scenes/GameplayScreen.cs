@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Monogame2.GameObjects;
 using Monogame2.Global;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using Monogame2.Utils;
 using System.Diagnostics.Metrics;
+using System;
 
 namespace Monogame2.Scenes
 {
@@ -18,8 +20,14 @@ namespace Monogame2.Scenes
         private SpriteFont font;
         private int playerLives = 3;
         private int pointsCounter = 0;
+        private static Random rnd = new Random();
+        Song songCoin;
+        Song songBackground;
 
         //Positie en Size van de texture
+        //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
+        //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
+        //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(100, 400), new Vector2(100, 100));
         Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
         Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
@@ -49,6 +57,12 @@ namespace Monogame2.Scenes
 
             player.LoadContent();
 
+            songCoin = Globals.content.Load<Song>("Audio/coinpickup");
+            songBackground = Globals.content.Load<Song>("Audio/Backgroundmusic");
+
+            MediaPlayer.Play(songBackground);
+
+
         }
 
         public override void Update(GameTime gameTime)
@@ -62,6 +76,7 @@ namespace Monogame2.Scenes
                 if (coin.Rect.Intersects(player.Rect))
                 {
                     killList.Add(coin);
+                    MediaPlayer.Play(songCoin);
                 }
             }
             foreach (var coin in killList)
