@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Monogame2.Animation;
 using Monogame2.Global;
 using System.Collections.Generic;
+using System;
 
 namespace Monogame2.GameObjects
 {
@@ -20,6 +21,13 @@ namespace Monogame2.GameObjects
 
         static int widthScreen;
         static int heightScreen;
+
+
+        float acceleration = 0.1f; // Hoe snel de beweging accelereert
+        float maxSpeed = 3f; // De maximale snelheid
+        float currentSpeed = 0f; // De huidige snelheid
+        float changeX = 0;
+
         public static void ScreenSize(int width, int height)
         {
             widthScreen = width;
@@ -62,31 +70,50 @@ namespace Monogame2.GameObjects
         {
             amPlayer.Update();
 
-            
 
             var keyboardState = Keyboard.GetState();
             if (keyboardState.GetPressedKeyCount() > 0)
             {
-                float changeX = 0;
 
-                if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left)) 
+
+                if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left))
                 {
                     if (_posPlayer.X <= 0)
                     {
-                        changeX += 0f;
+                        currentSpeed = 0f;
                     }
-                    else 
-                        changeX += -3f; 
+                    else if (_posPlayer.X > 0)
+                    {
+                        // Versnel geleidelijk tot de maximale (negatieve) snelheid
+                        currentSpeed = Math.Max(currentSpeed - acceleration, -maxSpeed);
+                    }
                 }
-                if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+                else if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
                     if (_posPlayer.X >= widthScreen - _sizePlayer.X)
                     {
-                        changeX += 0f;
+                        currentSpeed = 0f;
                     }
-                    else
-                        changeX += +3f;
+                    else if (_posPlayer.X < (widthScreen - _sizePlayer.X))
+                    {
+                        // Versnel geleidelijk tot de maximale (positieve) snelheid
+                        currentSpeed = Math.Min(currentSpeed + acceleration, maxSpeed);
+                    }
                 }
+                else
+                {
+                    if (currentSpeed < 0f)
+                    {
+                        currentSpeed = Math.Min(currentSpeed + acceleration, 0);
+                    }
+                    else if (currentSpeed >= 0f)
+                    {
+                        currentSpeed = Math.Max(currentSpeed - acceleration, 0);
+                    }
+                }
+
+                // Update de verandering in positie
+                changeX = currentSpeed;
                 _posPlayer.X += changeX;
 
 

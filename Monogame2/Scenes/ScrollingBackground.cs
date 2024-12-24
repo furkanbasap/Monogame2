@@ -33,9 +33,9 @@ namespace Monogame2.Scenes
 
 
 
-        public void Update(float deltaY)
+        public void Update(float deltaX)
         {
-            screenpos.X += deltaY;
+            screenpos.X += deltaX;      
             screenpos.X %= mytexture.Width;
         }
         //public void Update(float deltaY)
