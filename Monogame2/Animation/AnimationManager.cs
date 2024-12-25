@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Monogame2.Animation
 {
     public class AnimationManager
     {
+
         int numFrames;
         int numColumns;
         Vector2 size;

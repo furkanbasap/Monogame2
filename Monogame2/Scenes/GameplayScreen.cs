@@ -27,7 +27,8 @@ namespace Monogame2.Scenes
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
-        private Camera camera;
+
+        /*private bool paused = false;*/ /*PAUSE METHODE*/
 
 
         //Position and Size of the texture
@@ -76,6 +77,14 @@ namespace Monogame2.Scenes
 
         public override void Update(GameTime gameTime)
         {
+            //PAUSE METHODE
+            //if (InputManager.IsKeyPressed(Keys.P))
+            //{
+            //    paused = !paused;
+            //}
+
+            //if (paused) return;
+
             List<Coin> killList = new();
 
             foreach (var coin in coins)
@@ -98,7 +107,6 @@ namespace Monogame2.Scenes
             player.Update(coins);
             ProjectileManager.Update();
 
-            //camera.Follow(player._posPlayer, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 
             // METHODE OM TE WINNEN MET PUNTEN
             //if (pointsCounter == 3)
@@ -109,6 +117,9 @@ namespace Monogame2.Scenes
             //}
 
             myBackground.Update(1 * scrollingSpeed);
+
+            //PAUSE METHODE
+            //InputManager.PostUpdate();
         }
 
 
@@ -129,6 +140,13 @@ namespace Monogame2.Scenes
             Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
             Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
             Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
+            Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
+
+            // PAUSE METHODE
+            //if (paused)
+            //{
+            //    Globals.SpriteBatch.DrawString(font, "Game Paused", new Vector2(Globals.WidthScreen / 2 - 50, Globals.HeightScreen / 2), Color.Red);
+            //}
 
             Globals.SpriteBatch.End();
 

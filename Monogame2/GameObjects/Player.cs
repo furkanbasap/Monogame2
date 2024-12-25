@@ -18,8 +18,8 @@ namespace Monogame2.GameObjects
         Texture2D spritesheetPlayer;
         AnimationManager amPlayer;
 
-        static int widthScreen;
-        static int heightScreen;
+        public static int WidthScreen = Globals.WidthScreen;
+        public static int HeightScreen = Globals.HeightScreen;
 
 
         float acceleration = 0.1f; // How fast the movement accelerates
@@ -36,12 +36,6 @@ namespace Monogame2.GameObjects
         bool downKey;
 
         public int Direction { get; set; } // To change direction of sprite
-
-        public static void ScreenSize(int width, int height)
-        {
-            widthScreen = width;
-            heightScreen = height;
-        }
 
         public Rectangle Rect
         {
@@ -111,7 +105,7 @@ namespace Monogame2.GameObjects
                 }
                 if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
-                    if (_posPlayer.X >= widthScreen - _sizePlayer.X)
+                    if (_posPlayer.X >= WidthScreen - _sizePlayer.X)
                     {
                         currentSpeedX = 0f;
                         Direction = 1;
@@ -173,7 +167,7 @@ namespace Monogame2.GameObjects
                 }
                 if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
                 {
-                    if (_posPlayer.Y >= heightScreen - _sizePlayer.Y)
+                    if (_posPlayer.Y >= HeightScreen - _sizePlayer.Y)
                     {
                         currentSpeedY = 0f;
                     }

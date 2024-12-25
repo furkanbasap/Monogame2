@@ -41,9 +41,7 @@ namespace Monogame2
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 960;
             graphics.ApplyChanges();
-            Player.ScreenSize(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-
-
+            Globals.ScreenSize(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
         protected override void LoadContent()
