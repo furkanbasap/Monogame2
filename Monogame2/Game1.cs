@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Monogame2.GameObjects;
-using Monogame2.Global;
+using Monogame2.Managers;
 using Monogame2.Physics;
 using Monogame2.Scenes;
 using Monogame2.Utils;
@@ -48,13 +48,13 @@ namespace Monogame2
 
         protected override void LoadContent()
         {
-            Globals.content = this.Content;
-            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.Content = this.Content;
+            Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Start with the StartScreen
             GameStateManager.ChangeState(new StartScreen());
 
-            song = Globals.content.Load<Song>("Audio/Backgroundmusic");
+            song = Globals.Content.Load<Song>("Audio/Backgroundmusic");
             MediaPlayer.Play(song);
 
             
@@ -110,13 +110,13 @@ namespace Monogame2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GameStateManager.Draw(Globals.spriteBatch);
+            GameStateManager.Draw(Globals.SpriteBatch);
 
 
-            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            Globals.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 
-            Globals.spriteBatch.End();
+            Globals.SpriteBatch.End();
             base.Draw(gameTime);
         }
 

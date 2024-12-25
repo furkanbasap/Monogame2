@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Monogame2.Utils;
 using System.ComponentModel;
 using System.Reflection.Metadata;
-using Monogame2.Global;
+using Monogame2.Managers;
 
 namespace Monogame2.Scenes
 {
@@ -29,10 +29,10 @@ namespace Monogame2.Scenes
 
         public override void LoadContent()
         {
-            font = Globals.content.Load<SpriteFont>("Fonts/Font");
+            font = Globals.Content.Load<SpriteFont>("Fonts/Font");
 
             myBackground = new ScrollingBackground();
-            Texture2D background = Globals.content.Load<Texture2D>("Backgrounds/starfield3");
+            Texture2D background = Globals.Content.Load<Texture2D>("Backgrounds/starfield3");
             myBackground.Load(background);
         }
 
@@ -64,19 +64,19 @@ namespace Monogame2.Scenes
 
         public override void Draw()
         {
-            Globals.spriteBatch.Begin();
-            myBackground.Draw(Globals.spriteBatch, Color.White);
+            Globals.SpriteBatch.Begin();
+            myBackground.Draw(Globals.SpriteBatch, Color.White);
 
-            Globals.spriteBatch.DrawString(font, "FlyBy", new Vector2(600, 150), Color.White);
-            Globals.spriteBatch.DrawString(font, "Choose difficulty (Space or Left Click)", new Vector2(500, 200), Color.White);
-            Globals.spriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(10, 10), Color.White);
+            Globals.SpriteBatch.DrawString(font, "FlyBy", new Vector2(750, 250), Color.White);
+            Globals.SpriteBatch.DrawString(font, "Choose difficulty (Space or Left Click)", new Vector2(700, 300), Color.White);
+            Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(10, 10), Color.White);
 
             for (int i = 0; i < menuItems.Length; i++)
             {
                 Color color = (i == selectedIndex) ? Color.Yellow : Color.White;
-                Globals.spriteBatch.DrawString(font, menuItems[i], new Vector2(600, 250 + i * 30), color);
+                Globals.SpriteBatch.DrawString(font, menuItems[i], new Vector2(750, 350 + i * 30), color);
             }
-            Globals.spriteBatch.End();
+            Globals.SpriteBatch.End();
         }
 
         private bool IsKeyPressed(Keys key)

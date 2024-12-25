@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Monogame2.GameObjects;
-using Monogame2.Global;
+using Monogame2.Managers;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using Monogame2.Utils;
@@ -34,25 +34,25 @@ namespace Monogame2.Scenes
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(100, 400), new Vector2(100, 100));
-        Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
-        Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
+        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(100, 400), new Vector2(100, 100));
+        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
+        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
         List<Coin> coins = new();
 
-        Player player = new Player(Globals.content.Load<Texture2D>("Actors/Hero"), new Vector2(100,100), new Vector2(200,200));
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200));
 
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
-            camera = new(Vector2.Zero);
+            ProjectileManager.Init();
         }
 
         public override void LoadContent() 
         {
-            font = Globals.content.Load<SpriteFont>("Fonts/Font");
+            font = Globals.Content.Load<SpriteFont>("Fonts/Font");
 
             myBackground = new ScrollingBackground();
-            Texture2D background = Globals.content.Load<Texture2D>("Backgrounds/starfield3");
+            Texture2D background = Globals.Content.Load<Texture2D>("Backgrounds/starfield3");
             myBackground.Load(background);
 
             coins.Add(coin);
@@ -66,8 +66,8 @@ namespace Monogame2.Scenes
 
             player.LoadContent();
 
-            sfxCoin = Globals.content.Load<SoundEffect>("Audio/coinpickup");
-            songBackground = Globals.content.Load<Song>("Audio/Backgroundmusic");
+            sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
+            songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
 
             MediaPlayer.Play(songBackground);
 
@@ -94,7 +94,9 @@ namespace Monogame2.Scenes
                 pointsCounter++;
             }
 
+            InputManager.Update();
             player.Update(coins);
+            ProjectileManager.Update();
 
             //camera.Follow(player._posPlayer, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 
@@ -112,24 +114,23 @@ namespace Monogame2.Scenes
 
         public override void Draw() 
         {
-            Globals.spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             // Tekenen
-            myBackground.Draw(Globals.spriteBatch, Color.White);
+            myBackground.Draw(Globals.SpriteBatch, Color.White);
 
             foreach (var coin in coins)
             {
                 coin.Draw();
             }
 
-            //player.Draw(camera.Position);
-
+            ProjectileManager.Draw();
             player.Draw();
-            Globals.spriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
-            Globals.spriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
-            Globals.spriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
+            Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
+            Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
+            Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
 
-            Globals.spriteBatch.End();
+            Globals.SpriteBatch.End();
 
 
         }

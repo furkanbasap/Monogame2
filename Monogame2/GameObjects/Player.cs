@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Monogame2.Animation;
-using Monogame2.Global;
+using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
 
@@ -35,6 +35,7 @@ namespace Monogame2.GameObjects
         bool upKey;
         bool downKey;
 
+        public int Direction { get; set; } // To change direction of sprite
 
         public static void ScreenSize(int width, int height)
         {
@@ -49,36 +50,46 @@ namespace Monogame2.GameObjects
                 return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
             }
         }
+
+
+
+ 
+        public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
+        {
+            _posPlayer = position;
+            _sizePlayer = size;
+            Direction = 1;
+        }
+
+        private void Fire()
+        {
+            ProjectileData pd = new()
+            {
+                Position = Position,
+                Lifespan = 2,
+                Speed = 600
+            };
+
+            ProjectileManager.AddProjectile(pd);
+        }
         public Vector2 PosPlayer()
         {
             return _posPlayer;
         }
 
-
-        public Player(Texture2D texture, Vector2 position) : base(texture, position)
-        {
-            _posPlayer = position;
-        }
-        public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
-        {
-            _posPlayer = position;
-            _sizePlayer = size;
-        }
-
         public void LoadContent()
         {
-            spritesheetPlayer = Globals.content.Load<Texture2D>("Actors/Hero");
+            spritesheetPlayer = Globals.Content.Load<Texture2D>("Actors/Hero3");
 
             //Number of frames, number of collimates, outline of sprite
-            amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 100));
+            amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 106));
 
         }
 
         public void Update(List<Coin> collisionGroup)
         {
             amPlayer.Update();
-
-
+            int prevDir = Direction;
 
             var keyboardState = Keyboard.GetState();
             if (keyboardState.GetPressedKeyCount() >= 0)
@@ -88,12 +99,14 @@ namespace Monogame2.GameObjects
                     if (_posPlayer.X <= 0)
                     {
                         currentSpeedX = 0f;
+                        Direction = -1;
                     }
                     else
                     {
                         // Gradually accelerate to the maximum (negative) speed
                         currentSpeedX = Math.Max(currentSpeedX - acceleration, -maxSpeed);
                         leftKey = true;
+                        Direction = -1;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
@@ -101,12 +114,14 @@ namespace Monogame2.GameObjects
                     if (_posPlayer.X >= widthScreen - _sizePlayer.X)
                     {
                         currentSpeedX = 0f;
+                        Direction = 1;
                     }
                     else
                     {
                         // Gradually accelerate to the maximum (positive) speed
                         currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
                         rightKey = true;
+                        Direction = 1;
                     }
                 }
                 if (keyboardState.IsKeyUp(Keys.Q) && keyboardState.IsKeyUp(Keys.Left))
@@ -128,6 +143,12 @@ namespace Monogame2.GameObjects
                 // Update the change in position
                 changeX = currentSpeedX;
                 _posPlayer.X += changeX;
+
+                //if (prevDir != Direction)
+                //{
+                //    SrcRect.X += SrcRect.Width;
+                //    SrcRect.Width
+                //}
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
                 //foreach (var coin in collisionGroup)
@@ -189,18 +210,18 @@ namespace Monogame2.GameObjects
                 //        _posPlayer.Y -= changeY;
                 //    }
                 //}
+
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
-            Globals.spriteBatch.Draw(
+            Globals.SpriteBatch.Draw(
                             spritesheetPlayer,
-                            new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X,(int)_sizePlayer.Y),
+                            new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y),
                             amPlayer.GetFrame(),
                             Color.White);
         }
 
-        
     }
 }

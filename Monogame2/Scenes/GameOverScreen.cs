@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monogame2.Utils;
-using Monogame2.Global;
+using Monogame2.Managers;
 
 namespace Monogame2.Scenes
 {
@@ -19,8 +19,8 @@ namespace Monogame2.Scenes
 
         public override void LoadContent()
         {
-            font = Globals.content.Load<SpriteFont>("Fonts/Font");
-            _backgroundTexture = Globals.content.Load<Texture2D>("Backgrounds/starfield2");
+            font = Globals.Content.Load<SpriteFont>("Fonts/Font");
+            _backgroundTexture = Globals.Content.Load<Texture2D>("Backgrounds/starfield2");
 
         }
 
@@ -32,10 +32,10 @@ namespace Monogame2.Scenes
 
         public override void Draw()
         {
-            Globals.spriteBatch.Begin();
-            Globals.spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            Globals.spriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
-            Globals.spriteBatch.End();
+            Globals.SpriteBatch.Begin();
+            Globals.SpriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            Globals.SpriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
+            Globals.SpriteBatch.End();
         }
     }
 }
