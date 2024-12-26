@@ -51,6 +51,8 @@ namespace Monogame2.Scenes
 
         List<Enemy2> enemies2 = new();
         Enemy2 enemy2;
+
+        Enemy3 enemy3;
         //ENEMY
 
         public GameplayScreen(GameDifficulty difficulty)
@@ -90,6 +92,10 @@ namespace Monogame2.Scenes
             enemy2 = new Enemy2(new Vector2(rnd.Next(1500, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
             enemies2.Add(enemy2);
             enemy2.LoadContent();
+
+            enemy3 = new Enemy3(new Vector2(rnd.Next(1600, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemy3.LoadContent();
+
             //ENEMY
 
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
@@ -103,7 +109,7 @@ namespace Monogame2.Scenes
         public override void Update(GameTime gameTime)
         {
             List<Coin> killList = new();
-            List<Enemy2> killListEnemy = new();
+            List<Enemy2> killListEnemy2 = new();
 
             if (!paused)
             {
@@ -140,16 +146,16 @@ namespace Monogame2.Scenes
 
                     if (enemy.Rect.Intersects(player.Rect))
                     {
-                        killListEnemy.Add(enemy);
+                        killListEnemy2.Add(enemy);
                     }
                 }
-                foreach (var enemy in killListEnemy)
+                foreach (var enemy in killListEnemy2)
                 {
                     enemies2.Remove(enemy);
                     playerLives--;
                 }
 
-
+                enemy3.Update();
             }
 
 
@@ -200,6 +206,8 @@ namespace Monogame2.Scenes
             {
                 enemy.Draw();
             }
+
+            enemy3.Draw();
 
             ProjectileManager.Draw();
             player.Draw();

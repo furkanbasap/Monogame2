@@ -28,7 +28,7 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Enemy3(Texture2D texture, Vector2 position, Vector2 size) 
+        public Enemy3(Vector2 position, Vector2 size) 
         {
             _posEnemy = position;
             _sizeEnemy = size;
@@ -48,7 +48,14 @@ namespace Monogame2.GameObjects
             amCoin.Update();
 
             // BEWEGEN VAN DE COINS
-            //_posCoin.X -= 1f;
+            if (_posEnemy.X == Globals.WidthScreen - 400)
+            {
+                _posEnemy.X = Globals.WidthScreen - 400;
+            }
+            else
+            {
+                _posEnemy.X -= 1f;
+            }
         }
 
         public void Draw()
