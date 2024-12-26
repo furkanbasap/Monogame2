@@ -3,11 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Monogame2.GameObjects;
 using Monogame2.Managers;
 using Monogame2.Scenes;
 using Monogame2.Utils;
-using System;
 
 namespace Monogame2
 {

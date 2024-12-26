@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Animation;
 using Monogame2.Managers;
-using System;
-using System.Collections.Generic;
+
 
 
 namespace Monogame2.GameObjects

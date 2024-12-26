@@ -1,15 +1,8 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Monogame2.Utils;
-using System.ComponentModel;
-using System.Reflection.Metadata;
 using Monogame2.Managers;
 
 namespace Monogame2.Scenes

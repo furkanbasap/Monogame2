@@ -31,6 +31,12 @@
 /processorParam:Quality=Best
 /build:Audio/Backgroundmusic.mp3
 
+#begin Audio/bomb.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/bomb.mp3
+
 #begin Audio/coinpickup.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -62,7 +68,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Font.spritefont
 
-#begin Objects/coin3.png
+#begin Objects/bomb.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -72,19 +78,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Objects/coin3.png
-
-#begin Objects/coin5.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Objects/coin5.png
+/build:Objects/bomb.png
 
 #begin Objects/coin6.png
 /importer:TextureImporter

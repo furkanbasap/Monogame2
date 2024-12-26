@@ -6,7 +6,6 @@ using Monogame2.Managers;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using Monogame2.Utils;
-using System.Diagnostics.Metrics;
 using System;
 using Microsoft.Xna.Framework.Audio;
 
@@ -26,7 +25,7 @@ namespace Monogame2.Scenes
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
-        SoundEffect sfxHit;
+        SoundEffect sfxBomb;
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -52,6 +51,7 @@ namespace Monogame2.Scenes
         List<Enemy2> enemies2 = new();
         Enemy2 enemy2;
 
+        List<Enemy3> enemies3 = new();
         Enemy3 enemy3;
         //ENEMY
 
@@ -94,13 +94,14 @@ namespace Monogame2.Scenes
             enemy2.LoadContent();
 
             enemy3 = new Enemy3(new Vector2(rnd.Next(1600, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemies3.Add(enemy3);
             enemy3.LoadContent();
 
             //ENEMY
 
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
-            sfxHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
+            sfxBomb = Globals.Content.Load<SoundEffect>("Audio/bomb");
 
             MediaPlayer.Play(songBackground);
 
@@ -131,7 +132,7 @@ namespace Monogame2.Scenes
                 }
 
                 InputManager.Update();
-                player.Update(enemies1, enemies2);
+                player.Update(enemies1, enemies2, enemies3);
                 ProjectileManager.Update();
 
                 myBackground.Update(1 * scrollingSpeed);
@@ -148,7 +149,7 @@ namespace Monogame2.Scenes
                     if (enemy.Rect.Intersects(player.Rect))
                     {
                         killListEnemy2.Add(enemy);
-                        sfxHit.Play();
+                        sfxBomb.Play();
                     }
                 }
                 foreach (var enemy in killListEnemy2)
@@ -157,7 +158,10 @@ namespace Monogame2.Scenes
                     playerLives--;
                 }
 
-                enemy3.Update();
+                foreach (var enemy in enemies3)
+                {
+                    enemy.Update();
+                }
             }
 
 
@@ -218,8 +222,11 @@ namespace Monogame2.Scenes
             {
                 enemy.Draw();
             }
+            foreach (var enemy in enemies3)
+            {
+                enemy.Draw();
+            }
 
-            enemy3.Draw();
 
             ProjectileManager.Draw();
             player.Draw();

@@ -2,11 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Animation;
 using Monogame2.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Monogame2.GameObjects
 {
@@ -36,18 +32,11 @@ namespace Monogame2.GameObjects
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/coin6");
-
-            //Number of frames, number of collimates, outline of sprite
-            amCoin = new(13, 13, new Vector2(spritesheetEnemy.Width / 13, spritesheetEnemy.Height));
-
+            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/bomb");
         }
 
         public void Update(Vector2 _posPlayer)
         {
-
-            amCoin.Update();
-
             // BEWEGEN VAN DE ENEMY
             if (_posEnemy.X > _posPlayer.X)
             {
@@ -76,7 +65,7 @@ namespace Monogame2.GameObjects
             Globals.SpriteBatch.Draw(
                 spritesheetEnemy,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                amCoin.GetFrame(),
+                new Rectangle(0, 0, spritesheetEnemy.Width,spritesheetEnemy.Height),
                 Color.White);
 
         }

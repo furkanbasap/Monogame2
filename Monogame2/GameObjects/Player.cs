@@ -77,7 +77,7 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update(List<Enemy1> collisionGroupEnemy1, List<Enemy2> collisionGroupEnemy2)
+        public void Update(List<Enemy1> collisionGroupEnemy1, List<Enemy2> collisionGroupEnemy2, List<Enemy3> collisionGroupEnemy3)
         {
             amPlayer.Update();
             int prevDir = Direction;
@@ -274,6 +274,22 @@ namespace Monogame2.GameObjects
                     if (enemy.Rect.Intersects(Rect))
                     {
                         _posPlayer.Y -= changeY;
+                    }
+                }
+
+                foreach (var enemy in collisionGroupEnemy3)
+                {
+                    if (enemy.Rect.Intersects(Rect))
+                    {
+                        _posPlayer.X -= changeX;
+                    }
+                }
+
+                foreach (var enemy in collisionGroupEnemy3)
+                {
+                    if (enemy.Rect.Intersects(Rect))
+                    {
+                        _posPlayer.Y  -= changeY;
                     }
                 }
 
