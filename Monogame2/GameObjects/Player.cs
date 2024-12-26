@@ -11,7 +11,7 @@ namespace Monogame2.GameObjects
     public class Player : Sprite
     {
 
-        private Vector2 _posPlayer;
+        public Vector2 _posPlayer;
         private Vector2 _sizePlayer;
 
 
@@ -44,9 +44,6 @@ namespace Monogame2.GameObjects
                 return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
             }
         }
-
-
-
  
         public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
         {

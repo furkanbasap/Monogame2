@@ -12,13 +12,16 @@ namespace Monogame2.GameObjects
 {
     public class Enemy1
     {
+        // ENEMY CLASS THAT MOVES TO YOU WITH COLLISION
+        
         private Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
-
 
         Texture2D spritesheetEnemy;
 
         AnimationManager amCoin;
+
+         
 
         public Rectangle Rect
         {
@@ -28,7 +31,7 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Enemy1(Texture2D texture, Vector2 position, Vector2 size)
+        public Enemy1(Vector2 position, Vector2 size)
         {
             _posEnemy = position;
             _sizeEnemy = size;
@@ -42,13 +45,32 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update()
+        public void Update(Vector2 _posPlayer)
         {
 
             amCoin.Update();
 
-            // BEWEGEN VAN DE COINS
-            //_posCoin.X -= 1f;
+            // BEWEGEN VAN DE ENEMY
+            if (_posEnemy.X > _posPlayer.X)
+            {
+                _posEnemy.X -= 1f;
+            }
+            else if (_posEnemy.X <= _posPlayer.X)
+            {
+                _posEnemy.X -= 1f;
+            }
+            if (_posEnemy.Y < _posPlayer.Y)
+            {
+                _posEnemy.Y += 1f;
+            }
+            else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X > _posPlayer.X)
+            {
+                _posEnemy.Y -= 1f;
+            }
+            else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X <= _posPlayer.X)
+            {
+                _posEnemy.Y = _posEnemy.Y;
+            }
         }
 
         public void Draw()

@@ -42,6 +42,8 @@ namespace Monogame2.Scenes
 
         Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200));
 
+        Enemy1 enemy;
+
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
@@ -66,6 +68,8 @@ namespace Monogame2.Scenes
             coin3.LoadContent();
 
             player.LoadContent();
+            enemy = new Enemy1(new Vector2(1500, 600), new Vector2(100, 100));
+            enemy.LoadContent();
 
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
@@ -102,6 +106,8 @@ namespace Monogame2.Scenes
                 ProjectileManager.Update();
 
                 myBackground.Update(1 * scrollingSpeed);
+
+                enemy.Update(player._posPlayer);
             }
 
 
@@ -143,9 +149,13 @@ namespace Monogame2.Scenes
                 coin.Draw();
             }
 
+            enemy.Draw();
+
             ProjectileManager.Draw();
             player.Draw();
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
+
+
 
             //PAUSE METHODE
             if (paused)
