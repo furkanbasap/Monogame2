@@ -35,10 +35,10 @@ namespace Monogame2.GameObjects
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/coin3");
+            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/coin6");
 
             //Number of frames, number of collimates, outline of sprite
-            amCoin = new(8, 8, new Vector2(spritesheetEnemy.Width / 8, 150));
+            amCoin = new(13, 13, new Vector2(spritesheetEnemy.Width / 13, spritesheetEnemy.Height));
 
         }
 

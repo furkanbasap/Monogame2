@@ -35,9 +35,9 @@ namespace Monogame2.Scenes
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(100, 400), new Vector2(100, 100));
-        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
-        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
+        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(100, 400), new Vector2(100, 100));
+        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(400, 400), new Vector2(100, 100));
+        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(700, 400), new Vector2(100, 100));
         List<Coin> coins = new();
         //COIN
 

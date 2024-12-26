@@ -141,7 +141,7 @@ namespace Monogame2.GameObjects
                 //    SrcRect.Width
                 //}
 
-                // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
+                // VOOR COLLISIONS 
                 foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
@@ -268,7 +268,7 @@ namespace Monogame2.GameObjects
                 changeY = currentSpeedY;
                 _posPlayer.Y += changeY;
 
-                // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
+                // VOOR COLLISIONS
                 foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
