@@ -18,6 +18,8 @@ namespace Monogame2.GameObjects
         private Vector2 _sizeEnemy;
 
         public Texture2D spritesheetEnemy;
+        private float rotation;
+        private float seconds;
 
         AnimationManager amCoin;
 
@@ -35,23 +37,26 @@ namespace Monogame2.GameObjects
         {
             _posEnemy = position;
             _sizeEnemy = size;
+            rotation = 0;
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/coin3");
-
-            //Number of frames, number of collimates, outline of sprite
-            amCoin = new(8, 8, new Vector2(spritesheetEnemy.Width / 8, 150));
+            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/rock");
 
         }
 
         public void Update()
         {
 
-            amCoin.Update();
 
             // BEWEGEN VAN DE ENEMY
             _posEnemy.X -= 1f;
+
+            if (seconds % 3 == 0)
+            {
+                rotation+= 0.01f;
+            }
+            seconds++;
         }
 
         public void Draw()
@@ -59,8 +64,12 @@ namespace Monogame2.GameObjects
             Globals.SpriteBatch.Draw(
                 spritesheetEnemy,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                amCoin.GetFrame(),
-                Color.White);
+                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                Color.White,
+                rotation,
+                new Vector2(spritesheetEnemy.Width / 2, spritesheetEnemy.Height / 2),
+                SpriteEffects.None,
+                0f);
 
         }
     }

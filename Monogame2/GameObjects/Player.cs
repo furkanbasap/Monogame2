@@ -12,7 +12,7 @@ namespace Monogame2.GameObjects
     {
 
         public Vector2 _posPlayer;
-        private Vector2 _sizePlayer;
+        public Vector2 _sizePlayer;
 
 
         Texture2D spritesheetPlayer;

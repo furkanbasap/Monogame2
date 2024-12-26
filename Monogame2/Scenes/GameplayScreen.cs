@@ -9,7 +9,6 @@ using Monogame2.Utils;
 using System.Diagnostics.Metrics;
 using System;
 using Microsoft.Xna.Framework.Audio;
-using Monogame2.Physics;
 
 namespace Monogame2.Scenes
 {
@@ -174,6 +173,10 @@ namespace Monogame2.Scenes
 
             // METHODE OM TE VERLIEZEN
             if (playerLives == 0)
+            {
+                GameStateManager.ChangeState(new GameOverScreen(false));
+            }
+            if (player._posPlayer.X < -player._sizePlayer.X) 
             {
                 GameStateManager.ChangeState(new GameOverScreen(false));
             }
