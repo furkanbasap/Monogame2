@@ -73,7 +73,7 @@ namespace Monogame2.GameObjects
             spritesheetPlayer = Globals.Content.Load<Texture2D>("Actors/Hero3");
 
             //Number of frames, number of collimates, outline of sprite
-            amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8, 106));
+            amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8 + 1, 106));
 
         }
 

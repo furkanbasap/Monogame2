@@ -27,6 +27,7 @@ namespace Monogame2.Scenes
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
+        SoundEffect sfxHit;
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -98,8 +99,9 @@ namespace Monogame2.Scenes
 
             //ENEMY
 
-            sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
+            sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
+            sfxHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
 
             MediaPlayer.Play(songBackground);
 
@@ -147,6 +149,7 @@ namespace Monogame2.Scenes
                     if (enemy.Rect.Intersects(player.Rect))
                     {
                         killListEnemy2.Add(enemy);
+                        sfxHit.Play();
                     }
                 }
                 foreach (var enemy in killListEnemy2)
