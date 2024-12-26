@@ -16,6 +16,13 @@ namespace Monogame2.Scenes
     {
         private SpriteFont font;
         private Texture2D _backgroundTexture;
+        private bool gameState;
+
+
+        public GameOverScreen(bool win)
+        {
+            gameState = win;
+        }
 
         public override void LoadContent()
         {
@@ -34,7 +41,14 @@ namespace Monogame2.Scenes
         {
             Globals.SpriteBatch.Begin();
             Globals.SpriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            Globals.SpriteBatch.DrawString(font, "Game Over! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
+            if (gameState)
+            {
+                Globals.SpriteBatch.DrawString(font, "GEWONNEN! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
+            }
+            else
+            {
+                Globals.SpriteBatch.DrawString(font, "VERLOREN! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
+            }
             Globals.SpriteBatch.End();
         }
     }

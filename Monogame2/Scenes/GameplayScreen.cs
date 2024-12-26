@@ -162,12 +162,18 @@ namespace Monogame2.Scenes
 
 
             // METHODE OM TE WINNEN MET PUNTEN
-            //if (pointsCounter == 3)
-            //{
+            if (pointsCounter == 4)
+            {
 
-            //    GameStateManager.ChangeState(new GameOverScreen());
+                GameStateManager.ChangeState(new GameOverScreen(true));
 
-            //}
+            }
+
+            // METHODE OM TE VERLIEZEN
+            if (playerLives == 0)
+            {
+                GameStateManager.ChangeState(new GameOverScreen(false));
+            }
 
 
 
