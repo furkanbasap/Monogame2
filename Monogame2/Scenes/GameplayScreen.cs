@@ -28,8 +28,8 @@ namespace Monogame2.Scenes
         SoundEffect sfxCoin;
         Song songBackground;
 
-        /*private bool paused = false;*/ /*PAUSE METHODE*/
-
+        private KeyboardState currentKeyboardState, previousKeyboardState;
+        private bool paused;
 
         //Position and Size of the texture
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
@@ -77,35 +77,34 @@ namespace Monogame2.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            //PAUSE METHODE
-            //if (InputManager.IsKeyPressed(Keys.P))
-            //{
-            //    paused = !paused;
-            //}
-
-            //if (paused) return;
-
             List<Coin> killList = new();
 
-            foreach (var coin in coins)
+            if (!paused)
             {
-                coin.Update();
-
-                if (coin.Rect.Intersects(player.Rect))
+                foreach (var coin in coins)
                 {
-                    killList.Add(coin);
-                    sfxCoin.Play();
+                    coin.Update();
+
+                    if (coin.Rect.Intersects(player.Rect))
+                    {
+                        killList.Add(coin);
+                        sfxCoin.Play();
+                    }
                 }
-            }
-            foreach (var coin in killList)
-            {
-                coins.Remove(coin);
-                pointsCounter++;
+                foreach (var coin in killList)
+                {
+                    coins.Remove(coin);
+                    pointsCounter++;
+                }
+
+                InputManager.Update();
+                player.Update(coins);
+                ProjectileManager.Update();
+
+                myBackground.Update(1 * scrollingSpeed);
             }
 
-            InputManager.Update();
-            player.Update(coins);
-            ProjectileManager.Update();
+
 
 
             // METHODE OM TE WINNEN MET PUNTEN
@@ -116,10 +115,19 @@ namespace Monogame2.Scenes
 
             //}
 
-            myBackground.Update(1 * scrollingSpeed);
 
-            //PAUSE METHODE
-            //InputManager.PostUpdate();
+
+            currentKeyboardState = Keyboard.GetState();
+
+            if ((IsKeyPressed(Keys.P) && paused == true) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            {
+                paused = false;
+            }
+            else if ((IsKeyPressed(Keys.P) && paused == false) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            {
+                paused = true;
+            }
+            previousKeyboardState = currentKeyboardState;
         }
 
 
@@ -137,20 +145,28 @@ namespace Monogame2.Scenes
 
             ProjectileManager.Draw();
             player.Draw();
-            Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
-            Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
-            Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
 
-            // PAUSE METHODE
-            //if (paused)
-            //{
-            //    Globals.SpriteBatch.DrawString(font, "Game Paused", new Vector2(Globals.WidthScreen / 2 - 50, Globals.HeightScreen / 2), Color.Red);
-            //}
+            //PAUSE METHODE
+            if (paused)
+            {
+                Globals.SpriteBatch.DrawString(font, "Game Paused", new Vector2(Globals.WidthScreen / 2 - 50, Globals.HeightScreen / 2), Color.Red);
+            }
+            else
+            {
+                Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
+                Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
+                Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
+            }
 
             Globals.SpriteBatch.End();
 
 
+        }
+
+        private bool IsKeyPressed(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
         }
 
 
