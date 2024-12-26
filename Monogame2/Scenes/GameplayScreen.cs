@@ -46,8 +46,11 @@ namespace Monogame2.Scenes
         //PLAYER
 
         //ENEMY
-        List<Enemy1> enemies = new();
-        Enemy1 enemy;
+        List<Enemy1> enemies1 = new();
+        Enemy1 enemy1;
+
+        List<Enemy2> enemies2 = new();
+        Enemy2 enemy2;
         //ENEMY
 
         public GameplayScreen(GameDifficulty difficulty)
@@ -80,9 +83,13 @@ namespace Monogame2.Scenes
             //PLAYER
 
             //ENEMY
-            enemy = new Enemy1(new Vector2(rnd.Next(1500,2000), rnd.Next(200, 700)), new Vector2(100, 100));
-            enemies.Add(enemy);
-            enemy.LoadContent();
+            enemy1 = new Enemy1(new Vector2(rnd.Next(1500,2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemies1.Add(enemy1);
+            enemy1.LoadContent();
+
+            enemy2 = new Enemy2(new Vector2(rnd.Next(1500, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemies2.Add(enemy2);
+            enemy2.LoadContent();
             //ENEMY
 
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
@@ -96,6 +103,7 @@ namespace Monogame2.Scenes
         public override void Update(GameTime gameTime)
         {
             List<Coin> killList = new();
+            List<Enemy2> killListEnemy = new();
 
             if (!paused)
             {
@@ -116,12 +124,32 @@ namespace Monogame2.Scenes
                 }
 
                 InputManager.Update();
-                player.Update(enemies);
+                player.Update(enemies1, enemies2);
                 ProjectileManager.Update();
 
                 myBackground.Update(1 * scrollingSpeed);
 
-                enemy.Update();
+                foreach (var enemy in enemies1)
+                {
+                    enemy.Update();
+                }
+
+                foreach (var enemy in enemies2)
+                {
+                    enemy.Update(player._posPlayer);
+
+                    if (enemy.Rect.Intersects(player.Rect))
+                    {
+                        killListEnemy.Add(enemy);
+                    }
+                }
+                foreach (var enemy in killListEnemy)
+                {
+                    enemies2.Remove(enemy);
+                    playerLives--;
+                }
+
+
             }
 
 
@@ -163,7 +191,15 @@ namespace Monogame2.Scenes
                 coin.Draw();
             }
 
-            enemy.Draw();
+            foreach (var enemy in enemies1)
+            {
+                enemy.Draw();
+            }
+
+            foreach (var enemy in enemies2)
+            {
+                enemy.Draw();
+            }
 
             ProjectileManager.Draw();
             player.Draw();

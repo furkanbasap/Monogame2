@@ -77,7 +77,7 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update(List<Enemy1> collisionGroup)
+        public void Update(List<Enemy1> collisionGroupEnemy1, List<Enemy2> collisionGroupEnemy2)
         {
             amPlayer.Update();
             int prevDir = Direction;
@@ -142,7 +142,7 @@ namespace Monogame2.GameObjects
                 //}
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
-                foreach (var enemy in collisionGroup)
+                foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
                     {
@@ -269,7 +269,7 @@ namespace Monogame2.GameObjects
                 _posPlayer.Y += changeY;
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
-                foreach (var enemy in collisionGroup)
+                foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
                     {

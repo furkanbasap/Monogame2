@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Monogame2.GameObjects
 {
-    internal class Enemy2
+    public class Enemy2
     {
         // ENEMY CLASS THAT HURTS PLAYER WHEN THEY INTERCEPT
         private Vector2 _posEnemy;
@@ -29,7 +29,7 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Enemy2(Texture2D texture, Vector2 position, Vector2 size) 
+        public Enemy2(Vector2 position, Vector2 size) 
         {
             _posEnemy = position;
             _sizeEnemy = size;
