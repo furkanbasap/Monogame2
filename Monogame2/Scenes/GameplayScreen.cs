@@ -39,10 +39,16 @@ namespace Monogame2.Scenes
         Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(400, 400), new Vector2(100, 100));
         Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin3"), new Vector2(700, 400), new Vector2(100, 100));
         List<Coin> coins = new();
+        //COIN
 
+        //PLAYER
         Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200));
+        //PLAYER
 
+        //ENEMY
+        List<Enemy1> enemies = new();
         Enemy1 enemy;
+        //ENEMY
 
         public GameplayScreen(GameDifficulty difficulty)
         {
@@ -58,6 +64,7 @@ namespace Monogame2.Scenes
             Texture2D background = Globals.Content.Load<Texture2D>("Backgrounds/starfield3");
             myBackground.Load(background);
 
+            //COIN
             coins.Add(coin);
             coins.Add(coin2);
             coins.Add(coin3);
@@ -66,10 +73,17 @@ namespace Monogame2.Scenes
             coin.LoadContent();
             coin2.LoadContent();
             coin3.LoadContent();
+            //COIN
 
+            //PLAYER
             player.LoadContent();
-            enemy = new Enemy1(new Vector2(1500, 600), new Vector2(100, 100));
+            //PLAYER
+
+            //ENEMY
+            enemy = new Enemy1(new Vector2(rnd.Next(1500,2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemies.Add(enemy);
             enemy.LoadContent();
+            //ENEMY
 
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
@@ -102,12 +116,12 @@ namespace Monogame2.Scenes
                 }
 
                 InputManager.Update();
-                player.Update(coins);
+                player.Update(enemies);
                 ProjectileManager.Update();
 
                 myBackground.Update(1 * scrollingSpeed);
 
-                enemy.Update(player._posPlayer);
+                enemy.Update();
             }
 
 

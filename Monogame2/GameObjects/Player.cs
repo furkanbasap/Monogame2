@@ -77,7 +77,7 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update(List<Coin> collisionGroup)
+        public void Update(List<Enemy1> collisionGroup)
         {
             amPlayer.Update();
             int prevDir = Direction;
@@ -142,13 +142,88 @@ namespace Monogame2.GameObjects
                 //}
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
-                //foreach (var coin in collisionGroup)
-                //{
-                //    if (coin.Rect.Intersects(Rect))
-                //    {
-                //        _posPlayer.X -= changeX;
-                //    }
-                //}
+                foreach (var enemy in collisionGroup)
+                {
+                    if (enemy.Rect.Intersects(Rect))
+                    {
+                        if (_posPlayer.X <= enemy._posEnemy.X)
+                        {
+                            _posPlayer.X = enemy._posEnemy.X - 200;
+                        }
+                        else if (_posPlayer.X > enemy._posEnemy.X)
+                        {
+                            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+                            {
+                                if (_posPlayer.X >= WidthScreen - _sizePlayer.X)
+                                {
+                                    currentSpeedX = 0f;
+                                    Direction = 1;
+                                }
+                                else
+                                {
+                                    // Gradually accelerate to the maximum (positive) speed
+                                    currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
+                                    rightKey = true;
+                                    Direction = 1;
+                                }
+                            }
+                            if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.Right))
+                                rightKey = false;
+
+                            if (currentSpeedX > 0f && rightKey == false)
+                            {
+                                currentSpeedX = Math.Max(currentSpeedX - acceleration, 0);
+                            }
+
+                            // Update the change in position
+                            changeX = currentSpeedX;
+                            _posPlayer.X += changeX;
+                        }
+                        if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up))
+                        {
+                            if (_posPlayer.Y <= 0)
+                            {
+                                currentSpeedY = 0f;
+                            }
+                            else
+                            {
+                                currentSpeedY = Math.Max(currentSpeedY - acceleration, -maxSpeed);
+                                upKey = true;
+                            }
+                        }
+                        if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
+                        {
+                            if (_posPlayer.Y >= HeightScreen - _sizePlayer.Y)
+                            {
+                                currentSpeedY = 0f;
+                            }
+                            else
+                            {
+                                currentSpeedY = Math.Min(currentSpeedY + acceleration, maxSpeed);
+                                downKey = true;
+                            }
+                        }
+                        if (keyboardState.IsKeyUp(Keys.Z) && keyboardState.IsKeyUp(Keys.Up))
+                            upKey = false;
+
+                        if (currentSpeedY < 0f && upKey == false)
+                        {
+                            currentSpeedY = Math.Min(currentSpeedY + acceleration, 0);
+                        }
+
+                        if (keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.Down))
+                            downKey = false;
+
+                        if (currentSpeedY > 0f && downKey == false)
+                        {
+                            currentSpeedY = Math.Max(currentSpeedY - acceleration, 0);
+                        }
+                        // Update the change in position
+                        changeY = currentSpeedY;
+                        _posPlayer.Y += changeY;
+
+                    }
+                }
 
                 if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up))
                 {
@@ -194,13 +269,13 @@ namespace Monogame2.GameObjects
                 _posPlayer.Y += changeY;
 
                 // VOOR COLLISIONS DUS NIET COINS MAAR DIT IS EEN VOORBEELD VAN HOE
-                //foreach (var coin in collisionGroup)
-                //{
-                //    if (coin.Rect.Intersects(Rect))
-                //    {
-                //        _posPlayer.Y -= changeY;
-                //    }
-                //}
+                foreach (var enemy in collisionGroup)
+                {
+                    if (enemy.Rect.Intersects(Rect))
+                    {
+                        _posPlayer.Y -= changeY;
+                    }
+                }
 
             }
         }

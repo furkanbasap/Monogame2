@@ -12,6 +12,7 @@ namespace Monogame2.GameObjects
 {
     internal class Enemy2
     {
+        // ENEMY CLASS THAT HURTS PLAYER WHEN THEY INTERCEPT
         private Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
 
@@ -42,13 +43,32 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update()
+        public void Update(Vector2 _posPlayer)
         {
 
             amCoin.Update();
 
-            // BEWEGEN VAN DE COINS
-            //_posCoin.X -= 1f;
+            // BEWEGEN VAN DE ENEMY
+            if (_posEnemy.X > _posPlayer.X)
+            {
+                _posEnemy.X -= 1f;
+            }
+            else if (_posEnemy.X <= _posPlayer.X)
+            {
+                _posEnemy.X -= 1f;
+            }
+            if (_posEnemy.Y < _posPlayer.Y)
+            {
+                _posEnemy.Y += 1f;
+            }
+            else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X > _posPlayer.X)
+            {
+                _posEnemy.Y -= 1f;
+            }
+            else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X <= _posPlayer.X)
+            {
+                _posEnemy.Y = _posEnemy.Y;
+            }
         }
 
         public void Draw()
