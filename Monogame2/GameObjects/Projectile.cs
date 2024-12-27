@@ -12,7 +12,8 @@ namespace Monogame2.GameObjects
         public Vector2 Position { get; private set; }
         public bool IsActive { get; private set; }
         public float Speed { get; set; }
-
+        public Vector2 Destination { get; set; }
+        private bool dest;
         private Texture2D _texture;
 
         public Rectangle Rect
@@ -34,20 +35,34 @@ namespace Monogame2.GameObjects
         {
             Position = startPosition;
             IsActive = true;
+            dest = false;
+        }
+
+        // VOOR BOSS ENEMY
+        public void Fire(Vector2 startPosition, Vector2 destination)
+        {
+            Position = startPosition;
+            IsActive = true;
+            Destination = destination;
+            dest = true;
         }
 
         public void Update()
         {
             if (IsActive)
             {
-                Position = new Vector2(Position.X + Speed, Position.Y);
+                if (dest == false)
+                {
+                    Position = new Vector2(Position.X + Speed, Position.Y);
+                }
+                else if (dest == true)
+                {
+                    Position = new Vector2(Destination.X + Speed, Destination.Y);
+                }
+
 
                 // Deactivate the projectile if it moves off-screen (right side)
-                if (Position.X > Globals.WidthScreen) // Assuming screen width is 1600
-                {
-                    IsActive = false;
-                }
-                if (Position.X < 0) 
+                if (Position.X > Globals.WidthScreen || Position.X < 0 || Position.Y < 0 || Position.Y > Globals.HeightScreen) // Assuming screen width is 1600
                 {
                     IsActive = false;
                 }

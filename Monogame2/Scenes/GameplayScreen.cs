@@ -205,7 +205,7 @@ namespace Monogame2.Scenes
                                 gettingHit.Play();
                                 playerLives--;
                             }
-                            if (projectEnemy.Rect.Intersects(player.Rect))
+                            else if (projectEnemy.Rect.Intersects(player.Rect))
                             {
                                 killListEnemyProjectiles.Add(projectEnemy);
                                 gettingHit.Play();
