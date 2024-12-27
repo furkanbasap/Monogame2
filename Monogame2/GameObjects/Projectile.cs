@@ -1,37 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Managers;
+using System.Collections.Generic;
 
 
 namespace Monogame2.GameObjects
 {
     public class Projectile
     {
-        //public Vector2 Direction { get; set; }
-        //public float LifeSpan { get; private set; }
 
-        //public Projectile(Texture2D texture, ProjectileData data) : base(texture, data.Position)
-        //{
-        //    Speed = data.Speed;
-        //    Direction = new(1,0);
-        //    LifeSpan = data.Lifespan;
-        //}
-
-        //public void Update()
-        //{
-        //    Position += ;
-        //    LifeSpan -= Globals.TotalSeconds;
-        //}
         public Vector2 Position { get; private set; }
         public bool IsActive { get; private set; }
         public float Speed { get; set; }
 
         private Texture2D _texture;
 
-        public Projectile(Texture2D texture)
+        public Rectangle Rect
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)_texture.Width, (int)_texture.Height);
+            }
+        }
+
+        public Projectile(Texture2D texture, float speed)
         {
             _texture = texture;
-            Speed = 3f;
+            Speed = speed;
             IsActive = false;
         }
 
@@ -49,6 +44,10 @@ namespace Monogame2.GameObjects
 
                 // Deactivate the projectile if it moves off-screen (right side)
                 if (Position.X > Globals.WidthScreen) // Assuming screen width is 1600
+                {
+                    IsActive = false;
+                }
+                if (Position.X < 0) 
                 {
                     IsActive = false;
                 }

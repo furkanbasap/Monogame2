@@ -43,6 +43,12 @@
 /processorParam:Quality=Best
 /build:Audio/coinpickup.mp3
 
+#begin Audio/explosionShip.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/explosionShip.mp3
+
 #begin Audio/gettinghit.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -92,6 +98,18 @@
 /processorParam:TextureFormat=Color
 /build:Objects/coin6.png
 
+#begin Objects/enemyShip1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/enemyShip1.png
+
 #begin Objects/rock.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -104,18 +122,6 @@
 /processorParam:TextureFormat=Color
 /build:Objects/rock.png
 
-#begin Objects/rocket1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Objects/rocket1.png
-
 #begin Objects/rocket2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -127,4 +133,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Objects/rocket2.png
+
+#begin Objects/rocket6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/rocket6.png
 

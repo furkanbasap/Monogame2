@@ -65,8 +65,12 @@ namespace Monogame2.GameObjects
             Globals.SpriteBatch.Draw(
                 spritesheetEnemy,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                new Rectangle(0, 0, spritesheetEnemy.Width,spritesheetEnemy.Height),
-                Color.White);
+                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                Color.White,
+                0,
+                new Vector2(-spritesheetEnemy.Width / 2, -spritesheetEnemy.Height / 2),
+                SpriteEffects.None,
+                0f);
 
         }
     }

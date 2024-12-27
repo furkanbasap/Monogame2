@@ -35,6 +35,8 @@ namespace Monogame2.GameObjects
         bool upKey;
         bool downKey;
 
+        private KeyboardState currentKeyboardState, previousKeyboardState;
+        private bool spacePressed = true;
 
         public Rectangle Rect
         {
@@ -45,14 +47,13 @@ namespace Monogame2.GameObjects
         }
 
 
-        private List<Projectile> _projectiles;
+        public List<Projectile> _projectiles { get; set; }
         private Texture2D _projectileTexture;
         public Player(Texture2D texture, Vector2 position, Vector2 size, Texture2D projectileTexture)
         {
             _posPlayer = position;
             _sizePlayer = size;
             _projectileTexture = projectileTexture;
-            _projectiles = new List<Projectile>();
         }
 
         public Vector2 PosPlayer()
@@ -75,11 +76,15 @@ namespace Monogame2.GameObjects
 
             var keyboardState = Keyboard.GetState();
 
+            currentKeyboardState = Keyboard.GetState();
+
             // Check if Space is pressed and fire a projectile
-            if (keyboardState.IsKeyDown(Keys.Space))
+            if ((IsKeyPressed(Keys.Space)) && (currentKeyboardState.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space)))
             {
                 FireProjectile();
             }
+            
+            previousKeyboardState = currentKeyboardState;
 
             foreach (var projectile in _projectiles)
             {
@@ -310,9 +315,14 @@ namespace Monogame2.GameObjects
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture);
-            newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + spritesheetPlayer.Height / 2));
+            Projectile newProjectile = new Projectile(_projectileTexture, 3f);
+            newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + 50));
             _projectiles.Add(newProjectile);
+        }
+
+        private bool IsKeyPressed(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
         }
 
 

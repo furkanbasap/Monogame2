@@ -22,10 +22,13 @@ namespace Monogame2.Scenes
         private SpriteFont font;
         private int playerLives = 3;
         private int pointsCounter = 0;
+        private int killCounter = 0;
         private static Random rnd = new Random();
         SoundEffect sfxCoin;
         Song songBackground;
         SoundEffect sfxBomb;
+        SoundEffect sfxExplosionShip;
+        SoundEffect gettingHit;
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -41,7 +44,8 @@ namespace Monogame2.Scenes
         //COIN
 
         //PLAYER
-        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200), Globals.Content.Load<Texture2D>("Objects/rocket1"));
+        List<Projectile> playerProjectiles;
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100, 100), new Vector2(200, 200), Globals.Content.Load<Texture2D>("Objects/rocket6"));
         //PLAYER
 
         //ENEMY
@@ -53,12 +57,12 @@ namespace Monogame2.Scenes
 
         List<Enemy3> enemies3 = new();
         Enemy3 enemy3;
+        List<Projectile> enemyProjectiles = new();
         //ENEMY
 
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
-            //ProjectileManager.Init();
         }
 
         public override void LoadContent() 
@@ -82,6 +86,8 @@ namespace Monogame2.Scenes
 
             //PLAYER
             player.LoadContent();
+            playerProjectiles = new List<Projectile>();
+            player._projectiles = playerProjectiles;
 
             //PLAYER
 
@@ -94,7 +100,7 @@ namespace Monogame2.Scenes
             enemies2.Add(enemy2);
             enemy2.LoadContent();
 
-            enemy3 = new Enemy3(new Vector2(rnd.Next(1600, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
+            enemy3 = new Enemy3(new Vector2(rnd.Next(1600, 2000), rnd.Next(200, 700)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
             enemies3.Add(enemy3);
             enemy3.LoadContent();
 
@@ -103,6 +109,8 @@ namespace Monogame2.Scenes
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             sfxBomb = Globals.Content.Load<SoundEffect>("Audio/bomb");
+            sfxExplosionShip = Globals.Content.Load<SoundEffect>("Audio/explosionShip");
+            gettingHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
 
             MediaPlayer.Play(songBackground);
 
@@ -111,8 +119,11 @@ namespace Monogame2.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            List<Coin> killList = new();
+            List<Coin> killListCoin = new();
             List<Enemy2> killListEnemy2 = new();
+            List<Enemy3> killListEnemy3 = new();
+            List<Projectile> killListPlayerProjectiles = new();
+            List<Projectile> killListEnemyProjectiles = new();
 
             if (!paused)
             {
@@ -122,11 +133,11 @@ namespace Monogame2.Scenes
 
                     if (coin.Rect.Intersects(player.Rect))
                     {
-                        killList.Add(coin);
+                        killListCoin.Add(coin);
                         sfxCoin.Play();
                     }
                 }
-                foreach (var coin in killList)
+                foreach (var coin in killListCoin)
                 {
                     coins.Remove(coin);
                     pointsCounter++;
@@ -134,15 +145,13 @@ namespace Monogame2.Scenes
 
                 InputManager.Update();
                 player.Update(enemies1, enemies2, enemies3);
-                //ProjectileManager.Update();
-
-                myBackground.Update(1 * scrollingSpeed);
 
                 foreach (var enemy in enemies1)
                 {
                     enemy.Update();
                 }
 
+                // COLLSION MET ENEMY 2
                 foreach (var enemy in enemies2)
                 {
                     enemy.Update(player._posPlayer);
@@ -151,18 +160,77 @@ namespace Monogame2.Scenes
                     {
                         killListEnemy2.Add(enemy);
                         sfxBomb.Play();
+                        playerLives--;
                     }
+
+                    foreach (var item in player._projectiles)
+                    {
+                        if (enemy.Rect.Intersects(item.Rect))
+                        {
+                            killListEnemy2.Add(enemy);
+                            killListPlayerProjectiles.Add(item);
+                            sfxBomb.Play();
+                        }
+                    }
+                    
                 }
                 foreach (var enemy in killListEnemy2)
                 {
                     enemies2.Remove(enemy);
-                    playerLives--;
                 }
+                
 
                 foreach (var enemy in enemies3)
                 {
                     enemy.Update();
+
+                    foreach (var projectPlayer in player._projectiles)
+                    {
+                        if (enemy.Rect.Intersects(projectPlayer.Rect))
+                        {
+                            killListEnemy3.Add(enemy);
+                            killListPlayerProjectiles.Add(projectPlayer);
+                            killCounter++;
+                        }
+                        foreach (var projectEnemy in enemy._projectiles)
+                        {
+                            if (projectPlayer.Rect.Intersects(projectEnemy.Rect))
+                            {
+                                killListPlayerProjectiles.Add(projectPlayer);
+                                killListEnemyProjectiles.Add(projectEnemy);
+                            }
+                            if (player.Rect.Intersects(projectEnemy.Rect))
+                            {
+                                killListEnemyProjectiles.Add(projectEnemy);
+                                gettingHit.Play();
+                                playerLives--;
+                            }
+                            if (projectEnemy.Rect.Intersects(player.Rect))
+                            {
+                                killListEnemyProjectiles.Add(projectEnemy);
+                                gettingHit.Play();
+                                playerLives--;
+                            }
+                        }
+                    }
+                    
+                    foreach (var item in killListEnemyProjectiles)
+                    {
+                        enemy._projectiles.Remove(item);
+                    }
                 }
+                foreach (var enemy in killListEnemy3)
+                {
+                    enemies3.Remove(enemy);
+                    sfxExplosionShip.Play();
+                }
+                foreach (var item in killListPlayerProjectiles)
+                {
+                    player._projectiles.Remove(item);
+                }
+                
+
+                myBackground.Update(1 * scrollingSpeed);
             }
 
 
@@ -177,7 +245,7 @@ namespace Monogame2.Scenes
             }
 
             // METHODE OM TE VERLIEZEN
-            if (playerLives == 0)
+            if (playerLives <= 0)
             {
                 GameStateManager.ChangeState(new GameOverScreen(false));
             }
@@ -229,7 +297,6 @@ namespace Monogame2.Scenes
             }
 
 
-            //ProjectileManager.Draw();
             player.Draw();
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
 
@@ -245,6 +312,7 @@ namespace Monogame2.Scenes
                 Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
                 Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
                 Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
+                Globals.SpriteBatch.DrawString(font, $"Kills: {killCounter}", new Vector2(10, 100), Color.White);
                 Globals.SpriteBatch.DrawString(font, "(Press P to pause game)", new Vector2(Globals.WidthScreen - 210, 40), Color.White);
             }
 
