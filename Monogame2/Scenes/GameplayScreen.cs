@@ -41,7 +41,7 @@ namespace Monogame2.Scenes
         //COIN
 
         //PLAYER
-        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200));
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100,100), new Vector2(200,200), Globals.Content.Load<Texture2D>("Objects/rocket1"));
         //PLAYER
 
         //ENEMY
@@ -58,7 +58,7 @@ namespace Monogame2.Scenes
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
-            ProjectileManager.Init();
+            //ProjectileManager.Init();
         }
 
         public override void LoadContent() 
@@ -82,6 +82,7 @@ namespace Monogame2.Scenes
 
             //PLAYER
             player.LoadContent();
+
             //PLAYER
 
             //ENEMY
@@ -133,7 +134,7 @@ namespace Monogame2.Scenes
 
                 InputManager.Update();
                 player.Update(enemies1, enemies2, enemies3);
-                ProjectileManager.Update();
+                //ProjectileManager.Update();
 
                 myBackground.Update(1 * scrollingSpeed);
 
@@ -228,7 +229,7 @@ namespace Monogame2.Scenes
             }
 
 
-            ProjectileManager.Draw();
+            //ProjectileManager.Draw();
             player.Draw();
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
 
@@ -244,6 +245,7 @@ namespace Monogame2.Scenes
                 Globals.SpriteBatch.DrawString(font, $"Game Mode: {difficulty}", new Vector2(10, 10), Color.White);
                 Globals.SpriteBatch.DrawString(font, $"Lives: {playerLives}", new Vector2(10, 40), Color.White);
                 Globals.SpriteBatch.DrawString(font, $"Points: {pointsCounter}", new Vector2(10, 70), Color.White);
+                Globals.SpriteBatch.DrawString(font, "(Press P to pause game)", new Vector2(Globals.WidthScreen - 210, 40), Color.White);
             }
 
             Globals.SpriteBatch.End();

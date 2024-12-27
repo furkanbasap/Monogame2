@@ -8,7 +8,7 @@ using System;
 
 namespace Monogame2.GameObjects
 {
-    public class Player : Sprite
+    public class Player
     {
 
         public Vector2 _posPlayer;
@@ -35,7 +35,6 @@ namespace Monogame2.GameObjects
         bool upKey;
         bool downKey;
 
-        public int Direction { get; set; } // To change direction of sprite
 
         public Rectangle Rect
         {
@@ -44,25 +43,18 @@ namespace Monogame2.GameObjects
                 return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
             }
         }
- 
-        public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
+
+
+        private List<Projectile> _projectiles;
+        private Texture2D _projectileTexture;
+        public Player(Texture2D texture, Vector2 position, Vector2 size, Texture2D projectileTexture)
         {
             _posPlayer = position;
             _sizePlayer = size;
-            Direction = 1;
+            _projectileTexture = projectileTexture;
+            _projectiles = new List<Projectile>();
         }
 
-        private void Fire()
-        {
-            ProjectileData pd = new()
-            {
-                Position = Position,
-                Lifespan = 2,
-                Speed = 600
-            };
-
-            ProjectileManager.AddProjectile(pd);
-        }
         public Vector2 PosPlayer()
         {
             return _posPlayer;
@@ -80,9 +72,21 @@ namespace Monogame2.GameObjects
         public void Update(List<Enemy1> collisionGroupEnemy1, List<Enemy2> collisionGroupEnemy2, List<Enemy3> collisionGroupEnemy3)
         {
             amPlayer.Update();
-            int prevDir = Direction;
 
             var keyboardState = Keyboard.GetState();
+
+            // Check if Space is pressed and fire a projectile
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                FireProjectile();
+            }
+
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Update();
+            }
+
+
             if (keyboardState.GetPressedKeyCount() >= 0)
             {
                 if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left))
@@ -90,14 +94,12 @@ namespace Monogame2.GameObjects
                     if (_posPlayer.X <= 0)
                     {
                         currentSpeedX = 0f;
-                        Direction = -1;
                     }
                     else
                     {
                         // Gradually accelerate to the maximum (negative) speed
                         currentSpeedX = Math.Max(currentSpeedX - acceleration, -maxSpeed);
                         leftKey = true;
-                        Direction = -1;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
@@ -105,14 +107,12 @@ namespace Monogame2.GameObjects
                     if (_posPlayer.X >= WidthScreen - _sizePlayer.X)
                     {
                         currentSpeedX = 0f;
-                        Direction = 1;
                     }
                     else
                     {
                         // Gradually accelerate to the maximum (positive) speed
                         currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
                         rightKey = true;
-                        Direction = 1;
                     }
                 }
                 if (keyboardState.IsKeyUp(Keys.Q) && keyboardState.IsKeyUp(Keys.Left))
@@ -157,14 +157,12 @@ namespace Monogame2.GameObjects
                                 if (_posPlayer.X >= WidthScreen - _sizePlayer.X)
                                 {
                                     currentSpeedX = 0f;
-                                    Direction = 1;
                                 }
                                 else
                                 {
                                     // Gradually accelerate to the maximum (positive) speed
                                     currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
                                     rightKey = true;
-                                    Direction = 1;
                                 }
                             }
                             if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.Right))
@@ -296,14 +294,27 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public override void Draw()
+        public void Draw()
         {
             Globals.SpriteBatch.Draw(
                             spritesheetPlayer,
                             new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y),
                             amPlayer.GetFrame(),
                             Color.White);
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Draw();
+            }
         }
+
+        private void FireProjectile()
+        {
+            // Fire a new projectile if none are active
+            Projectile newProjectile = new Projectile(_projectileTexture);
+            newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + spritesheetPlayer.Height / 2));
+            _projectiles.Add(newProjectile);
+        }
+
 
     }
 }

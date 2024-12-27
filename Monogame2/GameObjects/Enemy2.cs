@@ -40,19 +40,19 @@ namespace Monogame2.GameObjects
             // BEWEGEN VAN DE ENEMY
             if (_posEnemy.X > _posPlayer.X)
             {
-                _posEnemy.X -= 1f;
+                _posEnemy.X -= 1.5f;
             }
             else if (_posEnemy.X <= _posPlayer.X)
             {
-                _posEnemy.X -= 1f;
+                _posEnemy.X -= 1.5f;
             }
             if (_posEnemy.Y < _posPlayer.Y)
             {
-                _posEnemy.Y += 1f;
+                _posEnemy.Y += 1.5f;
             }
             else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X > _posPlayer.X)
             {
-                _posEnemy.Y -= 1f;
+                _posEnemy.Y -= 1.5f;
             }
             else if (_posEnemy.Y >= _posPlayer.Y && _posEnemy.X <= _posPlayer.X)
             {

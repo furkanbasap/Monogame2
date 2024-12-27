@@ -11,15 +11,15 @@ namespace Monogame2.GameObjects
         protected readonly Vector2 origin;
 
         public Vector2 Position { get; set; }
-        public int Speed { get; set; }
+        public float Speed { get; set; }
         public float Rotation { get; set; }
 
         public Sprite(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
-            this.Position = position;
-            this.Speed = 300;
-            this.origin = new(texture.Width / 2, texture.Height / 2);
+            Position = position;
+            Speed = 1f;
+            origin = new(texture.Width / 2, texture.Height / 2);
 
         }
 

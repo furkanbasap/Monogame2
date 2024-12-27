@@ -45,11 +45,11 @@ namespace Monogame2.GameObjects
 
 
             // BEWEGEN VAN DE ENEMY
-            _posEnemy.X -= 1f;
+            _posEnemy.X -= 2f;
 
             if (seconds % 3 == 0)
             {
-                rotation+= 0.01f;
+                rotation+= 0.04f;
             }
             seconds++;
         }
