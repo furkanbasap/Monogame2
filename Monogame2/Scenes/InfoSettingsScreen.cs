@@ -62,7 +62,7 @@ namespace Monogame2.Scenes
             Globals.SpriteBatch.DrawString(font, "Points: This is the amount of coins you have collected", new Vector2(10, 550), Color.White);
             Globals.SpriteBatch.DrawString(font, "Kills: This is the amount of Shooters you have shot down. This doesn't add by shooting a bomb", new Vector2(10, 580), Color.White);
 
-            Globals.SpriteBatch.DrawString(font, "Press Escape to go back", new Vector2(Globals.WidthScreen - 210, 10), Color.White);
+            Globals.SpriteBatch.DrawString(font, "Press Escape to go back", new Vector2(Globals.WidthScreen - 210, 10), Color.Red);
 
             Globals.SpriteBatch.End();
         }
