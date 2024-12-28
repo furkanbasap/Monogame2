@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Enemies
 {
     public class EnemyBoss
     {

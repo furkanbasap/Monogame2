@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monogame2.Scenes;
 
-namespace Monogame2.Utils
+namespace Monogame2.Managers
 {
     public static class GameStateManager
     {

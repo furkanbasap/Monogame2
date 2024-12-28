@@ -6,9 +6,9 @@ using Monogame2.Managers;
 using System.Collections.Generic;
 
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Enemies
 {
-    public class Enemy3
+    public class Shooter
     {
         private Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
@@ -31,7 +31,7 @@ namespace Monogame2.GameObjects
         public List<Projectile> _projectiles;
         private Texture2D _projectileTexture;
 
-        public Enemy3(Vector2 position, Vector2 size, Texture2D projectileTexture) 
+        public Shooter(Vector2 position, Vector2 size, Texture2D projectileTexture)
         {
             _posEnemy = position;
             _sizeEnemy = size;
@@ -86,7 +86,7 @@ namespace Monogame2.GameObjects
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, -3f);
+            Projectile newProjectile = new Projectile(_projectileTexture, -4f);
             newProjectile.Fire(new Vector2(_posEnemy.X - 100, _posEnemy.Y + 20));
             _projectiles.Add(newProjectile);
         }

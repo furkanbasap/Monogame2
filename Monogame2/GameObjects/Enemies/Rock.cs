@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Animation;
 using Monogame2.Managers;
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Enemies
 {
-    public class Enemy1
+    public class Rock
     {
         // ENEMY CLASS THAT MOVES TOWARDS PLAYERS X POSITION NOT Y (LIKE A ROCK IN SPACE)
-        
+
         public Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
 
@@ -18,7 +18,7 @@ namespace Monogame2.GameObjects
 
         AnimationManager amCoin;
 
-         
+
 
         public Rectangle Rect
         {
@@ -28,7 +28,7 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Enemy1(Vector2 position, Vector2 size)
+        public Rock(Vector2 position, Vector2 size)
         {
             _posEnemy = position;
             _sizeEnemy = size;
@@ -49,7 +49,7 @@ namespace Monogame2.GameObjects
 
             if (seconds % 3 == 0)
             {
-                rotation+= 0.04f;
+                rotation += 0.04f;
             }
             seconds++;
         }

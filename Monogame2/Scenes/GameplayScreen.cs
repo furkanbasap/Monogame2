@@ -5,9 +5,10 @@ using Monogame2.GameObjects;
 using Monogame2.Managers;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
-using Monogame2.Utils;
 using System;
 using Microsoft.Xna.Framework.Audio;
+using Monogame2.GameObjects.Enemies;
+using Monogame2.GameObjects.Objects;
 
 namespace Monogame2.Scenes
 {
@@ -37,9 +38,17 @@ namespace Monogame2.Scenes
         //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
         //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(100, 400), new Vector2(100, 100));
-        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(400, 400), new Vector2(100, 100));
-        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(700, 400), new Vector2(100, 100));
+        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+
+        Coin coin4 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin5 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin6  = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+
+        Coin coin7 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin8 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
+        Coin coin9 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
         List<Coin> coins = new();
         //COIN
 
@@ -49,14 +58,23 @@ namespace Monogame2.Scenes
         //PLAYER
 
         //ENEMY
-        List<Enemy1> enemies1 = new();
-        Enemy1 enemy1;
+        List<Rock> enemies1 = new();
+        Rock rock;
+        Rock rock2;
+        Rock rock3;
 
-        List<Enemy2> enemies2 = new();
-        Enemy2 enemy2;
 
-        List<Enemy3> enemies3 = new();
-        Enemy3 enemy3;
+        List<Bomb> enemies2 = new();
+        Bomb bomb;
+        Bomb bomb2;
+        Bomb bomb3;
+
+
+        List<Shooter> enemies3 = new();
+        Shooter shooter;
+        Shooter shooter2;
+        Shooter shooter3;
+
         List<Projectile> enemyProjectiles = new();
         //ENEMY
 
@@ -78,10 +96,25 @@ namespace Monogame2.Scenes
             coins.Add(coin2);
             coins.Add(coin3);
 
-            
+            coins.Add(coin4);
+            coins.Add(coin5);
+            coins.Add(coin6);
+
+            coins.Add(coin7);
+            coins.Add(coin8);
+            coins.Add(coin9);
+
             coin.LoadContent();
             coin2.LoadContent();
             coin3.LoadContent();
+
+            coin4.LoadContent();
+            coin5.LoadContent();
+            coin6.LoadContent();
+
+            coin7.LoadContent();
+            coin8.LoadContent();
+            coin9.LoadContent();
             //COIN
 
             //PLAYER
@@ -92,18 +125,47 @@ namespace Monogame2.Scenes
             //PLAYER
 
             //ENEMY
-            enemy1 = new Enemy1(new Vector2(rnd.Next(1500,2000), rnd.Next(200, 700)), new Vector2(100, 100));
-            enemies1.Add(enemy1);
-            enemy1.LoadContent();
+                //ROCK
+            rock = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
+            rock2 = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
+            rock3 = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
 
-            enemy2 = new Enemy2(new Vector2(rnd.Next(1500, 2000), rnd.Next(200, 700)), new Vector2(100, 100));
-            enemies2.Add(enemy2);
-            enemy2.LoadContent();
+            enemies1.Add(rock);
+            enemies1.Add(rock2);
+            enemies1.Add(rock3);
 
-            enemy3 = new Enemy3(new Vector2(rnd.Next(1600, 2000), rnd.Next(200, 700)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
-            enemies3.Add(enemy3);
-            enemy3.LoadContent();
+            rock.LoadContent();
+            rock2.LoadContent();
+            rock3.LoadContent();
+                //ROCK
 
+                //BOMB
+            bomb = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
+            bomb2 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
+            bomb3 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
+
+            enemies2.Add(bomb);
+            enemies2.Add(bomb2);
+            enemies2.Add(bomb3);
+
+            bomb.LoadContent();
+            bomb2.LoadContent();
+            bomb3.LoadContent();
+                //BOMB
+
+                //SHOOTER
+            shooter = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
+            shooter2 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
+            shooter3 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
+
+            enemies3.Add(shooter);
+            enemies3.Add(shooter2);
+            enemies3.Add(shooter3);
+
+            shooter.LoadContent();
+            shooter2.LoadContent();
+            shooter3.LoadContent();
+                //SHOOTER
             //ENEMY
 
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
@@ -120,8 +182,8 @@ namespace Monogame2.Scenes
         public override void Update(GameTime gameTime)
         {
             List<Coin> killListCoin = new();
-            List<Enemy2> killListEnemy2 = new();
-            List<Enemy3> killListEnemy3 = new();
+            List<Bomb> killListEnemy2 = new();
+            List<Shooter> killListEnemy3 = new();
             List<Projectile> killListPlayerProjectiles = new();
             List<Projectile> killListEnemyProjectiles = new();
 
@@ -198,6 +260,7 @@ namespace Monogame2.Scenes
                             {
                                 killListPlayerProjectiles.Add(projectPlayer);
                                 killListEnemyProjectiles.Add(projectEnemy);
+                                sfxBomb.Play();
                             }
                             if (player.Rect.Intersects(projectEnemy.Rect))
                             {
@@ -237,11 +300,9 @@ namespace Monogame2.Scenes
 
 
             // METHODE OM TE WINNEN MET PUNTEN
-            if (pointsCounter == 4)
+            if (pointsCounter == 4 || killCounter == 10)
             {
-
                 GameStateManager.ChangeState(new GameOverScreen(true));
-
             }
 
             // METHODE OM TE VERLIEZEN

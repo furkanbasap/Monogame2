@@ -5,6 +5,7 @@ using Monogame2.Animation;
 using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
+using Monogame2.GameObjects.Enemies;
 
 namespace Monogame2.GameObjects
 {
@@ -70,7 +71,7 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update(List<Enemy1> collisionGroupEnemy1, List<Enemy2> collisionGroupEnemy2, List<Enemy3> collisionGroupEnemy3)
+        public void Update(List<Rock> collisionGroupEnemy1, List<Bomb> collisionGroupEnemy2, List<Shooter> collisionGroupEnemy3)
         {
             amPlayer.Update();
 
@@ -315,7 +316,7 @@ namespace Monogame2.GameObjects
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, 3f);
+            Projectile newProjectile = new Projectile(_projectileTexture, 4f);
             newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + 50));
             _projectiles.Add(newProjectile);
         }

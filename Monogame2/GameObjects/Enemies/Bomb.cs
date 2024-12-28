@@ -4,9 +4,9 @@ using Monogame2.Animation;
 using Monogame2.Managers;
 
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Enemies
 {
-    public class Enemy2
+    public class Bomb
     {
         // ENEMY CLASS THAT HURTS PLAYER WHEN THEY INTERCEPT
         private Vector2 _posEnemy;
@@ -25,7 +25,7 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Enemy2(Vector2 position, Vector2 size) 
+        public Bomb(Vector2 position, Vector2 size)
         {
             _posEnemy = position;
             _sizeEnemy = size;

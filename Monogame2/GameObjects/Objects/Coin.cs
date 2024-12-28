@@ -5,7 +5,7 @@ using Monogame2.Managers;
 
 
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Objects
 {
     public class Coin : Sprite
     {
@@ -25,11 +25,11 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Coin(Texture2D texture, Vector2 position) : base(texture,position)
+        public Coin(Texture2D texture, Vector2 position) : base(texture, position)
         {
             _posCoin = position;
         }
-        public Coin(Texture2D texture,Vector2 position, Vector2 size) : base(texture,position)
+        public Coin(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
         {
             _posCoin = position;
             _sizeCoin = size;
@@ -45,11 +45,11 @@ namespace Monogame2.GameObjects
 
         public void Update()
         {
-                
+
             amCoin.Update();
 
-            // BEWEGEN VAN DE COINS
-            //_posCoin.X -= 1f;
+            //BEWEGEN VAN DE COINS
+            _posCoin.X -= 1.5f;
         }
 
         public void Draw()

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Monogame2.Managers;
 using Monogame2.Scenes;
-using Monogame2.Utils;
 
 namespace Monogame2
 {
