@@ -30,6 +30,7 @@ namespace Monogame2.Scenes
         SoundEffect sfxBomb;
         SoundEffect sfxExplosionShip;
         SoundEffect sfxGettingHit;
+        SoundEffect sfxHeartBeat;
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -37,6 +38,10 @@ namespace Monogame2.Scenes
         //Position and Size of the texture
         List<Coin> coins = new();
         //COIN
+
+        //HEART
+        List<Heart> hearts = new();
+        //HEART
 
         //PLAYER
         List<Projectile> playerProjectiles;
@@ -89,6 +94,21 @@ namespace Monogame2.Scenes
 
             coins.ForEach(coin => coin.LoadContent());
             //COIN
+            //HEART
+            for (int j = 1; j < 101; j++)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    var heart = new Heart(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(50, 50));
+                    hearts.Add(heart);
+                }
+            }
+
+            hearts.ForEach(heart => heart.LoadContent());
+            //HEART
+
 
             //PLAYER
             player.LoadContent();
@@ -117,7 +137,7 @@ namespace Monogame2.Scenes
                 //BOMB
             for (int j = 1; j < 100; j++)
             {
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     var bomb = new Bomb(
                                         new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
@@ -153,6 +173,7 @@ namespace Monogame2.Scenes
             sfxBomb = Globals.Content.Load<SoundEffect>("Audio/bomb");
             sfxExplosionShip = Globals.Content.Load<SoundEffect>("Audio/explosionShip");
             sfxGettingHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
+            sfxHeartBeat = Globals.Content.Load<SoundEffect>("Audio/heartBeat");
 
             MediaPlayer.Play(songBackground);
 
@@ -166,6 +187,7 @@ namespace Monogame2.Scenes
             List<Shooter> killListEnemy3 = new();
             List<Projectile> killListPlayerProjectiles = new();
             List<Projectile> killListEnemyProjectiles = new();
+            List<Heart> killListHeart = new();
 
             if (!paused)
             {
@@ -183,6 +205,22 @@ namespace Monogame2.Scenes
                 {
                     coins.Remove(coin);
                     pointsCounter++;
+                }
+
+                foreach (var heart in hearts)
+                {
+                    heart.Update();
+
+                    if (heart.Rect.Intersects(player.Rect))
+                    {
+                        killListHeart.Add(heart);
+                        sfxHeartBeat.Play();
+                    }
+                }
+                foreach (var heart in killListHeart)
+                {
+                    hearts.Remove(heart);
+                    playerLives++;
                 }
 
                 InputManager.Update();
@@ -346,6 +384,11 @@ namespace Monogame2.Scenes
             foreach (var coin in coins)
             {
                 coin.Draw();
+            }
+
+            foreach (var heart in hearts)
+            {
+                heart.Draw();
             }
 
             foreach (var enemy in enemies1)
