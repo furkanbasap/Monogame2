@@ -36,6 +36,10 @@ namespace Monogame2.GameObjects
         bool upKey;
         bool downKey;
 
+        private float _fireCooldown = 0.5f; // Cooldown duration in seconds
+        private float _timeSinceLastFire = 0f; // Time elapsed since last fire
+
+
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool spacePressed = true;
 
@@ -71,20 +75,23 @@ namespace Monogame2.GameObjects
 
         }
 
-        public void Update(List<Rock> collisionGroupEnemy1, List<Bomb> collisionGroupEnemy2, List<Shooter> collisionGroupEnemy3)
+        public void Update(List<Rock> collisionGroupEnemy1, List<Bomb> collisionGroupEnemy2, List<Shooter> collisionGroupEnemy3, GameTime gameTime)
         {
             amPlayer.Update();
+
+            _timeSinceLastFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             var keyboardState = Keyboard.GetState();
 
             currentKeyboardState = Keyboard.GetState();
 
             // Check if Space is pressed and fire a projectile
-            if ((IsKeyPressed(Keys.Space)) && (currentKeyboardState.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space)))
+            if ((IsKeyPressed(Keys.Space)) && (currentKeyboardState.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space)) && _timeSinceLastFire >= _fireCooldown)
             {
                 FireProjectile();
+                _timeSinceLastFire = 0f; // Reset the cooldown timer
             }
-            
+
             previousKeyboardState = currentKeyboardState;
 
             foreach (var projectile in _projectiles)

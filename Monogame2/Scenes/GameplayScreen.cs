@@ -236,7 +236,7 @@ namespace Monogame2.Scenes
                 }
 
                 InputManager.Update();
-                player.Update(enemies1, enemies2, enemies3);
+                player.Update(enemies1, enemies2, enemies3, gameTime);
 
                 foreach (var enemy in enemies1)
                 {

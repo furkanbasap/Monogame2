@@ -17,9 +17,7 @@ namespace Monogame2.Scenes
         private ScrollingBackground myBackground;
 
         public InfoSettingsScreen()
-        {
-
-        }
+        {}
 
         public override void LoadContent()
         {
@@ -55,7 +53,7 @@ namespace Monogame2.Scenes
 
             Globals.SpriteBatch.DrawString(font, "Pickups", new Vector2(10, 370), Color.White);
             Globals.SpriteBatch.DrawString(font, "Coin: You can pick these up to win the game. If you win by collecting the coins you will NOT get a Boss Fight. Normal = 50, Hard = 100", new Vector2(10, 400), Color.White);
-            Globals.SpriteBatch.DrawString(font, "Health: You can pick these to gain lives.", new Vector2(10, 430), Color.White);
+            Globals.SpriteBatch.DrawString(font, "Health: You can pick these up to gain lives.", new Vector2(10, 430), Color.White);
 
             Globals.SpriteBatch.DrawString(font, "Heads Up Display", new Vector2(10, 490), Color.White);
             Globals.SpriteBatch.DrawString(font, "Lives: Here you can see how many lives you have left. Depending on the difficulty you will have different amount of lives. Normal = 10, Hard = 5", new Vector2(10, 520), Color.White);
