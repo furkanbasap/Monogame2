@@ -29,7 +29,7 @@ namespace Monogame2.Scenes
         Song songBackground;
         SoundEffect sfxBomb;
         SoundEffect sfxExplosionShip;
-        SoundEffect gettingHit;
+        SoundEffect sfxGettingHit;
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -81,6 +81,7 @@ namespace Monogame2.Scenes
         public GameplayScreen(GameDifficulty difficulty)
         {
             this.difficulty = difficulty;
+            paused = false;
         }
 
         public override void LoadContent() 
@@ -104,17 +105,7 @@ namespace Monogame2.Scenes
             coins.Add(coin8);
             coins.Add(coin9);
 
-            coin.LoadContent();
-            coin2.LoadContent();
-            coin3.LoadContent();
-
-            coin4.LoadContent();
-            coin5.LoadContent();
-            coin6.LoadContent();
-
-            coin7.LoadContent();
-            coin8.LoadContent();
-            coin9.LoadContent();
+            coins.ForEach(coin => coin.LoadContent());
             //COIN
 
             //PLAYER
@@ -134,12 +125,10 @@ namespace Monogame2.Scenes
             enemies1.Add(rock2);
             enemies1.Add(rock3);
 
-            rock.LoadContent();
-            rock2.LoadContent();
-            rock3.LoadContent();
-                //ROCK
+            enemies1.ForEach(enemy => enemy.LoadContent());
+            //ROCK
 
-                //BOMB
+            //BOMB
             bomb = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
             bomb2 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
             bomb3 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
@@ -148,12 +137,10 @@ namespace Monogame2.Scenes
             enemies2.Add(bomb2);
             enemies2.Add(bomb3);
 
-            bomb.LoadContent();
-            bomb2.LoadContent();
-            bomb3.LoadContent();
-                //BOMB
+            enemies2.ForEach(enemy => enemy.LoadContent());
+            //BOMB
 
-                //SHOOTER
+            //SHOOTER
             shooter = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
             shooter2 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
             shooter3 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
@@ -162,9 +149,7 @@ namespace Monogame2.Scenes
             enemies3.Add(shooter2);
             enemies3.Add(shooter3);
 
-            shooter.LoadContent();
-            shooter2.LoadContent();
-            shooter3.LoadContent();
+            enemies3.ForEach(enemy => enemy.LoadContent());
                 //SHOOTER
             //ENEMY
 
@@ -172,7 +157,7 @@ namespace Monogame2.Scenes
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             sfxBomb = Globals.Content.Load<SoundEffect>("Audio/bomb");
             sfxExplosionShip = Globals.Content.Load<SoundEffect>("Audio/explosionShip");
-            gettingHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
+            sfxGettingHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
 
             MediaPlayer.Play(songBackground);
 
@@ -262,21 +247,21 @@ namespace Monogame2.Scenes
                                 killListEnemyProjectiles.Add(projectEnemy);
                                 sfxBomb.Play();
                             }
-                            if (player.Rect.Intersects(projectEnemy.Rect))
-                            {
-                                killListEnemyProjectiles.Add(projectEnemy);
-                                gettingHit.Play();
-                                playerLives--;
-                            }
-                            else if (projectEnemy.Rect.Intersects(player.Rect))
-                            {
-                                killListEnemyProjectiles.Add(projectEnemy);
-                                gettingHit.Play();
-                                playerLives--;
-                            }
+                            
                         }
+
+                        
                     }
-                    
+                    foreach (var projectEnemy in enemy._projectiles)
+                    {
+                        if (player.Rect.Intersects(projectEnemy.Rect))
+                        {
+                            killListEnemyProjectiles.Add(projectEnemy);
+                            sfxGettingHit.Play();
+                            playerLives--;
+                        }                        
+                    }
+
                     foreach (var item in killListEnemyProjectiles)
                     {
                         enemy._projectiles.Remove(item);
