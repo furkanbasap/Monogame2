@@ -85,7 +85,7 @@ namespace Monogame2.Scenes
             Globals.SpriteBatch.Begin();
             myBackground.Draw(Globals.SpriteBatch, Color.White);
 
-            //PAUSE METHODE
+            //PAUSE METHOD
             if (paused)
             {
                 Globals.SpriteBatch.DrawString(font, "Game Paused", new Vector2(Globals.WidthScreen / 2 - 50, Globals.HeightScreen / 2), Color.Red);
