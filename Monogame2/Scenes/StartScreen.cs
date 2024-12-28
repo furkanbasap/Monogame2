@@ -11,7 +11,7 @@ namespace Monogame2.Scenes
     {
         private SpriteFont font;
         private KeyboardState currentKeyboardState, previousKeyboardState;
-        private string[] menuItems = { "Normal", "Hard" };
+        private string[] menuItems = { "Normal", "Hard", "Controls and How the game works" };
         private int selectedIndex = 0;
 
 
@@ -46,7 +46,10 @@ namespace Monogame2.Scenes
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.NORMAL));
                 else if (selectedIndex == 1)
                     GameStateManager.ChangeState(new GameplayScreen(GameDifficulty.HARD));
-                
+                else if (selectedIndex == 2)
+                    GameStateManager.ChangeState(new InfoSettingsScreen());
+
+
             }
 
 
