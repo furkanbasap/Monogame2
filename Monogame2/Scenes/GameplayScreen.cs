@@ -29,8 +29,17 @@ namespace Monogame2.Scenes
         Song songBackground;
         SoundEffect sfxBomb;
         SoundEffect sfxExplosionShip;
-        SoundEffect sfxGettingHit;
+        SoundEffect sfxLosingLives;
         SoundEffect sfxHeartBeat;
+
+        private bool isInvincible;
+        private float invincibilityTimer;
+        private const float InvincibilityDuration = 2.0f; // 2 seconds
+        private float blinkTimer;
+        private const float BlinkInterval = 0.2f; // Blink every 0.2 seconds
+        private bool isVisible; // To toggle visibility during blinking
+
+
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -70,6 +79,9 @@ namespace Monogame2.Scenes
             {
                 playerLives = 5;
             }
+            isInvincible = false;
+            isVisible = true;
+
         }
 
         public override void LoadContent() 
@@ -172,7 +184,7 @@ namespace Monogame2.Scenes
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");
             sfxBomb = Globals.Content.Load<SoundEffect>("Audio/bomb");
             sfxExplosionShip = Globals.Content.Load<SoundEffect>("Audio/explosionShip");
-            sfxGettingHit = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
+            sfxLosingLives = Globals.Content.Load<SoundEffect>("Audio/gettinghit");
             sfxHeartBeat = Globals.Content.Load<SoundEffect>("Audio/heartBeat");
 
             MediaPlayer.Play(songBackground);
@@ -231,16 +243,42 @@ namespace Monogame2.Scenes
                     enemy.Update();
                 }
 
+                if (isInvincible)
+                {
+                    invincibilityTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    blinkTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    // Toggle visibility for blinking
+                    if (blinkTimer <= 0)
+                    {
+                        isVisible = !isVisible;
+                        blinkTimer = BlinkInterval;
+                    }
+
+                    if (invincibilityTimer <= 0)
+                    {
+                        isInvincible = false;
+                        isVisible = true; // Ensure the player is visible when invincibility ends
+                    }
+                }
+
                 // COLLSION MET ENEMY 2
                 foreach (var enemy in enemies2)
                 {
                     enemy.Update(player._posPlayer);
 
-                    if (enemy.Rect.Intersects(player.Rect))
+                    
+
+                    // Alleen levens aftrekken als de speler niet onschendbaar is
+                    if (!isInvincible && enemy.Rect.Intersects(player.Rect))
                     {
+                        playerLives--;
+                        isInvincible = true;
+                        invincibilityTimer = InvincibilityDuration;
+                        blinkTimer = BlinkInterval;
+                        isVisible = false;
                         killListEnemy2.Add(enemy);
                         sfxBomb.Play();
-                        playerLives--;
                     }
 
                     foreach (var item in player._projectiles)
@@ -290,8 +328,18 @@ namespace Monogame2.Scenes
                         if (player.Rect.Intersects(projectEnemy.Rect))
                         {
                             killListEnemyProjectiles.Add(projectEnemy);
-                            sfxGettingHit.Play();
-                            playerLives--;
+                            
+                            // Alleen levens aftrekken als de speler niet onschendbaar is
+                            if (!isInvincible && projectEnemy.Rect.Intersects(player.Rect))
+                            {
+                                playerLives--;
+                                isInvincible = true;
+                                invincibilityTimer = InvincibilityDuration;
+                                blinkTimer = BlinkInterval;
+                                isVisible = false;
+                                killListEnemyProjectiles.Add(projectEnemy);
+                                sfxLosingLives.Play();
+                            }
                         }                        
                     }
 
@@ -318,6 +366,8 @@ namespace Monogame2.Scenes
                 }
 
                 myBackground.Update(1 * scrollingSpeed);
+
+                
             }
 
 
@@ -405,8 +455,10 @@ namespace Monogame2.Scenes
                 enemy.Draw();
             }
 
-
-            player.Draw();
+            if (isVisible)
+            {
+                player.Draw();
+            }
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(Globals.WidthScreen - 200, 10), Color.White);
 
 
