@@ -9,10 +9,10 @@ using System;
 using Microsoft.Xna.Framework.Audio;
 using Monogame2.GameObjects.Enemies;
 using Monogame2.GameObjects.Objects;
+using Monogame2.Enums;
 
 namespace Monogame2.Scenes
 {
-    public enum GameDifficulty { NORMAL, HARD}
     public class GameplayScreen : GameScreen
     {
         private GameDifficulty difficulty;
@@ -21,7 +21,7 @@ namespace Monogame2.Scenes
         private float scrollingSpeed = 1;
 
         private SpriteFont font;
-        private int playerLives = 3;
+        private int playerLives;
         private int pointsCounter = 0;
         private int killCounter = 0;
         private static Random rnd = new Random();
@@ -57,6 +57,14 @@ namespace Monogame2.Scenes
         {
             this.difficulty = difficulty;
             paused = false;
+            if (this.difficulty == GameDifficulty.NORMAL)
+            {
+                playerLives = 10;
+            }
+            else if (this.difficulty == GameDifficulty.HARD)
+            {
+                playerLives = 5;
+            }
         }
 
         public override void LoadContent() 
@@ -263,18 +271,44 @@ namespace Monogame2.Scenes
                 {
                     player._projectiles.Remove(item);
                 }
+                foreach (var proj in player._projectiles)
+                {
+                    if (proj.Position.X >= Globals.WidthScreen - 200)
+                    {
+                        killListPlayerProjectiles.Add(proj);
+                    }
+                }
 
                 myBackground.Update(1 * scrollingSpeed);
             }
 
 
 
-
-            // METHODE OM TE WINNEN MET PUNTEN
-            if (pointsCounter == 4 || killCounter == 10)
+            if (difficulty == GameDifficulty.NORMAL)
             {
-                GameStateManager.ChangeState(new GameOverScreen(true));
+                // METHODE OM TE WINNEN MET PUNTEN OF NAAR DE BOSSFIGHT TE GAAN MET DE KILLS
+                if (pointsCounter == 50)
+                {
+                    GameStateManager.ChangeState(new GameOverScreen(true));
+                }
+                else if (killCounter == 50)
+                {
+                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
+                }
             }
+            else if (difficulty == GameDifficulty.HARD)
+            {
+                // METHODE OM TE WINNEN MET PUNTEN OF NAAR DE BOSSFIGHT TE GAAN MET DE KILLS
+                if (pointsCounter == 100)
+                {
+                    GameStateManager.ChangeState(new GameOverScreen(true));
+                }
+                else if (killCounter == 100)
+                {
+                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
+                }
+            }
+            
 
             // METHODE OM TE VERLIEZEN
             if (playerLives <= 0)

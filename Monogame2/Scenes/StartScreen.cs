@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System;
 using Monogame2.Managers;
+using Monogame2.Enums;
 
 namespace Monogame2.Scenes
 {

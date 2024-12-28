@@ -67,6 +67,7 @@ namespace Monogame2.GameObjects
                     IsActive = false;
                 }
             }
+
         }
 
         public void Draw()

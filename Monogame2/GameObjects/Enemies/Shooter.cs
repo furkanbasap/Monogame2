@@ -58,13 +58,13 @@ namespace Monogame2.GameObjects.Enemies
             }
 
             // BEWEGEN VAN DE ENEMY
-            if (_posEnemy.X == Globals.WidthScreen - 400)
+            if (_posEnemy.X <= Globals.WidthScreen - 400)
             {
                 _posEnemy.X = Globals.WidthScreen - 400;
             }
             else
             {
-                _posEnemy.X -= 1f;
+                _posEnemy.X -= 3f;
             }
         }
 
