@@ -35,20 +35,6 @@ namespace Monogame2.Scenes
         private bool paused;
 
         //Position and Size of the texture
-        //Coin coin = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        //Coin coin2 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        //Coin coin3 = new Coin(Globals.content.Load<Texture2D>("Objects/coin3"), new Vector2(rnd.Next(400, 1500), rnd.Next(100, 600)), new Vector2(100, 100));
-        Coin coin = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin2 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin3 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-
-        Coin coin4 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin5 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin6  = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-
-        Coin coin7 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin8 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
-        Coin coin9 = new Coin(Globals.Content.Load<Texture2D>("Objects/coin6"), new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(50, 50));
         List<Coin> coins = new();
         //COIN
 
@@ -59,21 +45,10 @@ namespace Monogame2.Scenes
 
         //ENEMY
         List<Rock> enemies1 = new();
-        Rock rock;
-        Rock rock2;
-        Rock rock3;
-
 
         List<Bomb> enemies2 = new();
-        Bomb bomb;
-        Bomb bomb2;
-        Bomb bomb3;
-
 
         List<Shooter> enemies3 = new();
-        Shooter shooter;
-        Shooter shooter2;
-        Shooter shooter3;
 
         List<Projectile> enemyProjectiles = new();
         //ENEMY
@@ -93,17 +68,16 @@ namespace Monogame2.Scenes
             myBackground.Load(background);
 
             //COIN
-            coins.Add(coin);
-            coins.Add(coin2);
-            coins.Add(coin3);
-
-            coins.Add(coin4);
-            coins.Add(coin5);
-            coins.Add(coin6);
-
-            coins.Add(coin7);
-            coins.Add(coin8);
-            coins.Add(coin9);
+            for (int j = 1; j < 100; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    var coin = new Coin(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(50, 50));
+                    coins.Add(coin);
+                }              
+            }
 
             coins.ForEach(coin => coin.LoadContent());
             //COIN
@@ -117,37 +91,50 @@ namespace Monogame2.Scenes
 
             //ENEMY
                 //ROCK
-            rock = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-            rock2 = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-            rock3 = new Rock(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-
-            enemies1.Add(rock);
-            enemies1.Add(rock2);
-            enemies1.Add(rock3);
+            for (int j = 1; j < 100; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    var rock = new Rock(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j+1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(100, 100)
+                );
+                    enemies1.Add(rock);
+                }              
+            }
 
             enemies1.ForEach(enemy => enemy.LoadContent());
-            //ROCK
+                //ROCK
 
-            //BOMB
-            bomb = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-            bomb2 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 2, Globals.WidthScreen * 3), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-            bomb3 = new Bomb(new Vector2(rnd.Next(Globals.WidthScreen * 3, Globals.WidthScreen * 4), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100));
-
-            enemies2.Add(bomb);
-            enemies2.Add(bomb2);
-            enemies2.Add(bomb3);
+                //BOMB
+            for (int j = 1; j < 100; j++)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    var bomb = new Bomb(
+                                        new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                                        new Vector2(100, 100)
+                                    );
+                    enemies2.Add(bomb);
+                }                
+            }
 
             enemies2.ForEach(enemy => enemy.LoadContent());
-            //BOMB
+                //BOMB
 
-            //SHOOTER
-            shooter = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
-            shooter2 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
-            shooter3 = new Shooter(new Vector2(rnd.Next(Globals.WidthScreen, Globals.WidthScreen * 2), rnd.Next(100, Globals.HeightScreen - 100)), new Vector2(100, 100), Globals.Content.Load<Texture2D>("Objects/rocket2"));
-
-            enemies3.Add(shooter);
-            enemies3.Add(shooter2);
-            enemies3.Add(shooter3);
+                //SHOOTER
+            var textureShooter = Globals.Content.Load<Texture2D>("Objects/rocket2");
+            for (int j = 1; j < 100; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    var shooter = new Shooter(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(100, 100),
+                    textureShooter);
+                    enemies3.Add(shooter);
+                }
+            }
 
             enemies3.ForEach(enemy => enemy.LoadContent());
                 //SHOOTER
@@ -276,7 +263,6 @@ namespace Monogame2.Scenes
                 {
                     player._projectiles.Remove(item);
                 }
-                
 
                 myBackground.Update(1 * scrollingSpeed);
             }

@@ -62,7 +62,7 @@ namespace Monogame2.GameObjects
 
 
                 // Deactivate the projectile if it moves off-screen (right side)
-                if (Position.X > Globals.WidthScreen || Position.X < 0 || Position.Y < 0 || Position.Y > Globals.HeightScreen) // Assuming screen width is 1600
+                if (Position.X > Globals.WidthScreen - 100 || Position.X < 0 || Position.Y < 0 || Position.Y > Globals.HeightScreen) // Assuming screen width is 1600
                 {
                     IsActive = false;
                 }

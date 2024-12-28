@@ -7,7 +7,7 @@ using Monogame2.Managers;
 
 namespace Monogame2.GameObjects.Objects
 {
-    public class Coin : Sprite
+    public class Coin
     {
         private Vector2 _posCoin;
         private Vector2 _sizeCoin;
@@ -25,11 +25,8 @@ namespace Monogame2.GameObjects.Objects
             }
         }
 
-        public Coin(Texture2D texture, Vector2 position) : base(texture, position)
-        {
-            _posCoin = position;
-        }
-        public Coin(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position)
+
+        public Coin(Vector2 position, Vector2 size) 
         {
             _posCoin = position;
             _sizeCoin = size;
