@@ -179,11 +179,11 @@ namespace Monogame2.Scenes
             }
 
             currentKeyboardState = Keyboard.GetState();
-            if ((IsKeyPressed(Keys.P) && paused == true) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            if ((IsKeyPressed(Keys.P) && paused == true))
             {
                 paused = false;
             }
-            else if ((IsKeyPressed(Keys.P) && paused == false) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            else if ((IsKeyPressed(Keys.P) && paused == false))
             {
                 paused = true;
             }

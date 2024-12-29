@@ -35,14 +35,11 @@ namespace Monogame2.Scenes
         {
             Globals.SpriteBatch.Begin();
             Globals.SpriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            if (gameState)
-            {
-                Globals.SpriteBatch.DrawString(font, "GEWONNEN! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
-            }
-            else
-            {
-                Globals.SpriteBatch.DrawString(font, "VERLOREN! Druk op Enter om terug te keren naar het startscherm.", new Vector2(100, 100), Color.White);
-            }
+            string message = gameState ?
+                "GEWONNEN! Druk op Enter om terug te keren naar het startscherm." :
+                "VERLOREN! Druk op Enter om terug te keren naar het startscherm.";
+            Globals.SpriteBatch.DrawString(font, message, new Vector2(100, 100), Color.White);
+
             Globals.SpriteBatch.End();
         }
     }

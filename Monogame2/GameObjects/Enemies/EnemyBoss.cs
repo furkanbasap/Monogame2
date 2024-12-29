@@ -31,13 +31,13 @@ namespace Monogame2.GameObjects.Enemies
         {
             _posEnemy = position;
             _sizeEnemy = size;
-            _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket2");
             _projectiles = new List<Projectile>();
             _firingStrategy = new SingleShotStrategy();
         }
         public void LoadContent()
         {
             textureEnemyBoss = Globals.Content.Load<Texture2D>("Objects/ogre");
+            _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket2");
         }
 
         public void Update(Vector2 posPlayer)

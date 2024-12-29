@@ -55,12 +55,12 @@ namespace Monogame2
 
             currentKeyboardState = Keyboard.GetState();
 
-            if ((IsKeyPressed(Keys.M) && play == true) && (currentKeyboardState.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
+            if ((IsKeyPressed(Keys.M) && play == true))
             {
                 MediaPlayer.Stop();
                 play = false;
             }
-            else if ((IsKeyPressed(Keys.M) && play == false) && (currentKeyboardState.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
+            else if ((IsKeyPressed(Keys.M) && play == false))
             {
                 MediaPlayer.Play(song);
                 play = true;

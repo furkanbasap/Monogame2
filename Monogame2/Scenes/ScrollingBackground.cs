@@ -25,27 +25,18 @@ namespace Monogame2.Scenes
 
             // Offset to draw the second texture, when necessary.
             texturesize = new Vector2(mytexture.Width, 0);
-            //texturesize = new Vector2(0, 960);
 
         }
-
-
 
         public void Update(float deltaX)
         {
             screenpos.X += deltaX;      
             screenpos.X %= mytexture.Width;
         }
-        //public void Update(float deltaY)
-        //{
-        //    screenpos.Y += deltaY;
-        //    screenpos.Y %= mytexture.Height;
-        //}
 
         public void Draw(SpriteBatch batch, Color color)
         {
             // Draw the texture, if it is still onscreen.
-            //if (screenpos.Y < screenheight)
             if (screenpos.X < screenwidth)
             {
                 batch.Draw(mytexture, screenpos, null,

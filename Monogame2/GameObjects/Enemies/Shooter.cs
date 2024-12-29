@@ -5,6 +5,7 @@ using Monogame2.Interfaces;
 using Monogame2.Managers;
 using System.Collections.Generic;
 using Monogame2.Strategy.Shot;
+using System;
 
 
 namespace Monogame2.GameObjects.Enemies
@@ -49,10 +50,8 @@ namespace Monogame2.GameObjects.Enemies
             }
             seconds++;
 
-            foreach (var projectile in _projectiles)
-            {
-                projectile.Update();
-            }
+            ProcessProjectiles(projectile => projectile.Update());
+
 
             // Enemy movement
             if (_posEnemy.X <= Globals.WidthScreen - 400)
@@ -73,10 +72,8 @@ namespace Monogame2.GameObjects.Enemies
                 new Rectangle(0, 0, textureShooter.Width, textureShooter.Height),
                 Color.White);
 
-            foreach (var projectile in _projectiles)
-            {
-                projectile.Draw();
-            }
+            ProcessProjectiles(projectile => projectile.Draw());
+
 
         }
 
@@ -91,6 +88,13 @@ namespace Monogame2.GameObjects.Enemies
         public void SetFiringStrategy(IFiringStrategy firingStrategy)
         {
             _firingStrategy = firingStrategy;
+        }
+        private void ProcessProjectiles(Action<Projectile> action)
+        {
+            foreach (var projectile in _projectiles)
+            {
+                action(projectile);
+            }
         }
     }
 }

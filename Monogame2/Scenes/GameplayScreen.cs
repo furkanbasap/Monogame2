@@ -41,7 +41,7 @@ namespace Monogame2.Scenes
         private const float BlinkInterval = 0.2f; // Blink every 0.2 seconds
         private bool isVisible; // To toggle visibility during blinking
 
-
+         
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
         private bool paused;
@@ -76,6 +76,7 @@ namespace Monogame2.Scenes
         {
             this.difficulty = difficulty;
             paused = false;
+
             if (this.difficulty == GameDifficulty.NORMAL)
             {
                 playerLives = 10;
@@ -372,17 +373,18 @@ namespace Monogame2.Scenes
             if (player._posPlayer.X < -player._sizePlayer.X)
             {
                 GameStateManager.ChangeState(new GameOverScreen(false));
+                player._posPlayer.X = 100;
             }
 
 
 
             currentKeyboardState = Keyboard.GetState();
 
-            if ((IsKeyPressed(Keys.P) && paused == true) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            if ((IsKeyPressed(Keys.P) && paused == true))
             {
                 paused = false;
             }
-            else if ((IsKeyPressed(Keys.P) && paused == false) && (currentKeyboardState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)))
+            else if ((IsKeyPressed(Keys.P) && paused == false))
             {
                 paused = true;
             }
