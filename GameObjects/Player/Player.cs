@@ -4,80 +4,60 @@ using Microsoft.Xna.Framework;
 using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
+using Monogame2.GameObjects.Enemies;
 using Monogame2.GameObjects.Items;
-using Monogame2.GameObjects.Enemies.Bomb;
-using Monogame2.GameObjects.Enemies.Rock;
-using Monogame2.GameObjects.Enemies.Boss;
-using Monogame2.GameObjects.Enemies.Shooter;
-using Monogame2.Interfaces;
 
 namespace Monogame2.GameObjects
 {
     public class Player
     {
-        // SINGLETON AND STRATEGY
-        private static Player _instance;
-        private static readonly object _lock = new object();
 
         public Vector2 _posPlayer;
         public Vector2 _sizePlayer;
 
-        private Texture2D spritesheetPlayer;
-        private AnimationManager amPlayer;
+
+        Texture2D spritesheetPlayer;
+        AnimationManager amPlayer;
 
         public static int WidthScreen = Globals.WidthScreen;
         public static int HeightScreen = Globals.HeightScreen;
 
-        private float acceleration = 0.1f; // How fast the movement accelerates
-        private float maxSpeed = 3f; // Max speed
-        private float currentSpeedX = 0f; // Current horizontal speed 
-        private float currentSpeedY = 0f; // Current vertical speed 
 
-        private float changeX = 0;
-        private float changeY = 0;
+        float acceleration = 0.1f; // How fast the movement accelerates
+        float maxSpeed = 3f; // Max speed
+        float currentSpeedX = 0f; // Current horizontal speed 
+        float currentSpeedY = 0f; // Current vertical speed 
 
-        private bool leftKey;
-        private bool rightKey;
-        private bool upKey;
-        private bool downKey;
+        float changeX = 0; 
+        float changeY = 0;
+
+        bool leftKey;
+        bool rightKey;
+        bool upKey;
+        bool downKey;
 
         private float _fireCooldown = 0.5f; // Cooldown duration in seconds
         private float _timeSinceLastFire = 0f; // Time elapsed since last fire
 
+
         private KeyboardState currentKeyboardState, previousKeyboardState;
+
+        public Rectangle Rect
+        {
+            get
+            {
+                return new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
+            }
+        }
+
 
         public List<Projectile> _projectiles { get; set; }
         private Texture2D _projectileTexture;
-
-        private IFiringStrategy _firingStrategy;
-
-        public Rectangle Rect => new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y);
-
-
-        // Private constructor to prevent instantiation from outside
-        private Player(Vector2 position, Vector2 size)
+        public Player(Texture2D texture, Vector2 position, Vector2 size)
         {
             _posPlayer = position;
             _sizePlayer = size;
-            _projectiles = new List<Projectile>();
             _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket6");
-            _firingStrategy = new SingleShotStrategyPlayer();
-        }
-
-        // Singleton instance getter
-        public static Player GetInstance(Vector2 position, Vector2 size)
-        {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new Player(position, size);
-                    }
-                }
-            }
-            return _instance;
         }
 
         public Vector2 PosPlayer()
@@ -89,8 +69,9 @@ namespace Monogame2.GameObjects
         {
             spritesheetPlayer = Globals.Content.Load<Texture2D>("Actors/Hero3");
 
-            // Number of frames, number of collimates, outline of sprite
+            //Number of frames, number of collimates, outline of sprite
             amPlayer = new(8, 8, new Vector2(spritesheetPlayer.Width / 8 + 1, 106));
+
         }
 
         public void Update(List<Rock> collisionGroupEnemy1, List<Bomb> collisionGroupEnemy2, List<Shooter> collisionGroupEnemy3, GameTime gameTime)
@@ -166,7 +147,13 @@ namespace Monogame2.GameObjects
                 changeX = currentSpeedX;
                 _posPlayer.X += changeX;
 
-                // FOR COLLISIONS 
+                //if (prevDir != Direction)
+                //{
+                //    SrcRect.X += SrcRect.Width;
+                //    SrcRect.Width
+                //}
+
+                // VOOR COLLISIONS 
                 foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
@@ -291,7 +278,7 @@ namespace Monogame2.GameObjects
                 changeY = currentSpeedY;
                 _posPlayer.Y += changeY;
 
-                // FOR COLLISIONS
+                // VOOR COLLISIONS
                 foreach (var enemy in collisionGroupEnemy1)
                 {
                     if (enemy.Rect.Intersects(Rect))
@@ -332,7 +319,7 @@ namespace Monogame2.GameObjects
             // Check if Space is pressed and fire a projectile
             if ((IsKeyPressed(Keys.Space)) && (currentKeyboardState.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space)) && _timeSinceLastFire >= _fireCooldown)
             {
-                _firingStrategy.Fire(_posPlayer, _projectiles, _projectileTexture);
+                FireProjectile();
                 _timeSinceLastFire = 0f; // Reset the cooldown timer
             }
 
@@ -436,7 +423,7 @@ namespace Monogame2.GameObjects
                 changeY = currentSpeedY;
                 _posPlayer.Y += changeY;
 
-                // FOR COLLISIONS
+                // VOOR COLLISIONS
 
                 if (collisionEnemyBosss.Rect.Intersects(Rect))
                 {
@@ -466,6 +453,7 @@ namespace Monogame2.GameObjects
 
         private void FireProjectile()
         {
+            // Fire a new projectile if none are active
             Projectile newProjectile = new Projectile(_projectileTexture, 4f);
             newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + 50));
             _projectiles.Add(newProjectile);
@@ -476,10 +464,6 @@ namespace Monogame2.GameObjects
             return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
         }
 
-        public void SetFiringStrategy(IFiringStrategy firingStrategy)
-        {
-            _firingStrategy = firingStrategy;
-        }
 
     }
 }

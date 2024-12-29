@@ -7,9 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Microsoft.Xna.Framework.Audio;
-using Monogame2.GameObjects.Enemies.Shooter;
-using Monogame2.GameObjects.Enemies.Bomb;
-using Monogame2.GameObjects.Enemies.Rock;
+using Monogame2.GameObjects.Enemies;
 using Monogame2.GameObjects.Objects;
 using Monogame2.Enums;
 using Monogame2.GameObjects.Items;
@@ -57,10 +55,7 @@ namespace Monogame2.Scenes
 
         //PLAYER
         List<Projectile> playerProjectiles;
-        Player player = Player.GetInstance(
-            new Vector2(100, 100),
-            new Vector2(200, 200)
-        );
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100, 100), new Vector2(200, 200));
         //PLAYER
 
         //ENEMY
@@ -90,7 +85,7 @@ namespace Monogame2.Scenes
 
         }
 
-        public override void LoadContent()
+        public override void LoadContent() 
         {
             font = Globals.Content.Load<SpriteFont>("Fonts/Font");
 
@@ -107,7 +102,7 @@ namespace Monogame2.Scenes
                     new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
                     new Vector2(50, 50));
                     coins.Add(coin);
-                }
+                }              
             }
 
             coins.ForEach(coin => coin.LoadContent());
@@ -136,23 +131,23 @@ namespace Monogame2.Scenes
             //PLAYER
 
             //ENEMY
-            //ROCK
+                //ROCK
             for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
                     var rock = new Rock(
-                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j+1)), rnd.Next(100, Globals.HeightScreen - 100)),
                     new Vector2(100, 100)
                 );
                     enemies1.Add(rock);
-                }
+                }              
             }
 
             enemies1.ForEach(enemy => enemy.LoadContent());
-            //ROCK
+                //ROCK
 
-            //BOMB
+                //BOMB
             for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 2; i++)
@@ -162,13 +157,13 @@ namespace Monogame2.Scenes
                                         new Vector2(100, 100)
                                     );
                     enemies2.Add(bomb);
-                }
+                }                
             }
 
             enemies2.ForEach(enemy => enemy.LoadContent());
-            //BOMB
+                //BOMB
 
-            //SHOOTER
+                //SHOOTER
             for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
@@ -181,7 +176,7 @@ namespace Monogame2.Scenes
             }
 
             enemies3.ForEach(enemy => enemy.LoadContent());
-            //SHOOTER
+                //SHOOTER
             //ENEMY
 
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
@@ -271,7 +266,7 @@ namespace Monogame2.Scenes
                 {
                     enemy.Update(player._posPlayer);
 
-
+                    
 
                     // Alleen levens aftrekken als de speler niet onschendbaar is
                     if (!isInvincible && enemy.Rect.Intersects(player.Rect))
@@ -294,13 +289,13 @@ namespace Monogame2.Scenes
                             sfxBomb.Play();
                         }
                     }
-
+                    
                 }
                 foreach (var enemy in killListEnemy2)
                 {
                     enemies2.Remove(enemy);
                 }
-
+                
 
                 foreach (var enemy in enemies3)
                 {
@@ -322,17 +317,17 @@ namespace Monogame2.Scenes
                                 killListEnemyProjectiles.Add(projectEnemy);
                                 sfxBomb.Play();
                             }
-
+                            
                         }
 
-
+                        
                     }
                     foreach (var projectEnemy in enemy._projectiles)
                     {
                         if (player.Rect.Intersects(projectEnemy.Rect))
                         {
                             killListEnemyProjectiles.Add(projectEnemy);
-
+                            
                             // Alleen levens aftrekken als de speler niet onschendbaar is
                             if (!isInvincible && projectEnemy.Rect.Intersects(player.Rect))
                             {
@@ -344,7 +339,7 @@ namespace Monogame2.Scenes
                                 killListEnemyProjectiles.Add(projectEnemy);
                                 sfxLosingLives.Play();
                             }
-                        }
+                        }                        
                     }
 
                     foreach (var item in killListEnemyProjectiles)
@@ -371,7 +366,7 @@ namespace Monogame2.Scenes
 
                 myBackground.Update(1 * scrollingSpeed);
 
-
+                
             }
 
 
@@ -385,7 +380,7 @@ namespace Monogame2.Scenes
                 }
                 else if (killCounter >= 50)
                 {
-                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty, player));
+                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
                 }
             }
             else if (difficulty == GameDifficulty.HARD)
@@ -397,17 +392,17 @@ namespace Monogame2.Scenes
                 }
                 else if (killCounter >= 100)
                 {
-                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty, player));
+                    GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
                 }
             }
-
+            
 
             // METHODE OM TE VERLIEZEN
             if (playerLives <= 0)
             {
                 GameStateManager.ChangeState(new GameOverScreen(false));
             }
-            if (player._posPlayer.X < -player._sizePlayer.X)
+            if (player._posPlayer.X < -player._sizePlayer.X) 
             {
                 GameStateManager.ChangeState(new GameOverScreen(false));
             }
@@ -428,7 +423,7 @@ namespace Monogame2.Scenes
         }
 
 
-        public override void Draw()
+        public override void Draw() 
         {
             Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monogame2.Enums;
-using Monogame2.GameObjects.Enemies.Boss;
+using Monogame2.GameObjects.Enemies;
 using Monogame2.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 using Monogame2.GameObjects.Items;
@@ -30,7 +30,7 @@ namespace Monogame2.Scenes
         private KeyboardState currentKeyboardState, previousKeyboardState;
 
         List<Projectile> playerProjectiles;
-        Player player;
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100, 100), new Vector2(200, 200));
 
         SoundEffect sfxBomb;
         SoundEffect sfxLosingLives;
@@ -44,7 +44,7 @@ namespace Monogame2.Scenes
         private bool isVisible; // To toggle visibility during blinking
 
 
-        public BossFightScreen(int playerLives, GameDifficulty difficulty, Player player)
+        public BossFightScreen(int playerLives, GameDifficulty difficulty)
         {
             this.playerLives = playerLives;
             paused = false;
@@ -60,7 +60,6 @@ namespace Monogame2.Scenes
             enemyBoss = new EnemyBoss(new Vector2(Globals.WidthScreen - 500, 50), new Vector2(400, Globals.HeightScreen - 100));
             isInvincible = false;
             isVisible = true;
-            this.player = player;
         }
 
         public override void LoadContent()
@@ -152,8 +151,8 @@ namespace Monogame2.Scenes
             {
                 enemyBoss._projectiles.Remove(item);
             }
-
-
+        
+            
             foreach (var item in killListPlayerProjectiles)
             {
                 player._projectiles.Remove(item);
