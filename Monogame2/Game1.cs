@@ -15,14 +15,7 @@ namespace Monogame2
         private GraphicsDeviceManager graphics;
         bool play;
         Song song;
-        private KeyboardState currentKeyboardState, previousKeyboardState;
-
-
-        MouseState mState;
-
-        //Boolean mReleased = true;
-        
-
+        private KeyboardState currentKeyboardState, previousKeyboardState;    
 
         public Game1()
         {
@@ -73,29 +66,6 @@ namespace Monogame2
                 play = true;
             }
             previousKeyboardState = currentKeyboardState;
-
-            mState = Mouse.GetState();
-
-            //if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
-            //{
-            //float dist = Vector2.Distance(targetPosition, mState.Position.ToVector2());
-            //if()
-            //{
-            //    score++;
-
-            //    Random randomPosition = new Random();
-
-            //    targetPosition.X = randomPosition.Next(0, graphics.PreferredBackBufferWidth);
-            //    targetPosition.Y = randomPosition.Next(0, graphics.PreferredBackBufferHeight);
-            //}
-            //mReleased = false;
-            //}
-
-            //if (mState.LeftButton == ButtonState.Released)
-            //{
-            //    mReleased = true
-            //}
-
 
             base.Update(gameTime);
         }

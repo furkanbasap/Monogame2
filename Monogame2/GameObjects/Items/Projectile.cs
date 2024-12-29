@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Managers;
-using System.Collections.Generic;
-
 
 namespace Monogame2.GameObjects.Items
 {

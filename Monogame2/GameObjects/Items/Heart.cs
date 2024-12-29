@@ -3,11 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Interfaces;
 using Monogame2.Managers;
 using Monogame2.Strategy.Movement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Monogame2.GameObjects.Objects
 {

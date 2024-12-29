@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Managers;
-using System.Collections.Generic;
-using System;
 using Monogame2.Interfaces;
 using Monogame2.Strategy.Movement;
 

@@ -2,10 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Monogame2.Managers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Monogame2.Enums;
 using Monogame2.GameObjects;
 using Microsoft.Xna.Framework.Audio;

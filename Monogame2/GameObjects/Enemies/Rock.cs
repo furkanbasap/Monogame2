@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Monogame2.Interfaces;
 using Monogame2.Managers;
-using System;
-using System.Collections.Generic;
 using Monogame2.Strategy.Movement;
 
 namespace Monogame2.GameObjects.Enemies
