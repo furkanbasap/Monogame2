@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using Monogame2.Animation;
 using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
 using Monogame2.GameObjects.Enemies;
+using Monogame2.GameObjects.Items;
 
 namespace Monogame2.GameObjects
 {

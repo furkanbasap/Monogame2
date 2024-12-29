@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Monogame2.Animation
+namespace Monogame2.Managers
 {
     public class AnimationManager
     {
@@ -73,9 +73,9 @@ namespace Monogame2.Animation
         public Rectangle GetFrame()
         {
             return new Rectangle(
-                colPos * (int)size.X + OffsetX, 
-                rowPos * (int)size.Y + OffsetY, 
-                (int)size.X, 
+                colPos * (int)size.X + OffsetX,
+                rowPos * (int)size.Y + OffsetY,
+                (int)size.X,
                 (int)size.Y);
         }
 

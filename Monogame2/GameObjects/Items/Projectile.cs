@@ -4,7 +4,7 @@ using Monogame2.Managers;
 using System.Collections.Generic;
 
 
-namespace Monogame2.GameObjects
+namespace Monogame2.GameObjects.Items
 {
     public class Projectile
     {
@@ -18,7 +18,7 @@ namespace Monogame2.GameObjects
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)_texture.Width, (int)_texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
 
