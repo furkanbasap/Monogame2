@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Monogame2.Enums;
-using Monogame2.GameObjects.Enemies.Boss;
 using Monogame2.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 using Monogame2.GameObjects.Items;
+using Monogame2.GameObjects.Enemies;
 
 namespace Monogame2.Scenes
 {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace Monogame2.GameObjects.Enemies.Shooter
+namespace Monogame2.Strategy.Shot
 {
     public class StraightShotStrategyShooter : IFiringStrategy
     {

@@ -14,13 +14,7 @@ namespace Monogame2.GameObjects.Items
         public float Speed { get; set; }
         private Texture2D _texture;
 
-        public Rectangle Rect
-        {
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
-            }
-        }
+        public Rectangle Rect => new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
 
         public Projectile(Texture2D texture, float speed)
         {

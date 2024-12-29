@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Monogame2.GameObjects.Enemies.Rock;
 using Monogame2.GameObjects.Items;
 using Monogame2.Interfaces;
 using Monogame2.Managers;
 using System;
 using System.Collections.Generic;
+using Monogame2.Strategy.Shot;
 
 
-namespace Monogame2.GameObjects.Enemies.Boss
+namespace Monogame2.GameObjects.Enemies
 {
     public class EnemyBoss
     {

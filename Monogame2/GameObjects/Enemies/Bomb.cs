@@ -4,9 +4,11 @@ using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
 using Monogame2.Interfaces;
+using Monogame2.Strategy.Movement;
 
 
-namespace Monogame2.GameObjects.Enemies.Bomb
+
+namespace Monogame2.GameObjects.Enemies
 {
     public class Bomb
     {
@@ -24,7 +26,7 @@ namespace Monogame2.GameObjects.Enemies.Bomb
         {
             _posEnemy = position;
             _sizeEnemy = size;
-            _movementStrategy = new DirectMovementStrategy(); 
+            _movementStrategy = new DirectMovementStrategy();
         }
 
         public void LoadContent()
@@ -55,6 +57,6 @@ namespace Monogame2.GameObjects.Enemies.Bomb
             _movementStrategy = strategy;
         }
 
-        
+
     }
 }

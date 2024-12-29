@@ -7,12 +7,10 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Microsoft.Xna.Framework.Audio;
-using Monogame2.GameObjects.Enemies.Shooter;
-using Monogame2.GameObjects.Enemies.Bomb;
-using Monogame2.GameObjects.Enemies.Rock;
 using Monogame2.GameObjects.Objects;
 using Monogame2.Enums;
 using Monogame2.GameObjects.Items;
+using Monogame2.GameObjects.Enemies;
 
 namespace Monogame2.Scenes
 {

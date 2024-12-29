@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 
-namespace Monogame2.GameObjects.Enemies.Boss
+namespace Monogame2.Strategy.Shot
 {
     public class SingleShotStrategy : IFiringStrategy
     {

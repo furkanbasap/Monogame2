@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Monogame2.Interfaces;
 using Monogame2.Managers;
+using Monogame2.Strategy.Movement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +21,17 @@ namespace Monogame2.GameObjects.Objects
 
         AnimationManager amHeart;
 
-        public Rectangle Rect
-        {
-            get
-            {
-                return new Rectangle((int)_posHeart.X, (int)_posHeart.Y, (int)_sizeHeart.X, (int)_sizeHeart.Y);
-            }
-        }
+        private IMovementStrategy _movementStrategy;
+
+        public Rectangle Rect => new Rectangle((int)_posHeart.X, (int)_posHeart.Y, (int)_sizeHeart.X, (int)_sizeHeart.Y);
+
 
 
         public Heart(Vector2 position, Vector2 size)
         {
             _posHeart = position;
             _sizeHeart = size;
+            _movementStrategy = new LinearMovementStrategy();
         }
         public void LoadContent()
         {
@@ -48,7 +48,7 @@ namespace Monogame2.GameObjects.Objects
             amHeart.Update();
 
             //BEWEGEN VAN DE HEART
-            _posHeart.X -= 2.5f;
+            _movementStrategy.Move(ref _posHeart);
         }
 
         public void Draw()
@@ -59,6 +59,11 @@ namespace Monogame2.GameObjects.Objects
                 amHeart.GetFrame(),
                 Color.White);
 
+        }
+
+        public void SetMovementStrategy(IMovementStrategy movementStrategy)
+        {
+            _movementStrategy = movementStrategy;
         }
     }
 }

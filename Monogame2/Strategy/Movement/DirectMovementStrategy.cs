@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Monogame2.Interfaces;
 
-namespace Monogame2.GameObjects.Enemies.Bomb
+namespace Monogame2.Strategy.Movement
 {
     public class DirectMovementStrategy : IMovementStrategyBomb
     {

@@ -4,8 +4,9 @@ using Monogame2.Interfaces;
 using Monogame2.Managers;
 using System;
 using System.Collections.Generic;
+using Monogame2.Strategy.Movement;
 
-namespace Monogame2.GameObjects.Enemies.Rock
+namespace Monogame2.GameObjects.Enemies
 {
     public class Rock
     {
@@ -17,7 +18,7 @@ namespace Monogame2.GameObjects.Enemies.Rock
         public Texture2D textureRock;
         private float rotation;
         private float seconds;
-        private IMovementStrategyRock _movementStrategy;
+        private IMovementStrategy _movementStrategy;
 
         public Rectangle Rect => new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y);
 
@@ -60,12 +61,12 @@ namespace Monogame2.GameObjects.Enemies.Rock
 
         }
 
-        public void SetMovementStrategy(IMovementStrategyRock strategy)
+        public void SetMovementStrategy(IMovementStrategy strategy)
         {
             _movementStrategy = strategy;
         }
 
-        
-        
+
+
     }
 }

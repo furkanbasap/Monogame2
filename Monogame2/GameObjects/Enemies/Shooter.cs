@@ -4,9 +4,10 @@ using Monogame2.GameObjects.Items;
 using Monogame2.Interfaces;
 using Monogame2.Managers;
 using System.Collections.Generic;
+using Monogame2.Strategy.Shot;
 
 
-namespace Monogame2.GameObjects.Enemies.Shooter
+namespace Monogame2.GameObjects.Enemies
 {
     public class Shooter
     {

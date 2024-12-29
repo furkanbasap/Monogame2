@@ -5,11 +5,9 @@ using Monogame2.Managers;
 using System.Collections.Generic;
 using System;
 using Monogame2.GameObjects.Items;
-using Monogame2.GameObjects.Enemies.Bomb;
-using Monogame2.GameObjects.Enemies.Rock;
-using Monogame2.GameObjects.Enemies.Boss;
-using Monogame2.GameObjects.Enemies.Shooter;
 using Monogame2.Interfaces;
+using Monogame2.Strategy.Shot;
+using Monogame2.GameObjects.Enemies;
 
 namespace Monogame2.GameObjects
 {
