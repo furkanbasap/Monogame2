@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Monogame2.Scenes;
+using Monogame2.Abstract;
 
 namespace Monogame2.Managers
 {

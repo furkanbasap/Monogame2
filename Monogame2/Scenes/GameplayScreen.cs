@@ -11,6 +11,7 @@ using Monogame2.GameObjects.Objects;
 using Monogame2.Enums;
 using Monogame2.GameObjects.Items;
 using Monogame2.GameObjects.Enemies;
+using Monogame2.Abstract;
 
 namespace Monogame2.Scenes
 {
@@ -96,7 +97,6 @@ namespace Monogame2.Scenes
             Texture2D background = Globals.Content.Load<Texture2D>("Backgrounds/starfield3");
             myBackground.Load(background);
 
-            //COIN
             for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
@@ -105,14 +105,27 @@ namespace Monogame2.Scenes
                     new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
                     new Vector2(50, 50));
                     coins.Add(coin);
-                }
-            }
 
-            coins.ForEach(coin => coin.LoadContent());
-            //COIN
-            //HEART
-            for (int j = 1; j < 101; j++)
-            {
+                    var rock = new Rock(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(100, 100));
+                    enemies1.Add(rock);
+
+                    var shooter = new Shooter(
+                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                    new Vector2(100, 100));
+                    enemies3.Add(shooter);
+                }
+
+                for (int i = 0; i < 2; i++)
+                {
+                    var bomb = new Bomb(
+                                        new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
+                                        new Vector2(100, 100)
+                                    );
+                    enemies2.Add(bomb);
+                }
+
                 for (int i = 0; i < 1; i++)
                 {
                     var heart = new Heart(
@@ -122,65 +135,16 @@ namespace Monogame2.Scenes
                 }
             }
 
+            coins.ForEach(coin => coin.LoadContent());
             hearts.ForEach(heart => heart.LoadContent());
-            //HEART
-
+            enemies1.ForEach(enemy => enemy.LoadContent());
+            enemies2.ForEach(enemy => enemy.LoadContent());
+            enemies3.ForEach(enemy => enemy.LoadContent());
 
             //PLAYER
             player.LoadContent();
             playerProjectiles = new List<Projectile>();
             player._projectiles = playerProjectiles;
-
-            //PLAYER
-
-            //ENEMY
-            //ROCK
-            for (int j = 1; j < 101; j++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    var rock = new Rock(
-                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
-                    new Vector2(100, 100)
-                );
-                    enemies1.Add(rock);
-                }
-            }
-
-            enemies1.ForEach(enemy => enemy.LoadContent());
-            //ROCK
-
-            //BOMB
-            for (int j = 1; j < 101; j++)
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    var bomb = new Bomb(
-                                        new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
-                                        new Vector2(100, 100)
-                                    );
-                    enemies2.Add(bomb);
-                }
-            }
-
-            enemies2.ForEach(enemy => enemy.LoadContent());
-            //BOMB
-
-            //SHOOTER
-            for (int j = 1; j < 101; j++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    var shooter = new Shooter(
-                    new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
-                    new Vector2(100, 100));
-                    enemies3.Add(shooter);
-                }
-            }
-
-            enemies3.ForEach(enemy => enemy.LoadContent());
-            //SHOOTER
-            //ENEMY
 
             songBackground = Globals.Content.Load<Song>("Audio/Backgroundmusic");
             sfxCoin = Globals.Content.Load<SoundEffect>("Audio/coinpickup");

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Monogame2.Managers;
 using Monogame2.Enums;
+using Monogame2.Abstract;
 
 namespace Monogame2.Scenes
 {

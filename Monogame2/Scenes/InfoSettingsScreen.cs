@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Monogame2.Abstract;
 using Monogame2.Managers;
 
 namespace Monogame2.Scenes

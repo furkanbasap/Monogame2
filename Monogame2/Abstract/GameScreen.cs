@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Monogame2.Scenes
+namespace Monogame2.Abstract
 {
     public abstract class GameScreen
     {

@@ -8,6 +8,7 @@ using Monogame2.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 using Monogame2.GameObjects.Items;
 using Monogame2.GameObjects.Enemies;
+using Monogame2.Abstract;
 
 namespace Monogame2.Scenes
 {
