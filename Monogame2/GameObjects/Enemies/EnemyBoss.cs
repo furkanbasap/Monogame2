@@ -59,7 +59,7 @@ namespace Monogame2.GameObjects.Enemies
         {
             Globals.SpriteBatch.Draw(
                 textureEnemyBoss,
-                new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
+                this.Rect,
                 new Rectangle(0, 0, textureEnemyBoss.Width, textureEnemyBoss.Height),
                 Color.White);
 

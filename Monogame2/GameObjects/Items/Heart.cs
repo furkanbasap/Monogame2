@@ -50,7 +50,7 @@ namespace Monogame2.GameObjects.Objects
         {
             Globals.SpriteBatch.Draw(
                 spritesheetHeart,
-                new Rectangle((int)_posHeart.X, (int)_posHeart.Y, (int)_sizeHeart.X, (int)_sizeHeart.Y),
+                this.Rect,
                 amHeart.GetFrame(),
                 Color.White);
 

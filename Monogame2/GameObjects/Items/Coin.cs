@@ -50,7 +50,7 @@ namespace Monogame2.GameObjects.Items
         {
             Globals.SpriteBatch.Draw(
                 spritesheetCoin,
-                new Rectangle((int)_posCoin.X, (int)_posCoin.Y, (int)_sizeCoin.X, (int)_sizeCoin.Y),
+                this.Rect,
                 amCoin.GetFrame(),
                 Color.White);
 

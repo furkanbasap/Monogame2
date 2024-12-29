@@ -453,7 +453,7 @@ namespace Monogame2.GameObjects
         {
             Globals.SpriteBatch.Draw(
                             spritesheetPlayer,
-                            new Rectangle((int)_posPlayer.X, (int)_posPlayer.Y, (int)_sizePlayer.X, (int)_sizePlayer.Y),
+                            this.Rect,
                             amPlayer.GetFrame(),
                             Color.White);
             foreach (var projectile in _projectiles)
