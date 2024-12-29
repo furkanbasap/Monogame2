@@ -54,11 +54,11 @@ namespace Monogame2.GameObjects
 
         public List<Projectile> _projectiles { get; set; }
         private Texture2D _projectileTexture;
-        public Player(Texture2D texture, Vector2 position, Vector2 size, Texture2D projectileTexture)
+        public Player(Texture2D texture, Vector2 position, Vector2 size)
         {
             _posPlayer = position;
             _sizePlayer = size;
-            _projectileTexture = projectileTexture;
+            _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket6");
         }
 
         public Vector2 PosPlayer()
@@ -307,7 +307,139 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public void Draw()
+        public void Update(EnemyBoss collisionEnemyBosss, GameTime gameTime)
+        {
+            amPlayer.Update();
+
+            _timeSinceLastFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            var keyboardState = Keyboard.GetState();
+
+            currentKeyboardState = Keyboard.GetState();
+
+            // Check if Space is pressed and fire a projectile
+            if ((IsKeyPressed(Keys.Space)) && (currentKeyboardState.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space)) && _timeSinceLastFire >= _fireCooldown)
+            {
+                FireProjectile();
+                _timeSinceLastFire = 0f; // Reset the cooldown timer
+            }
+
+            previousKeyboardState = currentKeyboardState;
+
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Update();
+            }
+
+
+            if (keyboardState.GetPressedKeyCount() >= 0)
+            {
+                if (keyboardState.IsKeyDown(Keys.Q) || keyboardState.IsKeyDown(Keys.Left))
+                {
+                    if (_posPlayer.X <= 0)
+                    {
+                        currentSpeedX = 0f;
+                    }
+                    else
+                    {
+                        // Gradually accelerate to the maximum (negative) speed
+                        currentSpeedX = Math.Max(currentSpeedX - acceleration, -maxSpeed);
+                        leftKey = true;
+                    }
+                }
+                if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+                {
+                    if (_posPlayer.X >= WidthScreen - _sizePlayer.X)
+                    {
+                        currentSpeedX = 0f;
+                    }
+                    else
+                    {
+                        // Gradually accelerate to the maximum (positive) speed
+                        currentSpeedX = Math.Min(currentSpeedX + acceleration, maxSpeed);
+                        rightKey = true;
+                    }
+                }
+                if (keyboardState.IsKeyUp(Keys.Q) && keyboardState.IsKeyUp(Keys.Left))
+                    leftKey = false;
+
+                if (currentSpeedX < 0f && leftKey == false)
+                {
+                    currentSpeedX = Math.Min(currentSpeedX + acceleration, 0);
+                }
+
+                if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.Right))
+                    rightKey = false;
+
+                if (currentSpeedX > 0f && rightKey == false)
+                {
+                    currentSpeedX = Math.Max(currentSpeedX - acceleration, 0);
+                }
+
+                // Update the change in position
+                changeX = currentSpeedX;
+                _posPlayer.X += changeX;
+
+
+                if (keyboardState.IsKeyDown(Keys.Z) || keyboardState.IsKeyDown(Keys.Up))
+                {
+                    if (_posPlayer.Y <= 0)
+                    {
+                        currentSpeedY = 0f;
+                    }
+                    else
+                    {
+                        currentSpeedY = Math.Max(currentSpeedY - acceleration, -maxSpeed);
+                        upKey = true;
+                    }
+                }
+                if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
+                {
+                    if (_posPlayer.Y >= HeightScreen - _sizePlayer.Y)
+                    {
+                        currentSpeedY = 0f;
+                    }
+                    else
+                    {
+                        currentSpeedY = Math.Min(currentSpeedY + acceleration, maxSpeed);
+                        downKey = true;
+                    }
+                }
+                if (keyboardState.IsKeyUp(Keys.Z) && keyboardState.IsKeyUp(Keys.Up))
+                    upKey = false;
+
+                if (currentSpeedY < 0f && upKey == false)
+                {
+                    currentSpeedY = Math.Min(currentSpeedY + acceleration, 0);
+                }
+
+                if (keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.Down))
+                    downKey = false;
+
+                if (currentSpeedY > 0f && downKey == false)
+                {
+                    currentSpeedY = Math.Max(currentSpeedY - acceleration, 0);
+                }
+                // Update the change in position
+                changeY = currentSpeedY;
+                _posPlayer.Y += changeY;
+
+                // VOOR COLLISIONS
+
+                if (collisionEnemyBosss.Rect.Intersects(Rect))
+                {
+                    _posPlayer.X -= changeX;
+                }
+
+                if (collisionEnemyBosss.Rect.Intersects(Rect))
+                {
+                    _posPlayer.Y -= changeY;
+                }
+
+            }
+        }
+
+            public void Draw()
         {
             Globals.SpriteBatch.Draw(
                             spritesheetPlayer,
@@ -323,7 +455,7 @@ namespace Monogame2.GameObjects
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, 4f);
+            Projectile newProjectile = new Projectile(_projectileTexture, 4f, false);
             newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + 50));
             _projectiles.Add(newProjectile);
         }

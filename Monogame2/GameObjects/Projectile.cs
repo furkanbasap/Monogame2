@@ -12,8 +12,7 @@ namespace Monogame2.GameObjects
         public Vector2 Position { get; private set; }
         public bool IsActive { get; private set; }
         public float Speed { get; set; }
-        public Vector2 Destination { get; set; }
-        private bool dest;
+        private bool _dest;
         private Texture2D _texture;
 
         public Rectangle Rect
@@ -24,42 +23,29 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Projectile(Texture2D texture, float speed)
+        public Projectile(Texture2D texture, float speed, bool dest)
         {
             _texture = texture;
             Speed = speed;
             IsActive = false;
+            _dest = dest;
         }
 
         public void Fire(Vector2 startPosition)
         {
             Position = startPosition;
             IsActive = true;
-            dest = false;
         }
 
-        // VOOR BOSS ENEMY
-        public void Fire(Vector2 startPosition, Vector2 destination)
-        {
-            Position = startPosition;
-            IsActive = true;
-            Destination = destination;
-            dest = true;
-        }
 
         public void Update()
         {
             if (IsActive)
             {
-                if (dest == false)
+                if (_dest == false)
                 {
                     Position = new Vector2(Position.X + Speed, Position.Y);
                 }
-                else if (dest == true)
-                {
-                    Position = new Vector2(Destination.X + Speed, Destination.Y);
-                }
-
 
                 // Deactivate the projectile if it moves off-screen (right side)
                 if (Position.X > Globals.WidthScreen - 100 || Position.X < 0 || Position.Y < 0 || Position.Y > Globals.HeightScreen) // Assuming screen width is 1600
@@ -68,6 +54,27 @@ namespace Monogame2.GameObjects
                 }
             }
 
+        }
+
+        public void Update(Vector2 _posPlayer)
+        {
+            // BEWEGEN VAN DE ENEMY
+            if (Position.X > _posPlayer.X)
+            {
+                Position = new Vector2(Position.X + -1.5f, Position.Y);
+            }
+            else if (Position.X <= _posPlayer.X)
+            {
+                Position = new Vector2(Position.X + -1.5f, Position.Y);
+            }
+            if (Position.Y < _posPlayer.Y)
+            {
+                Position = new Vector2(Position.X, Position.Y + 1.5f);
+            }
+            else if (Position.Y >= _posPlayer.Y && Position.X > _posPlayer.X)
+            {
+                Position = new Vector2(Position.X, Position.Y - 1.5f);
+            }
         }
 
         public void Draw()

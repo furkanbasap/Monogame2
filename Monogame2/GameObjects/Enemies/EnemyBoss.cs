@@ -15,10 +15,9 @@ namespace Monogame2.GameObjects.Enemies
         private Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
 
+        private Random rnd = new Random();
+        Texture2D textureEnemyBoss;
 
-        Texture2D spritesheetEnemy;
-
-        AnimationManager amCoin;
 
         private float seconds;
 
@@ -33,22 +32,22 @@ namespace Monogame2.GameObjects.Enemies
         public List<Projectile> _projectiles;
         private Texture2D _projectileTexture;
 
-        public EnemyBoss(Vector2 position, Vector2 size, Texture2D projectileTexture)
+        public EnemyBoss(Vector2 position, Vector2 size)
         {
             _posEnemy = position;
             _sizeEnemy = size;
-            _projectileTexture = projectileTexture;
+            _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket2");
             _projectiles = new List<Projectile>();
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/enemyShip1");
+            textureEnemyBoss = Globals.Content.Load<Texture2D>("Objects/ogre");
         }
 
-        public void Update()
+        public void Update(Vector2 posPlayer)
         {
 
-            if (seconds % 200 == 0)
+            if (seconds % 100 == 0)
             {
                 FireProjectile();
             }
@@ -56,26 +55,16 @@ namespace Monogame2.GameObjects.Enemies
 
             foreach (var projectile in _projectiles)
             {
-                projectile.Update();
-            }
-
-            // BEWEGEN VAN DE ENEMY
-            if (_posEnemy.X == Globals.WidthScreen - 400)
-            {
-                _posEnemy.X = Globals.WidthScreen - 400;
-            }
-            else
-            {
-                _posEnemy.X -= 1f;
+                projectile.Update(posPlayer);
             }
         }
 
         public void Draw()
         {
             Globals.SpriteBatch.Draw(
-                spritesheetEnemy,
+                textureEnemyBoss,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                new Rectangle(0, 0, textureEnemyBoss.Width, textureEnemyBoss.Height),
                 Color.White);
 
             foreach (var projectile in _projectiles)
@@ -88,8 +77,8 @@ namespace Monogame2.GameObjects.Enemies
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, -3f);
-            newProjectile.Fire(new Vector2(_posEnemy.X - 100, _posEnemy.Y + 20));
+            Projectile newProjectile = new Projectile(_projectileTexture, -3f, true);
+            newProjectile.Fire(new Vector2(_posEnemy.X - 100, rnd.Next(50, Globals.HeightScreen - 100)));
             _projectiles.Add(newProjectile);
         }
     }

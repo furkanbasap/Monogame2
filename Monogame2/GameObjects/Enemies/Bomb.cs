@@ -13,9 +13,8 @@ namespace Monogame2.GameObjects.Enemies
         private Vector2 _sizeEnemy;
 
 
-        Texture2D spritesheetEnemy;
+        Texture2D textureBomb;
 
-        AnimationManager amCoin;
 
         public Rectangle Rect
         {
@@ -32,7 +31,7 @@ namespace Monogame2.GameObjects.Enemies
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/bomb");
+            textureBomb = Globals.Content.Load<Texture2D>("Objects/bomb");
         }
 
         public void Update(Vector2 _posPlayer)
@@ -63,12 +62,12 @@ namespace Monogame2.GameObjects.Enemies
         public void Draw()
         {
             Globals.SpriteBatch.Draw(
-                spritesheetEnemy,
+                textureBomb,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                new Rectangle(0, 0, textureBomb.Width, textureBomb.Height),
                 Color.White,
                 0,
-                new Vector2(-spritesheetEnemy.Width / 2, -spritesheetEnemy.Height / 2),
+                new Vector2(-textureBomb.Width / 2, -textureBomb.Height / 2),
                 SpriteEffects.None,
                 0f);
 

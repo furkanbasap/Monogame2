@@ -12,13 +12,9 @@ namespace Monogame2.GameObjects.Enemies
         public Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
 
-        public Texture2D spritesheetEnemy;
+        public Texture2D textureRock;
         private float rotation;
         private float seconds;
-
-        AnimationManager amCoin;
-
-
 
         public Rectangle Rect
         {
@@ -36,7 +32,7 @@ namespace Monogame2.GameObjects.Enemies
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/rock");
+            textureRock = Globals.Content.Load<Texture2D>("Objects/rock");
 
         }
 
@@ -57,12 +53,12 @@ namespace Monogame2.GameObjects.Enemies
         public void Draw()
         {
             Globals.SpriteBatch.Draw(
-                spritesheetEnemy,
+                textureRock,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                new Rectangle(0, 0, textureRock.Width, textureRock.Height),
                 Color.White,
                 rotation,
-                new Vector2(spritesheetEnemy.Width / 2, spritesheetEnemy.Height / 2),
+                new Vector2(textureRock.Width / 2, textureRock.Height / 2),
                 SpriteEffects.None,
                 0f);
 

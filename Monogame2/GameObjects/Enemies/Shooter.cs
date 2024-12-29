@@ -13,10 +13,7 @@ namespace Monogame2.GameObjects.Enemies
         private Vector2 _posEnemy;
         private Vector2 _sizeEnemy;
 
-
-        Texture2D spritesheetEnemy;
-
-        AnimationManager amCoin;
+        Texture2D textureShooter;
 
         private float seconds;
 
@@ -31,16 +28,16 @@ namespace Monogame2.GameObjects.Enemies
         public List<Projectile> _projectiles;
         private Texture2D _projectileTexture;
 
-        public Shooter(Vector2 position, Vector2 size, Texture2D projectileTexture)
+        public Shooter(Vector2 position, Vector2 size)
         {
             _posEnemy = position;
             _sizeEnemy = size;
-            _projectileTexture = projectileTexture;
+            _projectileTexture = Globals.Content.Load<Texture2D>("Objects/rocket2");
             _projectiles = new List<Projectile>();
         }
         public void LoadContent()
         {
-            spritesheetEnemy = Globals.Content.Load<Texture2D>("Objects/enemyShip1");
+            textureShooter = Globals.Content.Load<Texture2D>("Objects/enemyShip1");
         }
 
         public void Update()
@@ -71,9 +68,9 @@ namespace Monogame2.GameObjects.Enemies
         public void Draw()
         {
             Globals.SpriteBatch.Draw(
-                spritesheetEnemy,
+                textureShooter,
                 new Rectangle((int)_posEnemy.X, (int)_posEnemy.Y, (int)_sizeEnemy.X, (int)_sizeEnemy.Y),
-                new Rectangle(0, 0, spritesheetEnemy.Width, spritesheetEnemy.Height),
+                new Rectangle(0, 0, textureShooter.Width, textureShooter.Height),
                 Color.White);
 
             foreach (var projectile in _projectiles)
@@ -86,7 +83,7 @@ namespace Monogame2.GameObjects.Enemies
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, -4f);
+            Projectile newProjectile = new Projectile(_projectileTexture, -4f, false);
             newProjectile.Fire(new Vector2(_posEnemy.X - 100, _posEnemy.Y + 20));
             _projectiles.Add(newProjectile);
         }

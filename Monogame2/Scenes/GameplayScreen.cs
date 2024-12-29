@@ -54,7 +54,7 @@ namespace Monogame2.Scenes
 
         //PLAYER
         List<Projectile> playerProjectiles;
-        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100, 100), new Vector2(200, 200), Globals.Content.Load<Texture2D>("Objects/rocket6"));
+        Player player = new Player(Globals.Content.Load<Texture2D>("Actors/Hero3"), new Vector2(100, 100), new Vector2(200, 200));
         //PLAYER
 
         //ENEMY
@@ -163,15 +163,13 @@ namespace Monogame2.Scenes
                 //BOMB
 
                 //SHOOTER
-            var textureShooter = Globals.Content.Load<Texture2D>("Objects/rocket2");
             for (int j = 1; j < 100; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
                     var shooter = new Shooter(
                     new Vector2(rnd.Next(Globals.WidthScreen * j, Globals.WidthScreen * (j + 1)), rnd.Next(100, Globals.HeightScreen - 100)),
-                    new Vector2(100, 100),
-                    textureShooter);
+                    new Vector2(100, 100));
                     enemies3.Add(shooter);
                 }
             }
@@ -375,11 +373,11 @@ namespace Monogame2.Scenes
             if (difficulty == GameDifficulty.NORMAL)
             {
                 // METHODE OM TE WINNEN MET PUNTEN OF NAAR DE BOSSFIGHT TE GAAN MET DE KILLS
-                if (pointsCounter == 50)
+                if (pointsCounter >= 50)
                 {
                     GameStateManager.ChangeState(new GameOverScreen(true));
                 }
-                else if (killCounter == 50)
+                else if (killCounter >= 1)
                 {
                     GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
                 }
@@ -387,11 +385,11 @@ namespace Monogame2.Scenes
             else if (difficulty == GameDifficulty.HARD)
             {
                 // METHODE OM TE WINNEN MET PUNTEN OF NAAR DE BOSSFIGHT TE GAAN MET DE KILLS
-                if (pointsCounter == 100)
+                if (pointsCounter >= 100)
                 {
                     GameStateManager.ChangeState(new GameOverScreen(true));
                 }
-                else if (killCounter == 100)
+                else if (killCounter >= 100)
                 {
                     GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
                 }
