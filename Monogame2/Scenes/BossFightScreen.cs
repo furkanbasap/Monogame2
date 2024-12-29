@@ -17,7 +17,6 @@ namespace Monogame2.Scenes
     internal class BossFightScreen : GameScreen
     {
         private SpriteFont font;
-        private Texture2D _backgroundTexture;
         private ScrollingBackground myBackground;
 
         private EnemyBoss enemyBoss;

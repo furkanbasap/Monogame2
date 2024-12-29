@@ -63,7 +63,7 @@ namespace Monogame2.Scenes
             Globals.SpriteBatch.Begin();
             myBackground.Draw(Globals.SpriteBatch, Color.White);
 
-            Globals.SpriteBatch.DrawString(font, "FlyBy", new Vector2(750, 250), Color.White);
+            Globals.SpriteBatch.DrawString(font, "SpaceBoy", new Vector2(750, 250), Color.White);
             Globals.SpriteBatch.DrawString(font, "Choose difficulty (Space or Left Click)", new Vector2(700, 300), Color.White);
             Globals.SpriteBatch.DrawString(font, "(Press M to mute song)", new Vector2(10, 10), Color.White);
 

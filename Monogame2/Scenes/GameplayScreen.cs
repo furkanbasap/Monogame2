@@ -93,7 +93,7 @@ namespace Monogame2.Scenes
             myBackground.Load(background);
 
             //COIN
-            for (int j = 1; j < 100; j++)
+            for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -131,7 +131,7 @@ namespace Monogame2.Scenes
 
             //ENEMY
                 //ROCK
-            for (int j = 1; j < 100; j++)
+            for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -147,7 +147,7 @@ namespace Monogame2.Scenes
                 //ROCK
 
                 //BOMB
-            for (int j = 1; j < 100; j++)
+            for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -163,7 +163,7 @@ namespace Monogame2.Scenes
                 //BOMB
 
                 //SHOOTER
-            for (int j = 1; j < 100; j++)
+            for (int j = 1; j < 101; j++)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -377,7 +377,7 @@ namespace Monogame2.Scenes
                 {
                     GameStateManager.ChangeState(new GameOverScreen(true));
                 }
-                else if (killCounter >= 1)
+                else if (killCounter >= 50)
                 {
                     GameStateManager.ChangeState(new BossFightScreen(playerLives, difficulty));
                 }

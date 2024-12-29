@@ -13,7 +13,6 @@ namespace Monogame2.Scenes
     public class InfoSettingsScreen : GameScreen
     {
         private SpriteFont font;
-        private Texture2D _backgroundTexture;
         private ScrollingBackground myBackground;
 
         public InfoSettingsScreen()
@@ -49,7 +48,7 @@ namespace Monogame2.Scenes
             Globals.SpriteBatch.DrawString(font, "Rock: Obstacle that pushes you. If you get pushed off the map, you lose.", new Vector2(10, 220), Color.White);
             Globals.SpriteBatch.DrawString(font, "Bomb: Obstacle that comes to you and explodes when it hits you. If you get hit by a bomb you will lose a life and momentarilly become invincible.", new Vector2(10, 250), Color.White);
             Globals.SpriteBatch.DrawString(font, "Shooter: Obstacle that shoots from far away with projectiles. If these projectiles hit you, you will lose a life and momentarilly become invincible.", new Vector2(10, 280), Color.White);
-            Globals.SpriteBatch.DrawString(font, "Boss: Behaves like the shooter but the projectiles are shot in your direction. Depending on your difficulty you will have to hit it different amount of times. Normal = 50, Hard = 100", new Vector2(10, 310), Color.White);
+            Globals.SpriteBatch.DrawString(font, "Boss: Behaves like the shooter but the projectiles are heat seeking missiles. Depending on your difficulty you will have to hit it different amount of times. Normal = 50, Hard = 100", new Vector2(10, 310), Color.White);
 
             Globals.SpriteBatch.DrawString(font, "Pickups", new Vector2(10, 370), Color.White);
             Globals.SpriteBatch.DrawString(font, "Coin: You can pick these up to win the game. If you win by collecting the coins you will NOT get a Boss Fight. Normal = 50, Hard = 100", new Vector2(10, 400), Color.White);

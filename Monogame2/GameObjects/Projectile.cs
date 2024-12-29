@@ -12,7 +12,6 @@ namespace Monogame2.GameObjects
         public Vector2 Position { get; private set; }
         public bool IsActive { get; private set; }
         public float Speed { get; set; }
-        private bool _dest;
         private Texture2D _texture;
 
         public Rectangle Rect
@@ -23,12 +22,11 @@ namespace Monogame2.GameObjects
             }
         }
 
-        public Projectile(Texture2D texture, float speed, bool dest)
+        public Projectile(Texture2D texture, float speed)
         {
             _texture = texture;
             Speed = speed;
             IsActive = false;
-            _dest = dest;
         }
 
         public void Fire(Vector2 startPosition)
@@ -42,10 +40,7 @@ namespace Monogame2.GameObjects
         {
             if (IsActive)
             {
-                if (_dest == false)
-                {
-                    Position = new Vector2(Position.X + Speed, Position.Y);
-                }
+                Position = new Vector2(Position.X + Speed, Position.Y);
 
                 // Deactivate the projectile if it moves off-screen (right side)
                 if (Position.X > Globals.WidthScreen - 100 || Position.X < 0 || Position.Y < 0 || Position.Y > Globals.HeightScreen) // Assuming screen width is 1600
@@ -61,19 +56,19 @@ namespace Monogame2.GameObjects
             // BEWEGEN VAN DE ENEMY
             if (Position.X > _posPlayer.X)
             {
-                Position = new Vector2(Position.X + -1.5f, Position.Y);
+                Position = new Vector2(Position.X - Speed, Position.Y);
             }
             else if (Position.X <= _posPlayer.X)
             {
-                Position = new Vector2(Position.X + -1.5f, Position.Y);
+                Position = new Vector2(Position.X - Speed, Position.Y);
             }
             if (Position.Y < _posPlayer.Y)
             {
-                Position = new Vector2(Position.X, Position.Y + 1.5f);
+                Position = new Vector2(Position.X, Position.Y + Speed);
             }
             else if (Position.Y >= _posPlayer.Y && Position.X > _posPlayer.X)
             {
-                Position = new Vector2(Position.X, Position.Y - 1.5f);
+                Position = new Vector2(Position.X, Position.Y - Speed);
             }
         }
 

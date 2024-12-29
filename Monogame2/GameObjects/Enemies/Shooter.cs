@@ -83,7 +83,7 @@ namespace Monogame2.GameObjects.Enemies
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, -4f, false);
+            Projectile newProjectile = new Projectile(_projectileTexture, -4f);
             newProjectile.Fire(new Vector2(_posEnemy.X - 100, _posEnemy.Y + 20));
             _projectiles.Add(newProjectile);
         }

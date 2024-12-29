@@ -41,7 +41,6 @@ namespace Monogame2.GameObjects
 
 
         private KeyboardState currentKeyboardState, previousKeyboardState;
-        private bool spacePressed = true;
 
         public Rectangle Rect
         {
@@ -455,7 +454,7 @@ namespace Monogame2.GameObjects
         private void FireProjectile()
         {
             // Fire a new projectile if none are active
-            Projectile newProjectile = new Projectile(_projectileTexture, 4f, false);
+            Projectile newProjectile = new Projectile(_projectileTexture, 4f);
             newProjectile.Fire(new Vector2(_posPlayer.X + spritesheetPlayer.Width / 8, _posPlayer.Y + 50));
             _projectiles.Add(newProjectile);
         }
